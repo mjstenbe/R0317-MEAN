@@ -41,7 +41,6 @@ var http = require("http");
 http
   .createServer(function(request, response) {
     response.writeHead(200, { "Content-Type": "text/html" });
-    response.write("Hello World!\n"); //write a response to the client
     response.write(html);
     response.end("This is the end"); //end the response
   })
