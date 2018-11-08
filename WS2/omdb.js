@@ -5,7 +5,7 @@ const promise = axios
   .then(response => {
     const data = response.data;
     console.log(data);
-
+ 
     for (var i = 0; i < 10; i++) {
       console.log(data.Search[i].Title);
     }
