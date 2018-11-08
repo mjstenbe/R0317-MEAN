@@ -4,7 +4,7 @@ var html = "";
 var options = {
   host: "quotes.rest",
   path: "/qod.json"
-};
+}; 
 var request = http.request(options, function(res) {
   var data = "";
   res.on("data", function(chunk) {
