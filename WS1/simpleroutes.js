@@ -11,9 +11,11 @@ http
 
     if (request.url === "/page1") {
       response.write("<h1>You are on page 1</h1>");
-    } else if (request.url === "/page2") {
+    }
+    else if (request.url === "/page2") {
       response.write("<h1>You are on page 2</h1>");
-    } else {
+    }
+    else {
       response.write("<h1>This is the default page </h2>");
     }
 
