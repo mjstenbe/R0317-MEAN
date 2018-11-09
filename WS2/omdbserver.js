@@ -9,6 +9,7 @@ function getData() {
     .then(res => {
       const data = response.data;
       console.log(data);
+      console.log(promise);
       return data;
     })
     .catch(error => {
@@ -17,7 +18,7 @@ function getData() {
 }
 // Run through the data
 function parse(data) {
-  console.log("Parse");
+
   var html = "<table border='1'>";
   for (var i = 0; i < 10; i++) {
     html += "<tr>";
