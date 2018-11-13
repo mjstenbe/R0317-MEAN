@@ -20,9 +20,9 @@ app.get('/list', function (req, res) {
 });
 
 // Send out the entire raw data
-app.get('/jsondata', function (req, res) {
- var data = require('./exampledata2.json');
- res.json(data);
+ app.get('/jsondata', function (req, res) {
+  var data = require('./exampledata2.json');
+  res.json(data);
 });
 
 // Or we can parse out the details
