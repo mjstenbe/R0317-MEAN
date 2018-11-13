@@ -11,7 +11,7 @@ app.get('/list', function (req, res) {
 });
 
 app.get('/add', function (req, res) {
-  res.send('Lets try to add some data to a file!');
+  res.send('<h1>Lets try to add some data to a file!</h1>');
 });
 
 //The 404 Route (ALWAYS Keep this as the last route)
