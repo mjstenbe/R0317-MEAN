@@ -2,6 +2,8 @@
 // load the things we need
 var express = require('express');
 var app = express();
+// Serve static content from this dir
+app.use(express.static(__dirname + '/public'));
 
 
 // set the view engine to ejs
@@ -55,9 +57,19 @@ var seconddata = [
  ];
  
 app.get('/anotherusers', function(req, res){ 
- res.render('pages/users', {users: seconddata });
+ res.render('pages/anotherusers', {users: seconddata });
 });
 
+// Passing an array as data
+var testdata = [
+    { name: 'John', age: 25 },
+    { name: 'Mike', age: 42 },
+    { name: 'Samantha', age: 51 }
+    ];
+    
+   app.get('/testusers', function(req, res){ 
+    res.render('pages/testusers', {data: testdata});
+   });
 
 app.listen(8081);
 console.log('8081 is the magic port');
