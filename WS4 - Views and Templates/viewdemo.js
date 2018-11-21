@@ -3,7 +3,7 @@
 var express = require("express");
 var app = express();
 // Serve static content from this dir
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 
 // set the view engine to ejs
 app.set("view engine", "ejs");
@@ -28,7 +28,7 @@ app.get("/secondtry", function(req, res) {
 app.get("/about", function(req, res) {
   res.render("pages/about", {
     new_heading: "This was passed from the JS file",
-    new_paragraph: "Lorem Ipsum...",
+    new_paragraph: __dirname,
     new_footer: "Here is the new footer"
   });
 });
@@ -48,13 +48,13 @@ app.get("/users", function(req, res) {
 
 // Passing an array as data
 var seconddata = [
-<<<<<<< HEAD
+
  { name: 'John', age: 25 },
  { name: 'Mike', age: 42 },
  { name: 'Samantha', age: 51 }
  ];
- 
-app.get('/anotherusers', function(req, res){ 
+
+app.get('/anotherusers', function(req, res){
  res.render('pages/anotherusers', {users: seconddata });
 });
 
@@ -64,11 +64,11 @@ var testdata = [
     { name: 'Mike', age: 42 },
     { name: 'Samantha', age: 51 }
     ];
-    
-   app.get('/testusers', function(req, res){ 
+
+   app.get('/testusers', function(req, res){
     res.render('pages/testusers', {data: testdata});
    });
-=======
+var seconddata = [
   { name: "John", age: 25 },
   { name: "Mike", age: 42 },
   { name: "Samantha", age: 51 }
@@ -77,7 +77,7 @@ var testdata = [
 app.get("/anotherusers", function(req, res) {
   res.render("pages/users", { users: seconddata });
 });
->>>>>>> 06a563597df041fd2f035b351b8bde0d763b2857
+
 
 app.listen(8081);
 console.log("8081 is the magic port");
