@@ -42,6 +42,7 @@ function getResult(callback) {
         db.collection("movies")
           .find(query)
           .limit(15)
+          .sort({ year: -1 })
           .toArray(function(err, result) {
             if (err) throw err;
             console.log(result);
