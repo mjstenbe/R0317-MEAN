@@ -3,6 +3,8 @@ var app = express();
 
 // set the view engine to ejs
 app.set("view engine", "ejs");
+// Serve static content from this dir
+app.use(express.static("public"));
 app.locals.pretty = true;
 
 // index page
