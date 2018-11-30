@@ -4,7 +4,7 @@ var express = require("express");
 var app = express();
 
 // Serve static content from this dir
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 // set the view engine to ejs
 app.set("view engine", "ejs");
@@ -26,21 +26,16 @@ app.get("/about", function(req, res) {
   });
 });
 
-
-
-
 // Passing an array as data
 var seconddata = [
+  { name: "John", age: 25 },
+  { name: "Mike", age: 42 },
+  { name: "Samantha", age: 51 }
+];
 
- { name: 'John', age: 25 },
- { name: 'Mike', age: 42 },
- { name: 'Samantha', age: 51 }
- ];
-
-app.get('/users', function(req, res){
- res.render('pages/anotherusers', {users: seconddata });
+app.get("/users", function(req, res) {
+  res.render("pages/anotherusers", { users: seconddata });
 });
-
 
 app.listen(8081);
 console.log("8081 is the magic port");
