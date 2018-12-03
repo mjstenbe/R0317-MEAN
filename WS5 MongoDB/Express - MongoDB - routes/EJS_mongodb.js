@@ -16,8 +16,38 @@ app.get("/", function(req, res) {
   });
 });
 
+app.get("/demo", function(req, res) {
+  const MongoClient = require("mongodb").MongoClient;
+
+  // Connection URL
+  const url = "mongodb://localhost:27017/";
+
+  // Database Name
+  const dbName = "moviedb";
+  const db = client.db(dbName);
+
+  db.collection.find().toArray(function(err, result) {
+    if (err) {
+      console.log(err);
+      res.status("400").send({ error: err });
+    } else if (result.length) {
+      console.log("Found:", result);
+
+      res.render("pages/index", { data: result });
+    } else {
+      console.log('No document(s) found with defined "find" criteria!');
+      res.status("400").send({ error: "No document(s) found" });
+    }
+    //Close connection
+    db.close();
+  });
+});
+
 app.listen(8081);
 console.log("8081 is the magic port");
+
+///////////////
+// CALLBACK CODE
 
 function getResult(callback) {
   const MongoClient = require("mongodb").MongoClient;
