@@ -17,30 +17,50 @@ app.get("/", function(req, res) {
 });
 
 app.get("/demo", function(req, res) {
-  const MongoClient = require("mongodb").MongoClient;
+  //////////////////////////////////////////////
 
+  const MongoClient = require("mongodb").MongoClient;
   // Connection URL
   const url = "mongodb://localhost:27017/";
 
   // Database Name
   const dbName = "moviedb";
-  const db = client.db(dbName);
 
-  db.collection.find().toArray(function(err, result) {
-    if (err) {
-      console.log(err);
-      res.status("400").send({ error: err });
-    } else if (result.length) {
-      console.log("Found:", result);
+  MongoClient.connect(
+    url,
+    { useNewUrlParser: true },
+    function(err, client) {
+      if (err) {
+        console.log("Unable to connect to the mongoDB server. Error:", err);
+      } else {
+        console.log("Connection established to", url);
 
-      res.render("pages/index", { data: result });
-    } else {
-      console.log('No document(s) found with defined "find" criteria!');
-      res.status("400").send({ error: "No document(s) found" });
-    }
-    //Close connection
-    db.close();
-  });
+        const db = client.db(dbName);
+
+        var query = { title: /star/ };
+        db.collection("movies")
+          .find(query)
+          .toArray(function(err, result) {
+            if (err) {
+              console.log(err);
+              res.status("400").send({ error: err });
+            } else if (result.length) {
+              console.log("Found:", result);
+              // mk = result;
+              // console.log("mk = ", mk);
+              res.render("pages/movies", { movies: result });
+            } else {
+              console.log('No document(s) found with defined "find" criteria!');
+              res.status("400").send({ error: "No document(s) found" });
+            }
+            //Close connection
+            client.close();
+          });
+      } // else {
+    } // function
+  );
+
+  //////////////////////////////////////////////
 });
 
 app.listen(8081);
@@ -81,18 +101,7 @@ function getResult(callback) {
             client.close();
             callback(err, result);
           });
-
-        // Query the collection
-        // db.collection("movies").find(query),
-        //   function(err, result) {
-        //     if (err) {
-        //       console.log(err);
-        //     } else {
-        //       console.log("Found:", result);
-        //     }
-        //Close connection
       }
-      //  }
     }
   );
 }
