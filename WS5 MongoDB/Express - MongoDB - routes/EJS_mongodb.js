@@ -21,10 +21,12 @@ app.get("/demo", function(req, res) {
 
   const MongoClient = require("mongodb").MongoClient;
   // Connection URL
-  const url = "mongodb://localhost:27017/";
+  //const url = "mongodb://localhost:27017/";
+  const url = "mongodb://newuser2:password123@ds026018.mlab.com:26018/tuntidemo";
 
   // Database Name
-  const dbName = "moviedb";
+  const dbName = "tuntidemo";
+  const collectionName = "movies";
 
   MongoClient.connect(
     url,
@@ -38,7 +40,7 @@ app.get("/demo", function(req, res) {
         const db = client.db(dbName);
 
         var query = { title: /star/ };
-        db.collection("movies")
+        db.collection(collectionName)
           .find(query)
           .toArray(function(err, result) {
             if (err) {
@@ -46,8 +48,7 @@ app.get("/demo", function(req, res) {
               res.status("400").send({ error: err });
             } else if (result.length) {
               console.log("Found:", result);
-              // mk = result;
-              // console.log("mk = ", mk);
+
               res.render("pages/movies", { movies: result });
             } else {
               console.log('No document(s) found with defined "find" criteria!');

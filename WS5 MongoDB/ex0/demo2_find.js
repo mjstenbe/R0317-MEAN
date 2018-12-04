@@ -1,10 +1,11 @@
 const MongoClient = require("mongodb").MongoClient;
 
 // Connection URL
-const url = "mongodb://localhost:27017/";
+// const url = "mongodb://localhost:27017/";
+const url = "mongodb://newuser:password123@ds026018.mlab.com:26018/tuntidemo";
 
 // Database Name
-const dbName = "moviedb";
+const dbName = "tuntidemo";
 
 // Use connect method to connect to the server
 
