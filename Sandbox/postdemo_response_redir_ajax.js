@@ -9,7 +9,7 @@ app.use(express.static("./"));
 
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 // Luodaan reitit ja niiden toiminnallisuudet
 app.get("/", function(req, res) {
@@ -23,13 +23,11 @@ app.get("/userpage", function(req, res) {
 // Uusi POST-tyyppiseen sivupyyntöön reagoiva reitti
 app.post("/kirjaudu", function(req, res) {
   console.log(req.body);
-
-  var res_data = JSON.parse(req.body);
-  console.log(res_data);
   var email = req.body.email;
   var pass = req.body.pass;
 
   if (email === "onni@sci.fi" && pass === "opiskelija") {
+    console.log("success");
     res.send("Success", 301);
   } else res.send("Failed login", 200);
 

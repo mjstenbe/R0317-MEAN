@@ -65,6 +65,9 @@
             if (this.readyState == 4 && this.status == 200) {
               document.getElementById("status").innerHTML = this.responseText;
               console.log(this.responseText);
+            } else if (this.readyState == 4 && this.status == 301) {
+              document.getElementById("status").innerHTML = this.responseText;
+              console.log(this.responseText);
             }
           };
 
@@ -79,7 +82,7 @@
 
           // TAI
           console.log(data);
-          xmlhttp.send(data);
+          xmlhttp.send(JSON.stringify(data));
           //xmlhttp.send("email=" + email + "&pass=" + pass);
         });
       };
