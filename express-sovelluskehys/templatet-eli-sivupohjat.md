@@ -38,7 +38,7 @@ Sivupohjamoottorin läpi ajettuna EJS-määrittely tuottaisi allaolevan HTML:n s
 
 Toinen varsin suosittu sivupohjamoottori on PUG. Se menee vielä pidemmälle koodarin työn helpottamisessa: sivupohjiin ei tarvitse tuottaa HTML-tägejä lainkaan. Ainoastaan tägien nimet riittävät. Allaolevassa kuvassa vasemmalla on PUG sivupohjan määrittely ja oikealla template-moottorin siitä tuottama HTML-koodi. 
 
-![](../.gitbook/assets/image%20%2818%29.png)
+![](../.gitbook/assets/image%20%2819%29.png)
 
 Vaikka PUG vähentää HTML-koodin kirjoittamista, niin se saattaa vaikeuttaa esim. sivupohjan tekemistä jollain muulla välineellä tai vaikkapa graafisen suunnittelijan toimesta. Tätä varten verkossa on toki saatavilla erilaisia automaattisia muuntimia kuten [HTML to PUG](https://html-to-pug.com/).
 
@@ -92,7 +92,7 @@ app.get("/tervehdys", function(req, res) {
 
 Sivupohjat tulee sijoittaa **views**-nimiseen alihakemistoon. Ao. kuvassa näkyy esimerkkirakenne tällä sivulla esitetyille demoille. Projektin juurihakemisto jossa Node.js-koodi sijaitsee on "WS4...". Sen alle on luotu views-alikansio, jonka alle on vielä luotu kansio pages. Pages-kansiossa on joukko .ejs-päätteisiä tiedostoja. Huomaa, että res.render\(\) -funktiossa annetaan käytettävän tiedoston polku ja nimi ilman ejs-päätettä.  
 
-![](../.gitbook/assets/image%20%2820%29.png)
+![](../.gitbook/assets/image%20%2821%29.png)
 
 Itse EJS-sivupohja määriteltäisiin **terve.ejs -nimiseen tiedostoon** ao. koodin mukaisesti. 
 
@@ -218,7 +218,72 @@ Koodin tuottama HTML-sivu olisi seuraavanlainen.
 
 ### Sivupohjan pilkkominen osiin: partials
 
+Sivupohjat voidaan jakaa uudelleenkäytettäviin osiin, joita kutsutaan nimellä "partial". Ideana on koota näitä uudelleenkäytettäviä osia omaan hakemistoonsa views-alihakemiston alle ja tuoda niitä osaksi HTML-sivua &lt;% include %&gt; tägillä. Alla sivun esimerkkiprojektin rakenne kun siihen on lisätty views-hakemisto, sekä pages ja partials -alihakemistot.
 
+![](../.gitbook/assets/image%20%2817%29.png)
 
+Alla esimerkki sivusta, joka koostetaan käyttäen "partialseja".
 
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+     <!-- Tuodaan HEAD-tägin sisälle tiedoston /partials/head -sisältö -->
+    <% include ../partials/head %>
+</head>
+<body class="container">
+    <header>
+        <!-- Tuodaan HEADER-tägin sisälle tiedoston /partials/header -sisältö -->
+        <% include ../partials/header %>
+    </header>
+    <main>
+        <div class="jumbotron">
+            <h1><%= heading %> </h1>
+            <p> <%= content %> </p>
+        </div>
+    </main>
+    <footer>
+        <!-- Tuodaan FOOTER-tägin sisälle tiedoston /partials/footer -sisältö -->
+        <% include ../partials/footer %>
+    </footer>
+</body>
+</html>
+```
+
+Alla tiedoston /partials/head -sisältö:
+
+```javascript
+<!-- views/partials/head.ejs -->
+
+<title>W3.CSS Sample Template</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Raleway"
+  />
+  <style>
+    body, h1, h2, h3, h4, h5 { font-family: "Raleway", sans-serif;   }
+  </style>
+
+```
+
+Ja vielä /partials/footer-tiedoston sisältö:
+
+```javascript
+¨<!-- views/partials/footer.ejs -->
+
+<button class="w3-button w3-black w3-disabled w3-padding-large w3-margin-bottom">
+      Previous
+</button>
+ <button class="w3-button w3-black w3-padding-large w3-margin-bottom">
+  Next »
+ </button>
+  <p>
+   Powered by
+   <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
+  </p>
+
+```
 
