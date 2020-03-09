@@ -34,14 +34,6 @@ Sivupohjamoottorin läpi ajettuna EJS-määrittely tuottaisi allaolevan HTML:n s
 
 ![](../.gitbook/assets/image%20%2816%29.png)
 
-### PUG-sivupohja
-
-Toinen varsin suosittu sivupohjamoottori on PUG. Se menee vielä pidemmälle koodarin työn helpottamisessa: sivupohjiin ei tarvitse tuottaa HTML-tägejä lainkaan. Ainoastaan tägien nimet riittävät. Allaolevassa kuvassa vasemmalla on PUG sivupohjan määrittely ja oikealla template-moottorin siitä tuottama HTML-koodi. 
-
-![](../.gitbook/assets/image%20%2819%29.png)
-
-Vaikka PUG vähentää HTML-koodin kirjoittamista, niin se saattaa vaikeuttaa esim. sivupohjan tekemistä jollain muulla välineellä tai vaikkapa graafisen suunnittelijan toimesta. Tätä varten verkossa on toki saatavilla erilaisia automaattisia muuntimia kuten [HTML to PUG](https://html-to-pug.com/).
-
 ### Sivupohjamoottorin käyttöönotto
 
 Sivupohjat saadaan käyttöön Express-sovelluksessa lataamalla ne verkosta ja tuomalla ne mukaan projektiin kuten muutkin moduulit. EJS-templaten asennus tapahtuu seuraavasti:
@@ -286,4 +278,16 @@ Ja vielä /partials/footer-tiedoston sisältö:
   </p>
 
 ```
+
+### PUG-sivupohja
+
+Toinen varsin suosittu sivupohjamoottori on PUG. Se menee vielä pidemmälle koodarin työn helpottamisessa: sivupohjiin ei tarvitse tuottaa HTML-tägejä lainkaan. Ainoastaan tägien nimet riittävät. Allaolevassa kuvassa vasemmalla on PUG sivupohjan määrittely ja oikealla template-moottorin siitä tuottama HTML-koodi. 
+
+![](../.gitbook/assets/image%20%2819%29.png)
+
+Vaikka PUG vähentää HTML-koodin kirjoittamista, niin se saattaa vaikeuttaa esim. sivupohjan tekemistä jollain muulla välineellä tai vaikkapa graafisen suunnittelijan toimesta. Tätä varten verkossa on toki saatavilla erilaisia automaattisia muuntimia kuten [HTML to PUG](https://html-to-pug.com/).
+
+Kiinnostuneet voivat tutustua PUGin sielunelämään esim. [täällä](https://pugjs.org/api/getting-started.html). Myös [Mustache ](https://www.npmjs.com/package/mustache)on tiedostamisen arvoinen sivupohjakieli.
+
+### 
 
