@@ -16,9 +16,13 @@ Tietokannan voi asentaa joko paikallisesti omalle koneelle tai hyödyntää luku
 
 Tämän sivun esimerkeissä käytetään MongoDB Atlas -pilvipalvelussa sijaitsevaa tietokantaa. Koodissa tämä näkyy ainoastaan yhteysosoitteessa.
 
-### MondoDB Compass
+### MondoDB Compass ja tietokantahakujen luominen
 
 dsflkjsdlfj
+
+![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](.gitbook/assets/image%20%2817%29.png)
+
+
 
 ### MongoDB:n käyttäminen Nodessa
 
