@@ -1,6 +1,6 @@
-# MongoDB ja sen käyttäminen Nodessa
+# MongoDB ja Node
 
-### Yleistä relaatio- ja NoSQL -tietokannoista
+## Yleistä relaatio- ja NoSQL -tietokannoista
 
 Perinteiset relaatiotietokannat säilövät tietoa taulukkoina, joiden rakenne ja tietokenttien tyypit määritellään skeemassa \(schema\). Kyselyitä tietokantaan tehdään SQL-kielellä. Tunnetuimpia relaatiotietokantoja ovat esim. Oraclen tietokantaratkaisut, MySQL ja sen sisarprojekti MariaDB sekä PostgresSQL.
 
@@ -12,7 +12,11 @@ Yleisesti voidaan sanoa, että kun NoSQL-tietokannan ei tarvitse huolehtia syöt
 
 ### Paikallinen vai pilveen asennettu tietokanta
 
-Tietokannan voi asentaa joko paikallisesti omalle koneelle tai hyödyntää lukuisia pilvipalveluja, jotka tarjoavat mahdollisuutta sellaiseen. MongoDB:n kehittäjillä on oma pilvipalvelunsa, jonne pienen testiympäristön saa luotua ilmaiseksi. Löydät sen [täältä](https://www.mongodb.com/).
+Tietokannan voi asentaa joko paikallisesti omalle koneelle tai hyödyntää lukuisia pilvipalveluja, jotka tarjoavat mahdollisuutta tietokannan ajamiseen verkon yli. Pilvipalveluissa etuna on se, että tietokannan käynnistäminen, hallinta ja ylläpito on pitkälti palveluntarjoajan murheena. Toisaalta paikallisen asennuksen säätäminen sekä käyttäjän- ja pääsynhallinta voi olla hieman yksinkertaisempaa. 
+
+MongoDB on tällä hetkellä suosituin NoSQL-tietokanta...
+
+Myös MongoDB:n kehittäjillä on oma pilvipalvelunsa, jonne pienen testiympäristön saa luotua ilmaiseksi. Löydät sen [täältä](https://www.mongodb.com/).
 
 Tämän sivun esimerkeissä käytetään MongoDB Atlas -pilvipalvelussa sijaitsevaa tietokantaa. Koodissa tämä näkyy ainoastaan yhteysosoitteessa.
 
@@ -24,7 +28,7 @@ dsflkjsdlfj
 
 
 
-### MongoDB:n käyttäminen Nodessa
+## MongoDB:n käyttäminen Nodessa
 
 Jotta MongoDB-tietokanna vaatimia toimintoja päästään käyttämään Nodessa, tulee kehittäjän asentaa sopiva moduuli käyttöönsä. Tämä tapahtuu komennolla:
 

@@ -11,7 +11,7 @@
   * [AJAX-pyyntöjen lähettäminen ja käsittely](express-sovelluskehys/ajax-pyyntoejen-laehettaeminen-ja-kaesittely.md)
   * [Templatet eli sivupohjat](express-sovelluskehys/templatet-eli-sivupohjat.md)
 * [Sovelluksen julkaiseminen Herokussa](sovelluksen-julkaiseminen-herokussa.md)
-* [MongoDB ja sen käyttäminen Nodessa](mongodb.md)
+* [MongoDB ja Node](mongodb.md)
 * [Mongoose ja olioita tietokantaan \(ORM\)](mongoose-ja-olioita-tietokantaan-orm.md)
 * [REST API:n luominen](rest-api-n-luominen.md)
 * [Käyttöliittymän rakentaminen Nodessa: React.js](kaeyttoeliittymaen-rakentaminen-react.js.md)
