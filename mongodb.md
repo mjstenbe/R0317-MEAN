@@ -40,7 +40,7 @@ const MongoClient = require("mongodb").MongoClient;
 
 ### Tietokantayhteyden luominen
 
-Seuraavassa esimerkissä luodaan yhteys tietokantaan käyttämällä MongoDB-modulin työkaluja. Huomaa, että yhteysosoite saadaan taholta joka tietokantaa ylläpitää, tässä tapauksessa MongoDB Atlas-palvelusta. Jos tietokantaa ajetaan omalla koneella, yhteysosoite voisi olla esim. "mongodb://localhost". Koodi ei tee vielä lainkaan hakuja tietokantaan.
+Seuraavassa esimerkissä luodaan yhteys tietokantaan käyttämällä MongoDB-modulin työkaluja. Huomaa, että yhteysosoite saadaan taholta joka tietokantaa ylläpitää, tässä tapauksessa MongoDB Atlas-palvelusta. Jos tietokantaa ajetaan omalla koneella, yhteysosoite voisi olla esim. "mongodb://localhost". Koodi ei tee vielä lainkaan hakuja tietokantaan. Tietokantaan on ladattu Atlas-palvelun tarjoama esimerkkidatasetti.
 
 ```javascript
 // Tuodaan moduuli ohjelmaan
