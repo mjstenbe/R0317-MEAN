@@ -1,12 +1,146 @@
 # MongoDB ja sen käyttäminen Nodessa
 
-### Yleistä
+### Yleistä relaatio- ja NoSQL -tietokannoista
 
 Perinteiset relaatiotietokannat säilövät tietoa taulukkoina, joiden rakenne ja tietokenttien tyypit määritellään skeemassa \(schema\). Kyselyitä tietokantaan tehdään SQL-kielellä. Tunnetuimpia relaatiotietokantoja ovat esim. Oraclen tietokantaratkaisut, MySQL ja sen sisarprojekti MariaDB sekä PostgresSQL.
 
-Uudemmat NoSQL-tietokannat sen sijaan tallentavat dataa arvo-avain -pareina tietokantaan, jolla ei ole ennalta määrättyä skeemaa eli rakennekuvausta. Tämä mahdollistaa sen, että jokainen tietokantaan syötetty tietoalkio voi olla erilainen. Tieto tallennetaan JSON tai XML-muodossa, mikä helpottaa tiedon jatkohyödyntämistä sovelluksissa. Tunnetuimpia NoSQL-tietokantoja ovat MongoDB, Cassandra ja Redis.
+Uudemmat NoSQL-tietokannat sen sijaan tallentavat dataa tietokantaan arvo-avain -pareina. Tietokannan kokoelmat vastaavat perinteisen taulun käsitettä , mutta niillä ei ole ennalta määrättyä skeemaa eli rakennekuvausta. Tämä mahdollistaa sen, että jokainen tietokantaan syötetty tietoalkio voi olla erilainen. Tieto tallennetaan JSON tai XML-muodossa, mikä helpottaa tiedon jatkohyödyntämistä sovelluksissa. Tunnetuimpia NoSQL-tietokantoja ovat MongoDB, Cassandra ja Redis.
+
+Yleisesti voidaan sanoa, että kun NoSQL-tietokannan ei tarvitse huolehtia syötetyn tiedon eheydestä \(skeeman puuttuminen\) saadaan vastineeksi suorituskykyä ja käytön joustavuutta. Kehittäjän harteille jää vastuu siitä, että syötettävä tieto on järkevää ja oikeellista kulloisenkiin käyttötarkoitukseen. 
 
 ![Kuva: Tietokantojen suosituimmuustilastoja \(https://db-engines.com/en/ranking\) ](.gitbook/assets/image%20%281%29.png)
 
+### Paikallinen vai pilveen asennettu tietokanta
 
+Tietokannan voi asentaa joko paikallisesti omalle koneelle tai hyödyntää lukuisia pilvipalveluja, jotka tarjoavat mahdollisuutta sellaiseen. MongoDB:n kehittäjillä on oma pilvipalvelunsa, jonne pienen testiympäristön saa luotua ilmaiseksi. Löydät sen [täältä](https://www.mongodb.com/).
+
+Tämän sivun esimerkeissä käytetään MongoDB Atlas -pilvipalvelussa sijaitsevaa tietokantaa. Koodissa tämä näkyy ainoastaan yhteysosoitteessa.
+
+### MongoDB:n käyttäminen Nodessa
+
+Jotta MongoDB-tietokanna vaatimia toimintoja päästään käyttämään Nodessa, tulee kehittäjän asentaa sopiva moduuli käyttöönsä. Tämä tapahtuu komennolla:
+
+```bash
+npm install mondodb –save
+```
+
+Moduuli otetaan käyttöön Node.js -koodissa tavalliseen tapaan require-funktiolla.
+
+```bash
+const MongoClient = require("mongodb").MongoClient;
+```
+
+### Tietokantayhteyden luominen
+
+Seuraavassa esimerkissä luodaan yhteys tietokantaan käyttämällä MongoDB-modulin työkaluja. Huomaa, että yhteysosoite saadaan taholta joka tietokantaa ylläpitää, tässä tapauksessa MongoDB Atlas-palvelusta. Jos tietokantaa ajetaan omalla koneella, yhteysosoite voisi olla esim. "mongodb://localhost". Koodi ei tee vielä lainkaan hakuja tietokantaan.
+
+```javascript
+// Tuodaan moduuli ohjelmaan
+const MongoClient = require("mongodb").MongoClient;
+
+// Määritellään salasana ja yhteysosoite tietokantaan (tämän saa MongoDB Atlas-palvelusta)
+const passwd = "demopass";
+const uri ="mongodb+srv://dbuser:"+passwd+"@cluster0-6tein.mongodb.net/test?retryWrites=true&w=majority";
+
+// Luodaan uusi yhteysolio käyttäen edellä määriteltyä URI:a sekä 
+// tarvittavia parametreja
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// Luodaan yhteys ja tulostetaan tieto virheestä tai onnistumisesta
+client.connect(err => {
+   if (err) throw err;
+   else console.log("Connected!");
+   
+ // Suljetaan tietokantayhteys
+    client.close();
+});
+```
+
+### Tietokanhakujen tekeminen
+
+Seuraavaksi tehdään yksinkertainen tietokantahaku MongoDB:hen.
+
+```javascript
+// Tuodaan moduuli ohjelmaan
+const MongoClient = require("mongodb").MongoClient;
+
+// Määritellään salasana ja yhteysosoite tietokantaan (tämän saa MongoDB Atlas-palvelusta)
+const passwd = "demopass";
+const uri ="mongodb+srv://dbuser:"+passwd+"@cluster0-6tein.mongodb.net/test?retryWrites=true&w=majority";
+
+// Luodaan uusi yhteysolio käyttäen edellä määriteltyä URI:a sekä 
+// tarvittavia parametreja
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// Määritellään tietokantaan tehtävä kyselu JSON-oliona. Tässä voi käyttää
+// apuna esim. MondoDB Compass -työkalua
+var query = {
+  title: new RegExp("Jedi")
+};
+
+// Luodaan yhteys  tietokantaan nimeltä "sample_mflix" ja sieltä kokoelmaan "movies"
+client.connect(err => {
+  const collection = client.db("sample_mflix").collection("movies");
+ if (err) throw err;
+// Suoritetaan kysely collection-olion avulla
+  collection
+    .find(query)          // query muuttuja sisältää kyselyn
+    .limit(5)             // rajoitetaan tulosjoukko 5:een
+    .toArray(function(err, result) {  // Palautetaan tulokset JS-taulukkona
+      if (err) throw err;
+      console.log(result);            // Tulostetaan taulukko ruudulle
+      client.close();                // Suljetaan yhteys
+    });
+});
+
+```
+
+Suorituksen jälkeen konsoliin tulostaa tietokannasta JSON-muotoista elokuvadataa.
+
+```javascript
+[
+  {
+    _id: 573a1397f29313caabce8cdb,
+    plot: 'After rescuing Han Solo from the palace of Jabba the Hutt, the rebels attempt to destroy the second Death Star, while
+Luke struggles to make Vader return from the dark side of the Force.',
+    genres: [ 'Action', 'Adventure', 'Fantasy' ],
+    runtime: 134,
+    metacritic: 52,
+    rated: 'PG',
+    cast: [
+      'Mark Hamill',
+      'Harrison Ford',
+      'Carrie Fisher',
+      'Billy Dee Williams'
+    ],
+    poster: 'https://m.media-amazon.com/images/M/MV5BOWZlMjFiYzgtMTUzNC00Y2IzLTk1NTMtZmNhMTczNTk0ODk1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SY1000_SX677_AL_.jpg',
+    title: 'Star Wars: Episode VI - Return of the Jedi',
+    fullplot: 'Darth Vader and the Empire are building a new, indestructible Death Star. Meanwhile, Han Solo has been imprisoned, and Luke Skywalker has sent R2-D2 and C-3PO to try and free him. Princess Leia - disguised as a bounty hunter - and Chewbacca go along as well. The final battle takes place on the moon of Endor, with its natural inhabitants, the Ewoks, lending a hand to the Rebels. Will Darth Vader and the Dark Side overcome the Rebels and take over the universe?',
+    languages: [ 'English' ],
+    released: 1983-05-25T00:00:00.000Z,
+    directors: [ 'Richard Marquand' ],
+    writers: [
+      'Lawrence Kasdan (screenplay)',
+      'George Lucas (screenplay)',
+      'George Lucas (story)'
+    ],
+    awards: {
+      wins: 19,
+      nominations: 15,
+      text: 'Nominated for 4 Oscars. Another 15 wins & 15 nominations.'
+    },
+    lastupdated: '2015-09-07 00:05:08.857000000',
+    year: 1983,
+    imdb: { rating: 8.4, votes: 564790, id: 86190 },
+    countries: [ 'USA' ],
+    type: 'movie'
+  }
+]
+```
 
