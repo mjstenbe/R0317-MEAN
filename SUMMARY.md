@@ -12,7 +12,7 @@
   * [Templatet eli sivupohjat](express-sovelluskehys/templatet-eli-sivupohjat.md)
 * [Sovelluksen julkaiseminen Herokussa](sovelluksen-julkaiseminen-herokussa.md)
 * [MongoDB ja sen käyttäminen Nodessa](mongodb.md)
-* [REST API:n luominen](rest-api-n-luominen.md)
 * [Mongoose ja olioita tietokantaan \(ORM\)](mongoose-ja-olioita-tietokantaan-orm.md)
-* [Käyttöliittymän rakentaminen: React.js](kaeyttoeliittymaen-rakentaminen-react.js.md)
+* [REST API:n luominen](rest-api-n-luominen.md)
+* [Käyttöliittymän rakentaminen Nodessa: React.js](kaeyttoeliittymaen-rakentaminen-react.js.md)
 
