@@ -22,7 +22,7 @@ LAMP on ollut standardiympäristö kehittäjille viimeiset 20 vuotta. Se  tulee 
 
 MEAN edustaa uuden sukupolven web-teknologioita ja tulee sanoista MondoDB, Express.js, Angular ja Node. Siinä koko palvelimen virkaa hoitaa Node.js ympäristö, ohjelmointikielenä käytetään JavaScriptiä jota sekä Node että Express-sovelluskehys puhuvat. Tietokantaratkaisuna käytetään MongoDB:tä ja käyttöliittymän rakentamisessa hyödynnetään Angular-sovelluskehystä.
 
-![LAMP- ja MEAN-teknologiapinot](.gitbook/assets/image%20%2820%29.png)
+![LAMP- ja MEAN-teknologiapinot](.gitbook/assets/image%20%2821%29.png)
 
 Huomattavaa on, että pinot ovat vain hyviin käytäntöihin ja kokemuksiin perustuvia määritelmiä käytetyistä ohjelmointi-ympäristöistä. Näinollen kukin kehittäjä voi koota oman "pinoonsa" tai vaihtaa komponentteja jo olemassaoleviin. Esim. MEAN stack -kehittäjät käyttävät usein käyttöliittymän rakentamiseen jotain muuta kuin Angularia, esim. Reactia. Tällöin puhutaan usein MERN-pinosta tai jopa ME\*N -pinosta. 
 

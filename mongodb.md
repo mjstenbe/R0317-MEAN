@@ -14,19 +14,25 @@ Yleisesti voidaan sanoa, että kun NoSQL-tietokannan ei tarvitse huolehtia syöt
 
 Tietokannan voi asentaa joko paikallisesti omalle koneelle tai hyödyntää lukuisia pilvipalveluja, jotka tarjoavat mahdollisuutta tietokannan ajamiseen verkon yli. Pilvipalveluissa etuna on se, että tietokannan käynnistäminen, hallinta ja ylläpito on pitkälti palveluntarjoajan murheena. Toisaalta paikallisen asennuksen säätäminen sekä käyttäjän- ja pääsynhallinta voi olla hieman yksinkertaisempaa. 
 
-MongoDB on tällä hetkellä suosituin NoSQL-tietokanta...
+### MongoDB
 
-Myös MongoDB:n kehittäjillä on oma pilvipalvelunsa, jonne pienen testiympäristön saa luotua ilmaiseksi. Löydät sen [täältä](https://www.mongodb.com/).
+MongoDB on tällä hetkellä suosituin ja ehkä myös pisimmälle tuotteistettu NoSQL-tietokanta. Siitä on saatavilla ilmainen Community versio sekä järeämpi ja maksullinen Enterprise versio. Mongon voi ladata ilmaiseksi [täältä](https://www.mongodb.com/what-is-mongodb). MongoDB on tarjolla myös pilvipalveluna eri toimijoiden kautta. Näppärimmin sitä pääsee kokeilemaan MongoDB Atlas -palvelulla, jonne pienen testiympäristön saa luotua ilmaiseksi. Löydät sen [täältä](https://www.mongodb.com/).
 
 Tämän sivun esimerkeissä käytetään MongoDB Atlas -pilvipalvelussa sijaitsevaa tietokantaa. Koodissa tämä näkyy ainoastaan yhteysosoitteessa.
 
 ### MondoDB Compass ja tietokantahakujen luominen
 
-dsflkjsdlfj
+Tietokannan käyttö näyttäytyy kehittäjälle yksinkertaisimmillaan terminaalikomentoina ja siihen tulostuvina tuloksina. Onneksi nykään on saatavilla näppäriä graafisia työkaluja, joilla paitsi datan selailu mutta myös hakujen tekeminen ja viilailu on huomattavasti helpompaa. Mongon kehittäjien tarjoama ilmainen työkalu on nimeltään Compass ja myös sen voi ladata tuotteen [kotisivuilta](https://www.mongodb.com/products/compass).
+
+![Kuva: MongoDB Compassin graafinen n&#xE4;kym&#xE4; tietokantaan.](.gitbook/assets/image%20%2819%29.png)
+
+### Kyselyiden tekeminen
+
+Mongo-tietokantaan tehdään kyselyjä erilaisilla funktioilla, joiden parametrit muodostuvat JavaScript-olioista. Tämä saattaa hämmentää SQL-kieleen tottunutta kehittäjää. Tietoja haetaan find\(\) -funktiolla ja lisätään insertOne\(\) -funktiolla. Lisäksi tiedon poistamiseen ja päivittämiseen on olemassa omat funktionsa. Operaatiot on kuvattu hyvin [tietokannan dokumentaatiossa](https://docs.mongodb.com/manual/crud/).
+
+Alla esimerkki find\(\) -funktion käytöstä, joka kohdistuu tietokantaolion users-kokoelmaan. Huomaa funktion parametrina saamat JSON-muotoiset hakukriteerit \(query\) age: { $gt : 18 } sekä kentät jotka tulosjoukkoon halutaan \(projection\):  {name: 1, address: 1}.  Hakutuloksien määrää voidaan rajoittaa vielä limit\(\) -funktiolla, joka rajaa palautettavien tulosten määrän viiteen.
 
 ![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](.gitbook/assets/image%20%2817%29.png)
-
-
 
 ## MongoDB:n käyttäminen Nodessa
 
