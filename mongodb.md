@@ -16,6 +16,10 @@ Tietokannan voi asentaa joko paikallisesti omalle koneelle tai hyödyntää luku
 
 Tämän sivun esimerkeissä käytetään MongoDB Atlas -pilvipalvelussa sijaitsevaa tietokantaa. Koodissa tämä näkyy ainoastaan yhteysosoitteessa.
 
+### MondoDB Compass
+
+dsflkjsdlfj
+
 ### MongoDB:n käyttäminen Nodessa
 
 Jotta MongoDB-tietokanna vaatimia toimintoja päästään käyttämään Nodessa, tulee kehittäjän asentaa sopiva moduuli käyttöönsä. Tämä tapahtuu komennolla:
@@ -205,4 +209,14 @@ client.connect(err => {
     });
 });
 ```
+
+### Datan poistaminen
+
+sd
+
+### Datan muokkaaminen
+
+sfddsf
+
+
 
