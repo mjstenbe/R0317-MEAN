@@ -13,5 +13,6 @@
 * [Sovelluksen julkaiseminen Herokussa](sovelluksen-julkaiseminen-herokussa.md)
 * [MongoDB ja sen käyttäminen Nodessa](mongodb.md)
 * [REST API:n luominen](rest-api-n-luominen.md)
+* [Mongoose ja olioita tietokantaan \(ORM\)](mongoose-ja-olioita-tietokantaan-orm.md)
 * [Käyttöliittymän rakentaminen: React.js](kaeyttoeliittymaen-rakentaminen-react.js.md)
 
