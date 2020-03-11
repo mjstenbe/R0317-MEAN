@@ -228,10 +228,6 @@ client.connect(err => {
 });
 ```
 
-### Datan poistaminen
-
-sd
-
 ### Datan muokkaaminen
 
 Tietoalkioden muokkaaminen tapahtuu updateOne\(\) tai updateMany\(\) -funktioiden avulla. Erona näissä on se, moneenko osumaan päivitys tehdään. Parametrina funktio saa hakuehdon, jolla päivitettävät alkiot valitaan sekä operaation, joka palautuneisiin riveihin kohdistetaan.
@@ -296,6 +292,10 @@ client.connect(err => {
 });
 
 ```
+
+### Datan poistaminen
+
+sd
 
 
 
