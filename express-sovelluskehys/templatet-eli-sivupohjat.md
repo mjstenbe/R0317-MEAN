@@ -84,7 +84,7 @@ app.get("/tervehdys", function(req, res) {
 
 Sivupohjat tulee sijoittaa **views**-nimiseen alihakemistoon. Ao. kuvassa näkyy esimerkkirakenne tällä sivulla esitetyille demoille. Projektin juurihakemisto jossa Node.js-koodi sijaitsee on "WS4...". Sen alle on luotu views-alikansio, jonka alle on vielä luotu kansio pages. Pages-kansiossa on joukko .ejs-päätteisiä tiedostoja. Huomaa, että res.render\(\) -funktiossa annetaan käytettävän tiedoston polku ja nimi ilman ejs-päätettä.  
 
-![](../.gitbook/assets/image%20%2825%29.png)
+![](../.gitbook/assets/image%20%2826%29.png)
 
 Itse EJS-sivupohja määriteltäisiin **terve.ejs -nimiseen tiedostoon** ao. koodin mukaisesti. 
 
