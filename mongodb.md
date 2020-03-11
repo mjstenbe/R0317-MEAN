@@ -8,7 +8,7 @@ Uudemmat NoSQL-tietokannat sen sijaan tallentavat dataa tietokantaan arvo-avain 
 
 Yleisesti voidaan sanoa, että kun NoSQL-tietokannan ei tarvitse huolehtia syötetyn tiedon eheydestä \(skeeman puuttuminen\) saadaan vastineeksi suorituskykyä ja käytön joustavuutta. Kehittäjän harteille jää vastuu siitä, että syötettävä tieto on järkevää ja oikeellista kulloisenkiin käyttötarkoitukseen. 
 
-![Kuva: Tietokantojen suosituimmuustilastoja \(https://db-engines.com/en/ranking\) ](.gitbook/assets/image%20%281%29.png)
+![Kuva: Tietokantojen suosituimmuustilastoja \(https://db-engines.com/en/ranking\) ](.gitbook/assets/image%20%282%29.png)
 
 ### Paikallinen vai pilveen asennettu tietokanta
 
@@ -24,7 +24,7 @@ Tämän sivun esimerkeissä käytetään MongoDB Atlas -pilvipalvelussa sijaitse
 
 Tietokannan käyttö näyttäytyy kehittäjälle yksinkertaisimmillaan terminaalikomentoina ja siihen tulostuvina tuloksina. Onneksi nykään on saatavilla näppäriä graafisia työkaluja, joilla paitsi datan selailu mutta myös hakujen tekeminen ja viilailu on huomattavasti helpompaa. Mongon kehittäjien tarjoama ilmainen työkalu on nimeltään Compass ja myös sen voi ladata tuotteen [kotisivuilta](https://www.mongodb.com/products/compass).
 
-![Kuva: MongoDB Compassin graafinen n&#xE4;kym&#xE4; tietokantaan.](.gitbook/assets/image%20%2819%29.png)
+![Kuva: MongoDB Compassin graafinen n&#xE4;kym&#xE4; tietokantaan.](.gitbook/assets/image%20%2820%29.png)
 
 ### Kyselyiden tekeminen
 
@@ -32,7 +32,7 @@ Mongo-tietokantaan tehdään kyselyjä erilaisilla funktioilla, joiden parametri
 
 Alla esimerkki find\(\) -funktion käytöstä, joka kohdistuu tietokantaolion users-kokoelmaan. Huomaa funktion parametrina saamat JSON-muotoiset hakukriteerit \(query\) age: { $gt : 18 } sekä kentät jotka tulosjoukkoon halutaan \(projection\):  {name: 1, address: 1}.  Hakutuloksien määrää voidaan rajoittaa vielä limit\(\) -funktiolla, joka rajaa palautettavien tulosten määrän viiteen.
 
-![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](.gitbook/assets/image%20%2817%29.png)
+![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](.gitbook/assets/image%20%2818%29.png)
 
 ## MongoDB:n käyttäminen Nodessa
 
@@ -164,7 +164,11 @@ Luke struggles to make Vader return from the dark side of the Force.',
 
 ### Datan lisääminen
 
-Tiedon lisääminen toimii lähes samalla koodipohjalla. find\(\)-funktion sijaan tiedo lisäämiseen käytetään insertOne\(\) tai insertMany\(\) -funktioita. Alla esimerkki uuden elokuvan lisäämisestä tietokantaan.
+Tiedon lisääminen toimii lähes samalla koodipohjalla. find\(\)-funktion sijaan tiedo lisäämiseen käytetään insertOne\(\) tai insertMany\(\) -funktioita. Niiden käyttö on verrattain yksinkertaista; molemmat saavat parametrina lisättävän tietoalkion. InsertMany\(\) ottaa vastaan parametrina taulukossa. 
+
+![Kuva: InsertOne\(\)-funktion rakenne.](.gitbook/assets/image.png)
+
+Alla esimerkki uuden elokuvan lisäämisestä tietokantaan.
 
 ```javascript
 // Tuodaan moduuli ohjelmaan
