@@ -221,12 +221,12 @@ Alla esimerkki sivusta, joka koostetaan käyttäen "partialseja".
 <html lang="en">
 <head> 
      <!-- Tuodaan HEAD-tägin sisälle tiedoston /partials/head -sisältö -->
-    <% include ../partials/head %>
+     <%- include('partials/head') %>
 </head>
 <body class="container">
     <header>
         <!-- Tuodaan HEADER-tägin sisälle tiedoston /partials/header -sisältö -->
-        <% include ../partials/header %>
+      <%- include('partials/header') %>
     </header>
     <main>
         <div class="jumbotron">
@@ -236,7 +236,7 @@ Alla esimerkki sivusta, joka koostetaan käyttäen "partialseja".
     </main>
     <footer>
         <!-- Tuodaan FOOTER-tägin sisälle tiedoston /partials/footer -sisältö -->
-        <% include ../partials/footer %>
+        <%- include('partials/footer') %>
     </footer>
 </body>
 </html>
