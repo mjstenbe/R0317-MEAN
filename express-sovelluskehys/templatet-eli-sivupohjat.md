@@ -210,7 +210,7 @@ Koodin tuottama HTML-sivu olisi seuraavanlainen.
 
 ### Sivupohjan pilkkominen osiin: partials
 
-Sivupohjat voidaan jakaa uudelleenkäytettäviin osiin, joita kutsutaan nimellä "partial". Ideana on koota näitä uudelleenkäytettäviä osia omaan hakemistoonsa views-alihakemiston alle ja tuoda niitä osaksi HTML-sivua &lt;% include %&gt; tägillä. Alla sivun esimerkkiprojektin rakenne kun siihen on lisätty views-hakemisto, sekä pages ja partials -alihakemistot.
+Sivupohjat voidaan jakaa uudelleenkäytettäviin osiin, joita kutsutaan nimellä "partial". Ideana on koota näitä uudelleenkäytettäviä osia omaan hakemistoonsa views-alihakemiston alle ja tuoda niitä osaksi HTML-sivua &lt;%- include \( 'sivun nimi'\) %&gt; tägillä. Alla sivun esimerkkiprojektin rakenne kun siihen on lisätty views-hakemisto, sekä pages ja partials -alihakemistot.
 
 ![](../.gitbook/assets/image%20%2821%29.png)
 
