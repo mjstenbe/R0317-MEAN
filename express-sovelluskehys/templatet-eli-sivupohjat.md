@@ -281,7 +281,7 @@ Ja vielä /partials/footer-tiedoston sisältö:
 
 ### PUG-sivupohja
 
-Toinen varsin suosittu sivupohjamoottori on PUG. Se menee vielä pidemmälle koodarin työn helpottamisessa: sivupohjiin ei tarvitse tuottaa HTML-tägejä lainkaan. Ainoastaan tägien nimet riittävät. Allaolevassa kuvassa vasemmalla on PUG sivupohjan määrittely ja oikealla template-moottorin siitä tuottama HTML-koodi. 
+Toinen varsin suosittu sivupohjamoottori on PUG \(entinen Jade\). Se menee vielä pidemmälle koodarin työn helpottamisessa: sivupohjiin ei tarvitse tuottaa HTML-tägejä lainkaan. Ainoastaan tägien nimet riittävät. Allaolevassa kuvassa vasemmalla on PUG sivupohjan määrittely ja oikealla template-moottorin siitä tuottama HTML-koodi. 
 
 ![](../.gitbook/assets/image%20%2823%29.png)
 

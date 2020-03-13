@@ -30,7 +30,7 @@ Tietokannan käyttö näyttäytyy kehittäjälle yksinkertaisimmillaan terminaal
 
 Mongo-tietokantaan tehdään kyselyjä erilaisilla funktioilla, joiden parametrit muodostuvat JavaScript-olioista. Tämä saattaa hämmentää SQL-kieleen tottunutta kehittäjää. Tietoja haetaan find\(\) -funktiolla ja lisätään insertOne\(\) -funktiolla. Lisäksi tiedon poistamiseen ja päivittämiseen on olemassa omat funktionsa. Operaatiot on kuvattu hyvin [tietokannan dokumentaatiossa](https://docs.mongodb.com/manual/crud/).
 
-Alla esimerkki find\(\) -funktion käytöstä, joka kohdistuu tietokantaolion users-kokoelmaan. Huomaa funktion parametrina saamat JSON-muotoiset hakukriteerit \(query\) age: { $gt : 18 } sekä kentät jotka tulosjoukkoon halutaan \(projection\):  {name: 1, address: 1}.  Hakutuloksien määrää voidaan rajoittaa vielä limit\(\) -funktiolla, joka rajaa palautettavien tulosten määrän viiteen.
+Alla esimerkki find\(\) -funktion käytöstä, joka kohdistuu tietokantaolion users-kokoelmaan. Huomaa funktion parametrina saamat JSON-muotoiset hakukriteerit \(query\) age: { $gt : 18 } sekä kentät jotka tulosjoukkoon \(projection\) halutaan :  {name: 1, address: 1}.  Hakutuloksien määrää voidaan rajoittaa vielä limit\(\) -funktiolla, joka rajaa palautettavien tulosten määrän viiteen.
 
 ![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](.gitbook/assets/image%20%2818%29.png)
 
@@ -50,7 +50,7 @@ const MongoClient = require("mongodb").MongoClient;
 
 ### Tietokantayhteyden luominen
 
-Seuraavassa esimerkissä luodaan yhteys tietokantaan käyttämällä MongoDB-modulin työkaluja. Huomaa, että yhteysosoite saadaan taholta joka tietokantaa ylläpitää, tässä tapauksessa MongoDB Atlas-palvelusta. Jos tietokantaa ajetaan omalla koneella, yhteysosoite voisi olla esim. "mongodb://localhost". Koodi ei tee vielä lainkaan hakuja tietokantaan. Tietokantaan on ladattu Atlas-palvelun tarjoama esimerkkidatasetti.
+Seuraavassa esimerkissä luodaan yhteys tietokantaan käyttämällä MongoDB-modulin työkaluja. Huomaa, että yhteysosoite saadaan taholta joka tietokantaa ylläpitää, tässä tapauksessa MongoDB Atlas-palvelusta. Jos tietokantaa ajetaan omalla koneella, yhteysosoite voisi olla esim. "mongodb://localhost:25021". Koodi ei tee vielä lainkaan hakuja tietokantaan. 
 
 ```javascript
 // Tuodaan moduuli ohjelmaan
@@ -80,7 +80,7 @@ client.connect( function (err,r)  {
 
 ### Tietokanhakujen tekeminen
 
-Seuraavaksi tehdään yksinkertainen tietokantahaku MongoDB:hen.
+Seuraavaksi tehdään yksinkertainen tietokantahaku MongoDB:hen.  Tietokantaan on ladattu Atlas-palvelun tarjoama esimerkkidatasetti, joka sisältää tietoja elokuvista. Ao. esimerkissä haetaan kaikki elokuvat joiden nimessä esiintyy sana "Jedi".
 
 ```javascript
 // Tuodaan moduuli ohjelmaan
@@ -98,7 +98,8 @@ const client = new MongoClient(uri, {
 });
 
 // Määritellään tietokantaan tehtävä kyselu JSON-oliona. Tässä voi käyttää
-// apuna esim. MondoDB Compass -työkalua
+// apuna esim. MondoDB Compass -työkalua. Tämä kysely hakee kaikkia elokuvia
+// joiden nimessä esiintyy sana "Jedi"
 var query = {
   title: new RegExp("Jedi")
 };
