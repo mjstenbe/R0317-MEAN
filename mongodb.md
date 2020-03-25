@@ -24,7 +24,7 @@ Tämän sivun esimerkeissä käytetään MongoDB Atlas -pilvipalvelussa sijaitse
 
 Tietokannan käyttö näyttäytyy kehittäjälle yksinkertaisimmillaan terminaalikomentoina ja siihen tulostuvina tuloksina. Onneksi nykään on saatavilla näppäriä graafisia työkaluja, joilla paitsi datan selailu mutta myös hakujen tekeminen ja viilailu on huomattavasti helpompaa. Mongon kehittäjien tarjoama ilmainen työkalu on nimeltään Compass ja myös sen voi ladata tuotteen [kotisivuilta](https://www.mongodb.com/products/compass).
 
-![Kuva: MongoDB Compassin graafinen n&#xE4;kym&#xE4; tietokantaan.](.gitbook/assets/image%20%2821%29.png)
+![Kuva: MongoDB Compassin graafinen n&#xE4;kym&#xE4; tietokantaan.](.gitbook/assets/image%20%2822%29.png)
 
 ### Kyselyiden tekeminen
 
@@ -32,7 +32,7 @@ Mongo-tietokantaan tehdään kyselyjä erilaisilla funktioilla, joiden parametri
 
 Alla esimerkki find\(\) -funktion käytöstä, joka kohdistuu tietokantaolion users-kokoelmaan. Huomaa funktion parametrina saamat JSON-muotoiset hakukriteerit \(query\) age: { $gt : 18 } sekä kentät jotka tulosjoukkoon \(projection\) halutaan :  {name: 1, address: 1}.  Hakutuloksien määrää voidaan rajoittaa vielä limit\(\) -funktiolla, joka rajaa palautettavien tulosten määrän viiteen.
 
-![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](.gitbook/assets/image%20%2819%29.png)
+![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](.gitbook/assets/image%20%2820%29.png)
 
 ## MongoDB:n käyttäminen Nodessa
 
@@ -234,7 +234,7 @@ client.connect(err => {
 
 Tietoalkioden muokkaaminen tapahtuu updateOne\(\) tai updateMany\(\) -funktioiden avulla. Erona näissä on se, moneenko osumaan päivitys tehdään. Parametrina funktio saa hakuehdon, jolla päivitettävät alkiot valitaan sekä operaation, joka palautuneisiin riveihin kohdistetaan.
 
-![Kuva: UpdateMany\(\)-funktion rakenne.](.gitbook/assets/image%20%2826%29.png)
+![Kuva: UpdateMany\(\)-funktion rakenne.](.gitbook/assets/image%20%2827%29.png)
 
 Alla esimerkkikoodi, joka päivittää halutun alkion arvoja tietokannassa.
 
@@ -478,7 +478,7 @@ function parse(data) {
 
 Ohjelman suoritus selaimessa näyttää seuraavalta: 
 
-![](.gitbook/assets/image%20%2824%29.png)
+![](.gitbook/assets/image%20%2825%29.png)
 
 ### 
 
@@ -531,6 +531,155 @@ Tämän jälkeen lisätään ohjelman reittiin res.render\(\) -funktio, joka lä
 ```
 
 ### Lomakkeiden ja tietokannan yhteiskäyttö
+
+### Optimointia ja koodin modularisointia
+
+Koodirivien määrän kasvaessa ohjelmat saattavat alkaa näyttää sekavilta ja niiden ylläpitotyö vaikeutuu hankalan luettavuutensa johdosta. Tämän vuoksi koodin modularisointi eli jakaminen osiin saattaa alkaa näyttää houkuttelevalta. Näin itse pääohjelma saadaan siistittyä. Katsotaan tästä muutama esimerkki.
+
+Yksi mahdollisuus on luoda tietokantaan liittyvät toiminnallisuudet omana funktionaan, jolloin niiden käyttö onnistuu näppärästi funktiokutsun getResults\(\) avulla. Funktioon voidaan välittää parametrina hakusana, jolloin haku on helposti muunnetavissa. Toisena parametrina määritellään anonyymi funktio joka suoritetaan kun haku on tehty.
+
+```javascript
+app.get("/leffat", (req, res) => {
+    // Kutsutaan tietokantahakua getResults() -funktion kautta.
+    // Välitetään ekana parametrina hakusana, toisena parametrina anonyymi funktio joka käsittele vastauksen
+    var results = getResult("Star Wars", function(err, result) {
+      console.log(result);
+      res.render("pages/leffat", { taulu: result });
+    });
+  });
+```
+
+Tietokantaoperaatiot käsittelevä funktio getResults\(\) on määritelty alla. Ainoina uusina asioina on tietokantahaun hakusanan välittäminen parametrina, sekä rivillä 45 tapahtuva callback-funktion kutsu. Ideana siis on kutsua tulokset käsittelevää funktiota nimellä, kun haku on suoritettu.
+
+```javascript
+// query-parametri määrittele hakusanan, callback sisältää anonyymin funktion 
+// tulosten käsittelyä varten, nyt sitä voidaan kutsua nimellä "callback"
+
+function getResult(query, callback) {
+  ////////////////////////////////////////////////////////////
+  // MongoDB: n koodi
+  ////////////////////////////////////////////////////////////
+
+  // Tuodaan moduuli ohjelmaan
+  const MongoClient = require("mongodb").MongoClient;
+
+  // Määritellään salasana ja yhteysosoite tietokantaan (tämän saa MongoDB Atlas-palvelusta)
+  const passwd = "demopass";
+  const uri =
+    "mongodb+srv://dbuser:" +
+    passwd +
+    "@cluster0-6tein.mongodb.net/test?retryWrites=true&w=majority";
+
+  // Luodaan uusi yhteysolio käyttäen edellä määriteltyä URI:a sekä
+  // tarvittavia parametreja
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+
+  // Määritellään tietokantaan tehtävä kyselu JSON-oliona. Tämä kysely hakee kaikkia elokuvia
+  // joiden nimessä esiintyy sana joka välitettiin parametrina reitistä
+  var query = {
+    title: new RegExp(query)
+  };
+
+  // Luodaan yhteys  tietokantaan nimeltä "sample_mflix" ja sieltä kokoelmaan "movies"
+  client.connect(err => {
+    const collection = client.db("sample_mflix").collection("movies");
+    if (err) throw err;
+
+    collection
+      .find(query)
+      .sort({ year: -1 })
+      .toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        client.close();
+        // Kutsutaan parametrina reitistä saatua funktiota, joka käsittelee vastauksen
+        callback(err, result);
+      });
+  });
+}
+
+```
+
+Ohjelma kokonaisuudessaan alla. Siitä on poistettu osa kommentteja rivimäärän karsimiseksi. 
+
+```javascript
+// Otetaan express-moduuli käyttöön
+var express = require("express");
+var app = express();
+
+// otetaan EJS käyttöön
+app.set("view engine", "ejs");
+app.locals.pretty = true;
+
+// Express - palvelimen luonti
+
+app.listen(8081, () => {
+
+  app.get("/leffat", (req, res) => {
+    // Kutsutaan tietokantahakua getResults() -funktion kautta.
+    var results = getResult("Star Wars", function(err, result) {
+      console.log(result);
+      res.render("pages/leffat", { taulu: result });
+    });
+  });
+}); // end app.listen
+
+////////////////////////////////
+
+function getResult(query, callback) {
+  const MongoClient = require("mongodb").MongoClient;
+
+  // Määritellään salasana ja yhteysosoite tietokantaan (tämän saa MongoDB Atlas-palvelusta)
+  const passwd = "demopass";
+  const uri =
+    "mongodb+srv://dbuser:" +
+    passwd +
+    "@cluster0-6tein.mongodb.net/test?retryWrites=true&w=majority";
+
+  // Luodaan uusi yhteysolio käyttäen edellä määriteltyä URI:a sekä
+  // tarvittavia parametreja
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+
+  // Määritellään tietokantaan tehtävä kyselu JSON-oliona. Tämä kysely hakee kaikkia elokuvia
+  // joiden nimessä esiintyy sana joka välitettiin parametrina reitistä
+  var query = {
+    title: new RegExp(query)
+  };
+
+  // Luodaan yhteys  tietokantaan nimeltä "sample_mflix" ja sieltä kokoelmaan "movies"
+  client.connect(err => {
+    const collection = client.db("sample_mflix").collection("movies");
+    if (err) throw err;
+
+    collection
+      .find(query)
+      .sort({ year: -1 })
+      .toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        client.close();
+        // Kutsutaan parametrina reitistä saatua funktiota, joka käsittelee vastauksen
+        callback(err, result);
+      });
+  });
+}
+```
+
+Selaimen tuottama tulos on alla. 
+
+![](.gitbook/assets/image%20%2812%29.png)
+
+
+
+
+
+ 
 
 
 
