@@ -484,9 +484,51 @@ Ohjelman suoritus selaimessa näyttää seuraavalta:
 
 ### Tietokantadatan esittäminen EJS-templaten avulla
 
-Mikäli sovelluksessa käytetään EJS-sivupohjia, voidaan tietokannasta palautunut raakadata ohjata suoraan res.render\(\) -funktiolle ja antaa sivupohjan hoitaa datan parsiminen ja esittäminen.
+Mikäli sovelluksessa käytetään EJS-sivupohjia, voidaan tietokannasta palautunut raakadata ohjata suoraan res.render\(\) -funktiolle ja antaa sivupohjan hoitaa datan parsiminen ja esittäminen. Määritetään ensin ohjelman käyttöön sivupohjat sekä siihen liittyvät asetukset:
 
+```javascript
+// otetaan EJS käyttöön
+app.set("view engine", "ejs");
 
+// Tällä pakotetaan sivupohja tuottamaan sisennettyä, kaunista HTML:ää.
+// Tuotantokäytössä asetus voi olla false jolloin sivujen koko pienenee hieman
+app.locals.pretty = true;
+```
+
+Sitten määritellään EJS-template nimeltä leffat.ejs. Tämä sijoitetaan hakemistoon views/pages.
+
+```javascript
+<!-- Tiedoston nimi on leffat.ejs -->
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Leffat</h1>
+    <table border="1">
+      <!-- luodaan silmukka joka käy läpi taulu-muuttujan sisällön -->
+      <% for (var i=0; i < taulu.length; i++){ %>
+      <tr>
+        <td><%= taulu[i].title %></td>
+        <td><%= taulu[i].year %></td>
+        <td><img src='<%= taulu[i].poster %>'' height='30%'></td>
+      </tr>
+      <% } %>
+    </table>
+  </body>
+</html>
+
+```
+
+Tämän jälkeen lisätään ohjelman reittiin res.render\(\) -funktio, joka lähettää tulosdatan sivupohjalle ja rakentaa HTML-esityksen siitä. Huomaa, että tulosdata sijoitetaan taulu -nimiseen muuttujaan, jonka lata sivupohja pääsee siihen käsiksi.
+
+```javascript
+  app.get("/leffat", (req, res) => {
+      collection.find(query).toArray(function(err, results) {
+        console.log(results);
+        res.render("pages/leffat", { taulu: results });
+      });
+    });
+  }); // end app.listen
+```
 
 ### Lomakkeiden ja tietokannan yhteiskäyttö
 
