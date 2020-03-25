@@ -484,7 +484,9 @@ Ohjelman suoritus selaimessa näyttää seuraavalta:
 
 ### Tietokantadatan esittäminen EJS-templaten avulla
 
-sdf
+Mikäli sovelluksessa käytetään EJS-sivupohjia, voidaan tietokannasta palautunut raakadata ohjata suoraan res.render\(\) -funktiolle ja antaa sivupohjan hoitaa datan parsiminen ja esittäminen.
+
+
 
 ### Lomakkeiden ja tietokannan yhteiskäyttö
 
