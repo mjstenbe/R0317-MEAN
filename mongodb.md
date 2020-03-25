@@ -371,9 +371,11 @@ Kun yhteys on luotu, luodaan web-palvelin ja reitit:
   ////////////////////////////////
 ```
 
-Allaoleva esimerkkiohjelma on rakennettu "Tietokantahaun tekeminen" -otsikon alla esitettyä koodia täydentämällä. Olen yrittänyt jaotella ohjelmalohkot kommenttien avulla, joista näkyy mihin toimintaan mikäkin lohko liittyy.
+### Edelliset yhdistettynä toimivaksi ohjelmaksi 
 
-Ohjelman perusidea on se, että riveillä 11-38 luodaan tietokantayhteys Mongoon tavalliseen tapaan. Tietokantayhteyden parametrien määrittely vie suurimman osan koodiriveistä \(nämä voisi toki eriyttää omaan tiedostoonsa\). Tämän jälkeen riveillä 44-56 luodaan Expressin avulla web-palvelin ja sille muutama reitti.
+Esimerkkiohjelma on rakennettu "Tietokantahaun tekeminen" -otsikon alla esitettyä koodia täydentämällä. Olen yrittänyt jaotella ohjelmalohkot kommenttien avulla, joista näkyy mihin toimintaan mikäkin lohko liittyy.
+
+Ohjelman perusidea on se, että riveillä 11-38 luodaan tietokantayhteys Mongoon tavalliseen tapaan. Tietokantayhteyden parametrien määrittely vie suurimman osan koodiriveistä \(nämä voisi toki eriyttää omaan tiedostoonsa\). Tämän jälkeen riveillä 44-56 luodaan Expressin avulla web-palvelin ja sille muutama reitti. Reitti "/leffat" tulostaa tietokantadatan raakamuodossa selaimeen.
 
 ```javascript
 ////////////////////////////////////////////////////////////
