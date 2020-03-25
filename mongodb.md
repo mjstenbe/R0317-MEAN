@@ -24,7 +24,7 @@ Tämän sivun esimerkeissä käytetään MongoDB Atlas -pilvipalvelussa sijaitse
 
 Tietokannan käyttö näyttäytyy kehittäjälle yksinkertaisimmillaan terminaalikomentoina ja siihen tulostuvina tuloksina. Onneksi nykään on saatavilla näppäriä graafisia työkaluja, joilla paitsi datan selailu mutta myös hakujen tekeminen ja viilailu on huomattavasti helpompaa. Mongon kehittäjien tarjoama ilmainen työkalu on nimeltään Compass ja myös sen voi ladata tuotteen [kotisivuilta](https://www.mongodb.com/products/compass).
 
-![Kuva: MongoDB Compassin graafinen n&#xE4;kym&#xE4; tietokantaan.](.gitbook/assets/image%20%2820%29.png)
+![Kuva: MongoDB Compassin graafinen n&#xE4;kym&#xE4; tietokantaan.](.gitbook/assets/image%20%2821%29.png)
 
 ### Kyselyiden tekeminen
 
@@ -32,7 +32,7 @@ Mongo-tietokantaan tehdään kyselyjä erilaisilla funktioilla, joiden parametri
 
 Alla esimerkki find\(\) -funktion käytöstä, joka kohdistuu tietokantaolion users-kokoelmaan. Huomaa funktion parametrina saamat JSON-muotoiset hakukriteerit \(query\) age: { $gt : 18 } sekä kentät jotka tulosjoukkoon \(projection\) halutaan :  {name: 1, address: 1}.  Hakutuloksien määrää voidaan rajoittaa vielä limit\(\) -funktiolla, joka rajaa palautettavien tulosten määrän viiteen.
 
-![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](.gitbook/assets/image%20%2818%29.png)
+![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](.gitbook/assets/image%20%2819%29.png)
 
 ## MongoDB:n käyttäminen Nodessa
 
@@ -234,7 +234,7 @@ client.connect(err => {
 
 Tietoalkioden muokkaaminen tapahtuu updateOne\(\) tai updateMany\(\) -funktioiden avulla. Erona näissä on se, moneenko osumaan päivitys tehdään. Parametrina funktio saa hakuehdon, jolla päivitettävät alkiot valitaan sekä operaation, joka palautuneisiin riveihin kohdistetaan.
 
-![Kuva: UpdateMany\(\)-funktion rakenne.](.gitbook/assets/image%20%2824%29.png)
+![Kuva: UpdateMany\(\)-funktion rakenne.](.gitbook/assets/image%20%2826%29.png)
 
 Alla esimerkkikoodi, joka päivittää halutun alkion arvoja tietokannassa.
 
@@ -375,7 +375,7 @@ Kun yhteys on luotu, luodaan web-palvelin ja reitit:
 
 Esimerkkiohjelma on rakennettu "Tietokantahaun tekeminen" -otsikon alla esitettyä koodia täydentämällä. Olen yrittänyt jaotella ohjelmalohkot kommenttien avulla, joista näkyy mihin toimintaan mikäkin lohko liittyy.
 
-Ohjelman perusidea on se, että riveillä 11-38 luodaan tietokantayhteys Mongoon tavalliseen tapaan. Tietokantayhteyden parametrien määrittely vie suurimman osan koodiriveistä \(nämä voisi toki eriyttää omaan tiedostoonsa\). Tämän jälkeen riveillä 44-56 luodaan Expressin avulla web-palvelin ja sille muutama reitti. Reitti "/leffat" tulostaa tietokantadatan raakamuodossa selaimeen.
+Ohjelman perusidea on se, että riveillä 11-38 luodaan tietokantayhteys Mongoon tavalliseen tapaan. Tietokantayhteyden parametrien määrittely vie suurimman osan koodiriveistä \(nämä voisi toki eriyttää omaan tiedostoonsa\). Tämän jälkeen riveillä 44-56 luodaan Expressin avulla web-palvelin ja sille muutama reitti. 
 
 ```javascript
 ////////////////////////////////////////////////////////////
@@ -438,6 +438,49 @@ client.connect(err => {
 }); // connect-metodin lopetus
 
 ```
+
+Reitti "/leffat" tulostaa tietokantadatan raakamuodossa selaimeen.
+
+![Selaimessa n&#xE4;kyv&#xE4; JSON-data.](.gitbook/assets/image%20%288%29.png)
+
+### Datan parsiminen
+
+JSON-muotoisen datan parsiminen onnistuu käymällä se silmukassa läpi ja rakentamalla sen ympärille esim. sopiva HTML-taulukko. Parsiminen voidaan tehdä suoraan reitin sisällä tai esimerkiksi omassa funktiossaan, joka palauttaa rakennetun HTML-koodin kutsujalleen.
+
+Alla hieman muunneltu leffat-reitti, joka parsii tulokset ja lähettää HTML-muotoisen vastauksen selaimelle.
+
+```javascript
+    app.get("/leffat", (req, res) => {
+      collection.find(query).toArray(function(err, results) {
+        console.log(results);
+        var html = parse(results);
+        res.send(html);
+      });
+    });
+```
+
+Sitten vielä itse funktio, joka parsii tulosjoukon silmukassa, poimii sieltä kolme kenttää ja sijoittaa ne taulukon solujen \(TD\) sisälle. Elokuvan kuvasta rakennetaan IMG-elementti, jonka selain osaa ladata ja esittää.
+
+```javascript
+function parse(data) {
+  var html = "<table border='1'>";
+  for (var i = 0; i < data.length; i++) {
+    html += `<tr>
+                 <td>${data[i].title}</td>
+                 <td>${data[i].year}</td>
+                 <td><img src='${data[i].poster}' height='30%'></td>
+             </tr>`;
+  }
+  html += "</table>";
+  return html;
+}
+```
+
+Ohjelman suoritus selaimessa näyttää seuraavalta: 
+
+![](.gitbook/assets/image%20%2824%29.png)
+
+### 
 
 ### Tietokantadatan esittäminen EJS-templaten avulla
 
