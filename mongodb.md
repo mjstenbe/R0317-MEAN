@@ -78,7 +78,7 @@ client.connect( function (err,r)  {
 });
 ```
 
-### Tietokanhakujen tekeminen
+### Tietokantahakujen tekeminen
 
 Seuraavaksi tehdään yksinkertainen tietokantahaku MongoDB:hen.  Tietokantaan on ladattu Atlas-palvelun tarjoama esimerkkidatasetti, joka sisältää tietoja elokuvista. Ao. esimerkissä haetaan kaikki elokuvat joiden nimessä esiintyy sana "Jedi".
 
@@ -303,7 +303,139 @@ sd
 
 Edellä luotiin Node.js ohjelma, joka ottaa yhteyden tietokantaan ja tekee sinne kyselyitä. Tulokset on toistaiseksi kirjoitetu konsoliin komennolla console.log\(\). Käytännössä kehittäjä haluaa useimmiten esittää tulokset selaimessa. Katsotaan miten tällainen onnistuu.
 
+Alla ohjelman rakenteen hahmottelua korkealla tasolla. Se koostuu seuraavista osista:
 
+1. MondoDB:n yhteysparametrien määrittelyt
+2. Yhteyden luonti tietokantaan
+3. Yhteydenluontifunktion sisällä luodaan Expressin avulla web-palvelin
+4. Web-palvelimeen luodaan reittejä, jotka tekevät tietokantahakuja 
+
+Ohjelman kahdessa ensimmäisesä osassa määritellään tietokantayhteyden vaatimat parametrit ja luodaan tietokantayhteys:
+
+```javascript
+////////////////////////////////////////////////////////////
+// MongoDB: n koodi
+////////////////////////////////////////////////////////////
+
+// Tuodaan moduuli ohjelmaan
+const MongoClient = require("mongodb").MongoClient;
+
+// Määritellään salasana ja yhteysosoite tietokantaan (tämän saa MongoDB Atlas-palvelusta)
+const passwd = "demopass";
+const uri =
+  "mongodb+srv://dbuser:" +
+  passwd +
+  "@cluster0-6tein.mongodb.net/test?retryWrites=true&w=majority";
+
+// Luodaan uusi yhteysolio käyttäen edellä määriteltyä URI:a sekä
+// tarvittavia parametreja
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// Määritellään tietokantaan tehtävä kyselu JSON-oliona. Tässä voi käyttää
+// apuna esim. MondoDB Compass -työkalua. Tämä kysely hakee kaikkia elokuvia
+// joiden nimessä esiintyy sana "Jedi"
+var query = {
+  title: new RegExp("Jedi")
+};
+
+// Luodaan yhteys  tietokantaan nimeltä "sample_mflix" ja sieltä kokoelmaan "movies"
+client.connect(err => {
+  const collection = client.db("sample_mflix").collection("movies");
+  if (err) throw err;
+
+```
+
+Kun yhteys on luotu, luodaan web-palvelin ja reitit:
+
+```javascript
+  //////////////////////////////////////////
+  // Express - palvelimen luonti
+  //////////////////////////////////////////
+
+  app.listen(8081, () => {
+    // Luodaan reitit ja niiden toiminnallisuudet
+    app.get("/", function(req, res) {
+      res.send("Hello World!");
+    });
+
+    app.get("/leffat", (req, res) => {
+      collection.find(query).toArray(function(err, results) {
+        console.log(results);
+        res.json(results);
+      });
+    });
+  }); // end app.listen
+  ////////////////////////////////
+```
+
+Allaoleva esimerkkiohjelma on rakennettu "Tietokantahaun tekeminen" -otsikon alla esitettyä koodia täydentämällä. Olen yrittänyt jaotella ohjelmalohkot kommenttien avulla, joista näkyy mihin toimintaan mikäkin lohko liittyy.
+
+Ohjelman perusidea on se, että riveillä 11-38 luodaan tietokantayhteys Mongoon tavalliseen tapaan. Tietokantayhteyden parametrien määrittely vie suurimman osan koodiriveistä \(nämä voisi toki eriyttää omaan tiedostoonsa\). Tämän jälkeen riveillä 44-56 luodaan Expressin avulla web-palvelin ja sille muutama reitti.
+
+```javascript
+////////////////////////////////////////////////////////////
+// Express määrittelyt
+// Otetaan express-moduuli käyttöön
+var express = require("express");
+var app = express();
+
+////////////////////////////////////////////////////////////
+// MongoDB: n koodi
+////////////////////////////////////////////////////////////
+
+// Tuodaan moduuli ohjelmaan
+const MongoClient = require("mongodb").MongoClient;
+
+// Määritellään salasana ja yhteysosoite tietokantaan (tämän saa MongoDB Atlas-palvelusta)
+const passwd = "demopass";
+const uri =
+  "mongodb+srv://dbuser:" +
+  passwd +
+  "@cluster0-6tein.mongodb.net/test?retryWrites=true&w=majority";
+
+// Luodaan uusi yhteysolio käyttäen edellä määriteltyä URI:a sekä
+// tarvittavia parametreja
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// Määritellään tietokantaan tehtävä kyselu JSON-oliona. Tässä voi käyttää
+// apuna esim. MondoDB Compass -työkalua. Tämä kysely hakee kaikkia elokuvia
+// joiden nimessä esiintyy sana "Jedi"
+var query = {
+  title: new RegExp("Jedi")
+};
+
+// Luodaan yhteys  tietokantaan nimeltä "sample_mflix" ja sieltä kokoelmaan "movies"
+client.connect(err => {
+  const collection = client.db("sample_mflix").collection("movies");
+  if (err) throw err;
+
+  //////////////////////////////////////////
+  // Express - palvelimen luonti
+  //////////////////////////////////////////
+
+  app.listen(8081, () => {
+    // Luodaan reitit ja niiden toiminnallisuudet
+    app.get("/", function(req, res) {
+      res.send("Hello World!");
+    });
+
+    app.get("/leffat", (req, res) => {
+      collection.find(query).toArray(function(err, results) {
+        console.log(results);
+        res.json(results);
+      });
+    });
+  }); // end app.listen
+  ////////////////////////////////
+}); // connect-metodin lopetus
+
+```
 
 ### Tietokantadatan esittäminen EJS-templaten avulla
 
