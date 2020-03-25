@@ -536,6 +536,8 @@ Tämän jälkeen lisätään ohjelman reittiin res.render\(\) -funktio, joka lä
 
 Koodirivien määrän kasvaessa ohjelmat saattavat alkaa näyttää sekavilta ja niiden ylläpitotyö vaikeutuu hankalan luettavuutensa johdosta. Tämän vuoksi koodin modularisointi eli jakaminen osiin saattaa alkaa näyttää houkuttelevalta. Näin itse pääohjelma saadaan siistittyä. Katsotaan tästä muutama esimerkki.
 
+#### Funktiot
+
 Yksi mahdollisuus on luoda tietokantaan liittyvät toiminnallisuudet omana funktionaan, jolloin niiden käyttö onnistuu näppärästi funktiokutsun getResults\(\) avulla. Funktioon voidaan välittää parametrina hakusana, jolloin haku on helposti muunnetavissa. Toisena parametrina määritellään anonyymi funktio joka suoritetaan kun haku on tehty.
 
 ```javascript
@@ -675,7 +677,76 @@ Selaimen tuottama tulos on alla.
 
 ![](.gitbook/assets/image%20%2812%29.png)
 
+#### Moduulit
 
+Funktio voidaan vielä viedä oman moduulin sisään, joka tallennetaan erilliseen tiedostoon. Alla esimerkki siitä. Omat moduulit luodaan alihakemistoon modules ja ne voidaan tuoda pääohjelman käyttöön require-funktiolla. Reitin sisällä moduulin sisällä olevaa funktiota voidaan kutsua mongo.getData\(\) -syntaksilla. 
+
+```javascript
+// Tuodaan oma funktio itse luodusta moduulista, .js päätettä ei tarvitse
+var mongo = require("./modules/mongo");
+
+...
+
+app.get("/", function(req, res) {
+  var result = mongo.getData(function(err, result) {
+    //handle err, then you can render your view
+    console.log(result);
+    res.render("pages/index", { collection: result });
+  });
+});
+```
+
+Omat moduulit luodaan alihakemistoon modules. Tiedostoon määritellään ohjelmakoodia tavalliseen tapaan. Ne funktiot, jotka halutaan saattaa muiden kutsuttavaksi määritellään exports-määreellä. Alla luodaan siis julkinen getData\(\) -funktio, jota kutsumalla suoritetaan moduulin sisällä oleva getResult\(\) -metodi. 
+
+```javascript
+exports.getData = function getResult(callback) {
+
+...
+
+}
+```
+
+#### Reitit omaan tiedostoonsa
+
+Kun ohjelman alkaa syntyä useita reittejä, voidaan nekin siivota omaan tiedostoonsa.
+
+```javascript
+// Load routes from a file
+var routes = require("./routes/routes");
+app.use("/", routes);
+```
+
+Tiedostossa reitit määritellään tavalliseen tapaansa:
+
+```javascript
+var express = require("express");
+var movieCtrl = require("../movieCtrl");
+
+var router = express.Router();
+
+router.route("/").get(movieCtrl.getResults);
+router.route("/allmovies").post(movieCtrl.getAll);
+router.route("/selected").get(movieCtrl.getSelected);
+
+module.exports = router;
+```
+
+Omaan tiedostoonsa voidaan määritellä myös ns. controlleri, johon kootaan reittien toiminnallisuudet.
+
+```javascript
+module.exports = {
+  getResults: function(req, res) {
+    //do something
+  },
+  getAll: function(req, res) {
+    //do something
+  },
+  postSelected: function(req, res) {
+    //do something
+  }
+};
+
+```
 
 
 
