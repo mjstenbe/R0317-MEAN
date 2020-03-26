@@ -16,7 +16,7 @@ const client = new MongoClient(uri, {
 
 // Luodaan yhteys ja tulostetaan tieto virheestä tai onnistumisesta
 
-client.connect(err => {
+client.connect((err, r) => {
   if (err) throw err;
   else console.log("Connected!");
   client.close();
