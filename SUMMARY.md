@@ -10,6 +10,7 @@
   * [Lomakkeiden käsittely](express-sovelluskehys/lomakkeiden-kaesittely.md)
   * [AJAX-pyyntöjen lähettäminen ja käsittely](express-sovelluskehys/ajax-pyyntoejen-laehettaeminen-ja-kaesittely.md)
   * [Templatet eli sivupohjat](express-sovelluskehys/templatet-eli-sivupohjat.md)
+  * [Autentikointi ja sessioiden hallinta](express-sovelluskehys/autentikointi-ja-sessioiden-hallinta.md)
 * [Sovelluksen julkaiseminen Herokussa](sovelluksen-julkaiseminen-herokussa.md)
 * [MongoDB ja Node](mongodb.md)
 * [Mongoose ja olioita tietokantaan \(ORM\)](mongoose-ja-olioita-tietokantaan-orm.md)

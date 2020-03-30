@@ -233,13 +233,13 @@ Palvelimen lähettämä vastaus välitetään AJAX-olion reponse-kentässä taka
 
 Selaimista löytyvien kehittäjän työkalujen \(F12\) avulla voi olla mielenkiintoista seurata AJAX-pyynnön sielunelämää. Työkaluista tulee valita aktiiviseksi "Network" -välilehti.
 
-![Kuva: Kehitt&#xE4;j&#xE4;n ty&#xF6;kalut Chromessa.](../.gitbook/assets/image%20%289%29.png)
+![Kuva: Kehitt&#xE4;j&#xE4;n ty&#xF6;kalut Chromessa.](../.gitbook/assets/image%20%2810%29.png)
 
 Headers-välilehden alta löytyvät sekä lähetetty data että saapuneen vastauksen sisältö.
 
-![Kuva: AJAX-pyyn&#xF6;n mukana l&#xE4;hetetty data.](../.gitbook/assets/image%20%2812%29.png)
+![Kuva: AJAX-pyyn&#xF6;n mukana l&#xE4;hetetty data.](../.gitbook/assets/image%20%2814%29.png)
 
-![Kuva: AJAX-pyynn&#xF6;n palauttama vastaus.](../.gitbook/assets/image%20%288%29.png)
+![Kuva: AJAX-pyynn&#xF6;n palauttama vastaus.](../.gitbook/assets/image%20%289%29.png)
 
 Koko HTML-sivu JavaScript-koodin kera löytyy vielä alta.
 
