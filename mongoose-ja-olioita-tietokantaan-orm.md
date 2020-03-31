@@ -4,7 +4,7 @@
 
 Aiemmin tehdyt tietokantakyselyt osoittivat että niiden kirjoittaminen tuottaa kymmeniä rivejä ns. geneeristä koodia, joka toistuu aina kun tietokantaa halutaan käyttää. Toisteista koodia voidaan välttää kirjoittamalla funktioita ja moduuleita, joiden sisälle kootaan tavanomaisimpia toiminallisuuksia.
 
-Tietokannan käyttöä varten on luotu valmiita kirjastoja jotka nopeuttavat ja helpottavat niiden käyttöä monella tapaa. Näistä tunnetuin lienee [Mongoose](https://mongoosejs.com/). Se tarjoaa valmiita funktioita tietokannan käyttöä varten, mutta mahdollistaa myös skeemojen käytön sekä oliopohjaisen tiedon käsittelyn tietokantaoperaatioissa.
+Tietokannan käyttöä varten on myös luotu valmiita kirjastoja jotka nopeuttavat ja helpottavat niiden käyttöä monella tapaa. Näistä tunnetuin lienee [Mongoose](https://mongoosejs.com/). Se tarjoaa valmiita funktioita tietokannan käyttöä varten, mutta mahdollistaa myös skeemojen käytön sekä oliopohjaisen tiedon käsittelyn tietokantaoperaatioissa.
 
 ## Asennus ja käyttöönotto
 
@@ -66,7 +66,7 @@ Tiedon lisääminen tietokantaan tapahtuu luomalla ensin uusi User-tyyppinen oli
 var newUser = new User({
   username: "mattivirtanen",
   password: 1234,
-  birthday: new Date("24-12-2000")
+  birthday: '2000-12-24'
 });
 
 // Tallennetaan olio tietokantaan
@@ -102,15 +102,15 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 // Määritellään User-niminen Schema, eli tietomalli taulukkoon tallennettavista olioista
 const User = mongoose.model("User", {
   username: String,
-  password: String,
+  password: Number,
   birthday: Date
 });
 
 // Luodaan uusi tallennettava olio
 var newUser = new User({
   username: "mattivirtanen",
-  password: "demopass"
-  // birthday: new Date("24-12-2000")
+  password: 1234,
+  birthday: '2000-12-24'
 });
 
 // Tallennetaan olio tietokantaan
@@ -119,4 +119,111 @@ newUser.save(function(err, user) {
   console.log(user);
 });
 ```
+
+## Tiedon hakeminen ja kyselyiden tekeminen
+
+Kyselyiden tekeminen tietokantaan tapahtuu samalla tapaa kuin tiedon tallentaminenkin. Ideana on, että User-skeemasta luotu malli \(model\) osaa tallentamisen \(eli save-funktion\) lisäksi myös hakea tietoa kannasta. Tähän voidaan käyttää käytetään **find\(\)** -metodia, joskin Mongoose tarjoaa myös monipuolisempia työkaluja kuten **findById\(\), findOneAndUpdate\(\)** sekä **findOneAndDelete\(\)**. Kaikki metodit on kuvattu [täällä](https://mongoosejs.com/docs/api/model.html#model_Model.find).
+
+Ao. esimerkissä tehdään useampia hakuja tietokantaan käyttäen erilaisia Mongoosen tarjoamia. metodeja
+
+```javascript
+// Otetaan moduuli käyttöön
+var mongoose = require("mongoose");
+var uri =
+  "mongodb+srv://dbuser:demopass@cluster0-6tein.mongodb.net/mongoosedemos";
+
+// Yhdistetään tietokantaan
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Määritellään User-niminen Schema, eli tietomalli taulukkoon tallennettavista olioista
+const User = mongoose.model("User", {
+  username: String,
+  password: Number,
+  birthday: Date
+});
+
+// Haetaan kaikki User-tyyppiset oliot tietokannasta
+User.find({}, function(err, results) {
+  console.log(results);
+});
+
+// Haetaan oliot joissa username=masamainio
+User.find({ username: "masamainio" }, function(err, results) {
+  console.log(results);
+});
+
+// Etsitään queryn määrittelemä olio ja päivitetään se newdata-muuttujan arvoilla
+var query = { username: "mattivirtanen" };
+var newdata = { username: "Uusi demokäyttäjä", password: 9999 };
+// Metodi palauttaa muuttuneen arvon jos new=true, muulloin alkup. arvon
+var options = { new: true };
+
+// Ajetaan itse fuktio
+User.findOneAndUpdate(
+  query,
+  newdata,
+  options,
+  function(err, results) {
+    console.log(results);
+  }
+);
+
+```
+
+## Toimintoja tietomalleihin
+
+Mongoose mahdollistaa myös toiminnallisuuksien luomisen osaksi skeemoja. Näillä saadaan monipuolisuutta ja olio-tyyppistä toiminnallisuutta niiden käyttöön. Ideana on, että esitellään skeema ensin erikseen omaan muuttujaansa - aiemmin se on tehty osana mongoose.model\(\) -komentoa. Tämän jälkeen määritellään skeemaan yksi tai useampia metodeja - aivan kuten olio-ohjelmoinnissa luokalle voidaan tehdä. Tämän jälkeen jokainen tietokannasta haettu olio tai sinne tallennettava olio omaa nämä metodit ja niitä voidaan kutsua tarpeen mukaan.
+
+Alla esimerkki funktion määritellystä osaksi skeemaa.
+
+```javascript
+// Otetaan moduulit käyttöön
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+
+var uri =
+  "mongodb+srv://dbuser:demopass@cluster0-6tein.mongodb.net/mongoosedemos";
+  
+// Määritellään skeema erikseen
+var userSchema = new Schema({
+  username: String,
+  password: Number,
+  birthday: Date
+});
+
+// Lisätään skeemaan metodit - huomaa, nämä pitää tehdä ennen mongoose.model
+// komentoa!
+userSchema.methods.sayHi = function() {
+  var greeting =
+    "Hello, my name is " + this.username + ". I was born on " + this.birthday;
+  console.log(greeting);
+};
+
+// Määritellään User-niminen Schema, eli tietomalli taulukkoon tallennettavista olioista
+const User = mongoose.model("User", userSchema);
+
+// Yhdistetään tietokantaan
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Luodaan uusi tallennettava olio
+var newUser = new User({
+  username: "fannyfunktio",
+  password: 4321,
+  birthday: "2000-12-21"
+});
+
+// newUser olioilla on nyt funktio sayHi() 
+newUser.sayHi();
+
+// Tehdään tietokantahaku. Kaikki palautuvat tiedot ovat User-olioita ja niillä ola sayHi()-metodi
+
+User.find({}, function(err, results) {
+    // Käydään tulostaulu läpi ja kutsutaan jokaisen olion sayHi() mteodia
+    for (var i = 0; i < results.length; i++) {
+    results[i].sayHi();
+  }
+});
+```
+
+
 
