@@ -319,9 +319,9 @@ Edellisessä esimerkissä skeema validoitiin koodissa Mongoosen avulla. On syyt�
 
 ![](.gitbook/assets/image%20%2819%29.png)
 
-Sivulla aukeavaan ikkunaan voidaan määritellä JSON-muotoinen skeema, joka määrittelee kentttiin kohdistuvat tarkistukset. Idea on täsmälleen sama kuin Mongoosen kanssa, ainostaan kenttien määreet ja operaattorit ovat hieman erilaiset. Tarkemmin asiasta kerrotaan mm. [täällä](https://docs.mongodb.com/manual/core/schema-validation/#specify-validation-rules).
+Sivulla aukeavaan ikkunaan voidaan määritellä JSON-muotoinen skeema, joka määrittelee kentttiin kohdistuvat tarkistukset. Idea on täsmälleen sama kuin Mongoosen kanssa, ainostaan kenttien määreet ja operaattorit ovat hieman erilaiset. Tarkemmin asiasta kerrotaan mm. [täällä](https://docs.mongodb.com/compass/master/validation/).
 
-
+Tietokannan toimesta voidaan myös määritellä mitä sääntöjen rikkomisesta seuraa. ValidationAction-parametrin WARN asetus sallii sääntöjen rikkomisen mutta varoittaa siitä ja ERROR puolestaan heittää virheen eikä suostu tallentamaan vääränmuotoista tietoa. 
 
 ```javascript
 {
@@ -344,7 +344,7 @@ Sivulla aukeavaan ikkunaan voidaan määritellä JSON-muotoinen skeema, joka mä
       bsonType: 'int',
       minimum: 1900,
       maximum: 2020,
-      description: 'must be an integer in [ 2017, 3017 ] and is required'
+      description: 'must be an integer in [ 1900, 2020 ] and is required'
     }
   },
    validationAction: "warn" // warn OR erro
