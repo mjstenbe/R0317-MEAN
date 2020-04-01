@@ -323,6 +323,8 @@ Sivulla aukeavaan ikkunaan voidaan määritellä JSON-muotoinen skeema, joka mä
 
 Tietokannan toimesta voidaan myös määritellä mitä sääntöjen rikkomisesta seuraa. ValidationAction-parametrin WARN asetus sallii sääntöjen rikkomisen mutta varoittaa siitä ja ERROR puolestaan heittää virheen eikä suostu tallentamaan vääränmuotoista tietoa. 
 
+Validationlevel -parametrillä määritetään kohdistuuko validointi jo olemassaoleviin dokumentteihin \(strict\) vaiko vain uusiin lisäyksiin \(moderate\). 
+
 ```javascript
 {
   required: [
