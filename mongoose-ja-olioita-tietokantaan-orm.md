@@ -225,5 +225,129 @@ User.find({}, function(err, results) {
 });
 ```
 
+## Skeeman kenttien validointi
 
+Mongoose tarjoaa myös mahdollisuuden liittää skeemoihin kenttien validointia, eli kenttien sisällön oikeellisuuden tarkastusta. Tämä saadan aikaan lisäämällä skeeman määrittelyyn sopivia tarkenteita. Näistä lisätietoja löyty [täältä](https://mongoosejs.com/docs/validation.html). Mikäli validointi tuottaa virheen, se palautuu save\(\) -funktion error -parametriin.
+
+Alla tarkennetaan aiemimn luotua käyttäjää kuvaavaa skeemaa määrittelemällä kenttiin sopivia tarkenteita. Esim. username-kenttä on määritelty pakolliseksi \(required\) ja sen minipituudeksi on märitelty 6 merkkiä \(minlength\). Vastaavasti password ja birthday -kentille on asetettu min ja max -arvot. 
+
+```javascript
+// Otetaan moduuli käyttöön
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+
+// Määritellään skeemaan kentille validaattorit
+var userSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
+    minlength: 6
+  },
+  password: {
+    type: Number,
+    min: [1000, "Liian pieni arvo"],
+    max: [99999, "Liian suuri arvo"]
+  },
+  birthday: {
+    type: Date,
+    min: "1900-01-01",
+    max: "2020-03-31"
+  }
+});
+```
+
+Jos em. skeeman pohjalta yritetään nyt tallentaa seuraava olio, tuottaa validaattori virheilmoituksen.
+
+```javascript
+...
+
+// Luodaan uusi tallennettava olio
+var newUser = new User({
+  username: "",
+  password: 1234,
+  birthday: "2000-12-21"
+});
+
+// Luodaan toinen tallennettava olio
+var newUser2 = new User({
+  username: "teppotestaaja",
+  password: 999,
+  birthday: "2000-12-21"
+});
+
+...
+
+// Tallennetaan olio tietokantaan, jos virhe niin tulostetaan sen tiedot
+
+newUser
+  .save()
+  .then(() => console.log("Saved "))
+  .catch(err => {
+    console.log("Validointivirhe: ");
+    console.log(err.message);
+  });
+
+```
+
+Ohjelman suorittaminen tuottaa seuraavan tulosteen:
+
+```javascript
+Validointivirhe:
+User validation failed: username: Path `username` is required.
+
+Validointivirhe:
+User validation failed: password: Liian pieni arvo
+```
+
+Tarvittaessa skeeman voi validoida myös jo ennen tallennusta kutsumalla validateSync\(\) -funktiota.
+
+```javascript
+var error = newUser.validateSync();
+console.log("Tarkastettiin jo ennen tallennusta: \n" + error);
+```
+
+Komento tuottaa seuraavan tulostuksen:
+
+```javascript
+Tarkastettiin jo ennen tallennusta: 
+ValidationError: username: Path `username` is required.
+```
+
+## Skeeman validointi MongoDB:ssä
+
+Edellisessä esimerkissä skeema validoitiin koodissa Mongoosen avulla. On syytä mainita vielä mahdollisuus määritellä skeemalle validointifunktioita tietokannan toimesta MongoDB:ssä. Tämä tapahtuu Mongo Compassissa kokoelman välilehdellä nimeltä "Validate". 
+
+![](.gitbook/assets/image%20%2819%29.png)
+
+Sivulla aukeavaan ikkunaan voidaan määritellä JSON-muotoinen skeema, joka määrittelee kentttiin kohdistuvat tarkistukset. Idea on täsmälleen sama kuin Mongoosen kanssa, ainostaan kenttien määreet ja operaattorit ovat hieman erilaiset. Tarkemmin asiasta kerrotaan mm. [täällä](https://docs.mongodb.com/manual/core/schema-validation/#specify-validation-rules).
+
+
+
+```javascript
+{
+  required: [
+    'username'
+  ],
+  properties: {
+    username: {
+      bsonType: 'string',
+      description: 'must be a string and is required',
+      minLength: 6
+    },
+    password: {
+      bsonType: 'int',
+      description: 'must be int ',
+      minimum: 999,
+      maximum: 9999
+    },
+    birthyear: {
+      bsonType: 'int',
+      minimum: 1900,
+      maximum: 2020,
+      description: 'must be an integer in [ 2017, 3017 ] and is required'
+    }
+  },
+   validationAction: "warn" // warn OR erro
+}
+```
 

@@ -77,7 +77,7 @@ console.log(data.toString());
 
 Ylläolevan koodin suorittaminen tuottaa seuraavanlaisen tulostuksen:
 
-![Virheilmoitus try-catch -lohkossa k&#xE4;siteltyn&#xE4;.](../.gitbook/assets/image%20%2819%29.png)
+![Virheilmoitus try-catch -lohkossa k&#xE4;siteltyn&#xE4;.](../.gitbook/assets/image%20%2820%29.png)
 
 ## Tiedostojen käsittely \(asynkronisesti\)
 
