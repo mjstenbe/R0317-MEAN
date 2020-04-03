@@ -1,10 +1,12 @@
-# Mongoose ja olioita tietokantaan \(ORM\)
+# Mongoose ja olioita tietokantaan
 
 ## Yleistä
 
-Aiemmin tehdyt tietokantakyselyt osoittivat että niiden kirjoittaminen tuottaa kymmeniä rivejä ns. geneeristä koodia, joka toistuu aina kun tietokantaa halutaan käyttää. Toisteista koodia voidaan välttää kirjoittamalla funktioita ja moduuleita, joiden sisälle kootaan tavanomaisimpia toiminallisuuksia.
+Aiemmin tehdyt tietokantakyselyt osoittivat että niiden kirjoittaminen tuottaa kymmeniä rivejä ns. geneeristä koodia, joka toistuu aina kun tietokantaa halutaan käyttää. Toisteista koodia voidaan välttää kirjoittamalla funktioita ja moduuleita, joiden sisälle kootaan tavanomaisimpia toiminallisuuksia. Silti koodia syntyy paljon.
 
-Tietokannan käyttöä varten on myös luotu valmiita kirjastoja jotka nopeuttavat ja helpottavat niiden käyttöä monella tapaa. Näistä tunnetuin lienee [Mongoose](https://mongoosejs.com/). Se tarjoaa valmiita funktioita tietokannan käyttöä varten, mutta mahdollistaa myös skeemojen käytön sekä oliopohjaisen tiedon käsittelyn tietokantaoperaatioissa.
+> _Let's face it, **writing MongoDB validation, casting and business logic boilerplate is a drag**. That's why we wrote Mongoose. -- Mongoose verkkosivut._
+
+ Tietokannan käyttöä varten on myös luotu valmiita kirjastoja jotka nopeuttavat ja helpottavat niiden käyttöä monella tapaa. Näistä tunnetuin lienee [Mongoose](https://mongoosejs.com/). Se tarjoaa valmiita funktioita tietokannan käyttöä varten, mutta mahdollistaa myös skeemojen käytön sekä oliopohjaisen tiedon käsittelyn tietokantaoperaatioissa. 
 
 ## Asennus ja käyttöönotto
 

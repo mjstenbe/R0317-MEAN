@@ -13,7 +13,7 @@
   * [Autentikointi ja sessioiden hallinta](express-sovelluskehys/autentikointi-ja-sessioiden-hallinta.md)
 * [Sovelluksen julkaiseminen Herokussa](sovelluksen-julkaiseminen-herokussa.md)
 * [MongoDB ja Node](mongodb.md)
-* [Mongoose ja olioita tietokantaan \(ORM\)](mongoose-ja-olioita-tietokantaan-orm.md)
+* [Mongoose ja olioita tietokantaan](mongoose-ja-olioita-tietokantaan-orm.md)
 * [REST API:n luominen](rest-api-n-luominen.md)
 * [Käyttöliittymän rakentaminen Nodessa: React.js](kaeyttoeliittymaen-rakentaminen-react.js.md)
 
