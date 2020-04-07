@@ -2,11 +2,21 @@
 
 ## Yleistä
 
-API \(Application Programming Interface\), tarkoittaa käytännössä sovellusrajapintaa, eli niitä komentoja joilla sovellukselta voi pyytää toimintoja tai palveluita. Viime vuosina API-termi on kuitenkin omittu enenevissä määrin viittaamaan nimenomaisesti REST-pohjaisiin rajapintoihin, esimerkiksi API-taloudesta puhuttaessa. 
+API \(Application Programming Interface\), tarkoittaa käytännössä sovellusrajapintaa, eli niitä komentoja joilla sovellukselta voi pyytää toimintoja tai palveluita. Viime vuosina API-termi on kuitenkin omittu enenevissä määrin viittaamaan nimenomaisesti REST-pohjaisiin rajapintoihin joita käytetään web-sovelluksissa, esimerkiksi API-taloudesta puhuttaessa. API:t voidaan nähdä myös sovelluksille suunniteltuina käyttöliittyminä tietojärjestelmiin.
 
- Lähes kaikki verkossa tai mobiililaitteessa ajettavat sovellukset hyödyntävät verkon kautta haettua dataa, oli sitten kyseessä peli, uutissivusto tai sääpalvelu. API:t ovat se väylä jonka kautta järjestelmät voivat tarpeellisia tietoja keskenään vaihtaa. Voisi jopa sanoa, että API:t pitävät modernin webin ja mobiilisovellukset toiminnassa. 
+Lähes kaikki verkossa tai mobiililaitteessa ajettavat sovellukset hyödyntävät verkon kautta haettua dataa, oli sitten kyseessä peli, uutissivusto tai sääpalvelu. API:t ovat se väylä jonka kautta järjestelmät voivat vaihtaa tarpeellisia tietoja keskenään. Voisi jopa sanoa että API:t pitävät modernin webin ja mobiilisovellukset toiminnassa. Kun puhutaan[ avoimesta datasta](https://blog.digia.com/avoin-data-julkinen-sektori) niin REST API:t ovat se konkreettinen infrastruktuuri, jonka avulla dataa voidaan hyödyntää ja siirtää paikasta toiseen.
 
-Kun puhutaan[ avoimesta datasta](https://blog.digia.com/avoin-data-julkinen-sektori) niin REST API:t ovat se konkreettinen infrastruktuuri, jonka avulla dataa voidaan hyödyntää ja siirtää paikasta toiseen.
+Alla olevassa taulukossa on koottu esimerkkejä verkosta löytyvistä avoimista rajapinnoista, jotka tarjoavat dataa halukkaille. Kattavia listoja avoimista apeista löytyy mm. [täältä](https://github.com/public-apis/public-apis).
+
+| Kehittäjä | Osoite | Sisältö |
+| :--- | :--- | :--- |
+| Spotify API | [https://developer.spotify.com/web-api/](https://developer.spotify.com/web-api/
+) | Kaikki palvelun musiikkidata |
+| HSL | [https://www.hsl.fi/en/opendata](https://www.hsl.fi/en/opendata
+) | Aikataulut ja liikennedata, reittiopas |
+| OpenWeatherMap  | [https://openweathermap.org/api](https://openweathermap.org/api) | Globaali säädata |
+| Lufthansa Open | [https://developer.lufthansa.com/docs](https://developer.lufthansa.com/docs
+) | Lufthansan lentodata |
 
 ## REST
 
