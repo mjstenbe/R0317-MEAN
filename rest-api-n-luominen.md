@@ -2,9 +2,9 @@
 
 ## Yleistä
 
-API \(Application Programming Interface\), tarkoittaa käytännössä sovellusrajapintaa, eli niitä komentoja joilla sovellukselta voi pyytää toimintoja tai palveluita. Viime vuosina API-termi on kuitenkin omittu enenevissä määrin viittaamaan nimenomaisesti REST-pohjaisiin rajapintoihin joita käytetään web-sovelluksissa, esimerkiksi API-taloudesta puhuttaessa. API:t voidaan nähdä myös sovelluksille suunniteltuina käyttöliittyminä tietojärjestelmiin.
+API \(Application Programming Interface\), tarkoittaa käytännössä sovellusrajapintaa, eli niitä komentoja joilla sovellukselta voi pyytää toimintoja tai palveluita. Viime vuosina API-termi on kuitenkin omittu enenevissä määrin viittaamaan nimenomaisesti REST-pohjaisiin rajapintoihin joita käytetään web-sovelluksissa. API:t voidaan nähdä myös sovelluksille suunniteltuina käyttöliittyminä tietojärjestelmiin.
 
-Lähes kaikki verkossa tai mobiililaitteessa ajettavat sovellukset hyödyntävät verkon kautta haettua dataa, oli sitten kyseessä peli, uutissivusto tai sääpalvelu. API:t ovat se väylä jonka kautta järjestelmät voivat vaihtaa tarpeellisia tietoja keskenään. Voisi jopa sanoa että API:t pitävät modernin webin ja mobiilisovellukset toiminnassa. Kun puhutaan[ avoimesta datasta](https://blog.digia.com/avoin-data-julkinen-sektori) niin REST API:t ovat se konkreettinen infrastruktuuri, jonka avulla dataa voidaan hyödyntää ja siirtää paikasta toiseen.
+Lähes kaikki verkossa tai mobiililaitteessa ajettavat sovellukset hyödyntävät verkon kautta haettua dataa, oli sitten kyseessä lentojen tai hotellien varaukseen keskittyvä palvelu, uutissivusto tai sääpalvelu. API:t ovat se väylä jonka kautta järjestelmät voivat vaihtaa tarpeellisia tietoja keskenään. Voisi jopa sanoa että API:t pitävät modernin webin ja mobiilisovellukset toiminnassa. API:en ympärille on syntynyt mielenkiintoisia ilmiöitä kuten API-talous sekä Avoin Data \(Open Data\). 
 
 Alla olevassa taulukossa on koottu esimerkkejä verkosta löytyvistä avoimista rajapinnoista, jotka tarjoavat dataa halukkaille. Kattavia listoja avoimista apeista löytyy mm. [täältä](https://github.com/public-apis/public-apis).
 
@@ -24,9 +24,9 @@ Käytännössä REST \(Representational State Transfer\) on tapa järjestää so
 
 REST:issä on kyse resursseista ja resurssien operoinnista HTTP-metodien avulla. Resursseja käsitellään protokollan tarjoamilla metodeilla, joista käytetyimmät ovat GET, POST, DELETE, UPDATE, PATCH. 
 
-Yksinkertaistettuna näitä metodeja voisi verrata tietokannan käsittelyyn liittyviin CRUD \(create, read, update, delete\) komentoihin. Esimerkiksi HTTP:n GET pyyntö osoitteeseen [http://api.example.com/users](http://api.example.com/users)  voisi palauttaa listan järjestelmän tietokantaan tallennetuista käyttäjistä. 
+Yksinkertaistettuna näitä metodeja voisi verrata tietokannan käsittelyyn liittyviin CRUD \(create, read, update, delete\) komentoihin. Esimerkiksi selaintenkin sivupyynnöissä käyttämä HTTP:n GET pyyntö osoitteeseen [http://api.example.com/users](http://api.example.com/users)  voisi palauttaa listan järjestelmän tietokantaan tallennetuista käyttäjistä. 
 
-Vastaavasti lähettämällä HTTP:n POST-komennolla käyttäjän tiedot vaikkapa XML tai JSON formaatissa osoitteeseen [http://api.example.com/addusers](http://api.example.com/users), voitaisiin järjestelmään luoda uusi käyttäjä. 
+Vastaavasti lHTTP:n POST-komennolla käyttäjän tiedot voidaan lähettää XML tai JSON formaatissa osoitteeseen [http://api.example.com/addusers](http://api.example.com/users), joka puolestaan luo niiden pohjalta tietokantaan uuden käyttäjän. 
 
 DELETE-metodilla voitaisiin poistaa käyttäjä yksilöimällä käyttäjän tunniste osana pyyntöä \(esim. [http://api.example.com/api/delete/2](http://127.0.0.1:8081/api/delete/2
 )\) ja PUT sekä PATCH tarjoavat keinon olemassaolevan datan päivittämiseen. 
