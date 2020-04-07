@@ -26,7 +26,7 @@ REST:issä on kyse resursseista ja resurssien operoinnista HTTP-metodien avulla.
 
 Yksinkertaistettuna näitä metodeja voisi verrata tietokannan käsittelyyn liittyviin CRUD \(create, read, update, delete\) komentoihin. Esimerkiksi selaintenkin sivupyynnöissä käyttämä HTTP:n GET pyyntö osoitteeseen [http://api.example.com/users](http://api.example.com/users)  voisi palauttaa listan järjestelmän tietokantaan tallennetuista käyttäjistä. 
 
-Vastaavasti lHTTP:n POST-komennolla käyttäjän tiedot voidaan lähettää XML tai JSON formaatissa osoitteeseen [http://api.example.com/addusers](http://api.example.com/users), joka puolestaan luo niiden pohjalta tietokantaan uuden käyttäjän. 
+Vastaavasti HTTP:n POST-komennolla käyttäjän tiedot voidaan lähettää XML tai JSON formaatissa osoitteeseen [http://api.example.com/addusers](http://api.example.com/users), joka puolestaan luo niiden pohjalta tietokantaan uuden käyttäjän. 
 
 DELETE-metodilla voitaisiin poistaa käyttäjä yksilöimällä käyttäjän tunniste osana pyyntöä \(esim. [http://api.example.com/api/delete/2](http://127.0.0.1:8081/api/delete/2
 )\) ja PUT sekä PATCH tarjoavat keinon olemassaolevan datan päivittämiseen. 
