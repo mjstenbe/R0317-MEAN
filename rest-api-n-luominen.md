@@ -22,21 +22,26 @@ Alla olevassa taulukossa on koottu esimerkkejä verkosta löytyvistä avoimista 
 
 Käytännössä REST \(Representational State Transfer\) on tapa järjestää sovellusten välinen kommunikointi Internetissä selaintenkin käyttämää, melko yksinkertaista HTTP-protokollaa käyttäen. 
 
-REST:issä on kyse resursseista ja resurssien operoinnista http-metodien avulla. Resurssi on se /-kauttaviivalla erotettu osa URL:ia joka tulee domain nimen jälkeen. Vaikkapa siis mielikuvituksellinen lista käyttäjistä [http://api.example.com/users](http://api.example.com/users) jossa /users on se varsinainen manipuloitava resurssi. Resursseja käsitellään HTTP-protokollan tarjoamilla metodeilla, joista käytetyimmät ovat GET, POST, DELETE, UPDATE, PATCH. 
+REST:issä on kyse resursseista ja resurssien operoinnista HTTP-metodien avulla. Resursseja käsitellään protokollan tarjoamilla metodeilla, joista käytetyimmät ovat GET, POST, DELETE, UPDATE, PATCH. 
 
-Yksinkertaistettuna noita metodeja voisi verrata tietokannan CRUD \(create, read, update, delete\) komentoihin. Esimerkiksi pyyntö HTTP:n GET [http://api.example.com/users](http://api.example.com/users)  voisi palauttaa listan käyttäjistä. 
+Yksinkertaistettuna näitä metodeja voisi verrata tietokannan käsittelyyn liittyviin CRUD \(create, read, update, delete\) komentoihin. Esimerkiksi HTTP:n GET pyyntö osoitteeseen [http://api.example.com/users](http://api.example.com/users)  voisi palauttaa listan järjestelmän tietokantaan tallennetuista käyttäjistä. 
 
-Vastaavasti lähettämällä HTTP:n POST-komennolla käyttäjän tiedot vaikkapa XML tai JSON formaatissa samaiseen osoitteeseen voitaisiin luoda uusi käyttäjä. 
+Vastaavasti lähettämällä HTTP:n POST-komennolla käyttäjän tiedot vaikkapa XML tai JSON formaatissa osoitteeseen [http://api.example.com/addusers](http://api.example.com/users), voitaisiin järjestelmään luoda uusi käyttäjä. 
 
-DELETE-metodilla voitaisiin poistaa käyttäjä yksilöimällä käyttäjän tunniste pyynnön osoitteessa ja niin edelleen. Resurssi ja sen perässä mahdollisesti olevat tarkenteet kertovat siis kohteen, jota käsitellään ja käytetty HTTP-metodi kertoo, mitä tuolle kohteelle tehdään.
+DELETE-metodilla voitaisiin poistaa käyttäjä yksilöimällä käyttäjän tunniste osana pyyntöä \(esim. [http://api.example.com/api/delete/2](http://127.0.0.1:8081/api/delete/2
+)\) ja PUT sekä PATCH tarjoavat keinon olemassaolevan datan päivittämiseen. 
 
-![Er&#xE4;&#xE4;n REST-rajapinnan kuvaus UML-muodossa \(L&#xE4;hde: https://firstinfinity.wordpress.com/modeling\_rest\_web\_services/\)](.gitbook/assets/image%20%2812%29.png)
+Resurssi ja sen perässä mahdollisesti olevat tarkenteet kertovat siis kohteen, jota käsitellään ja käytetty HTTP-metodi kertoo, mitä tuolle kohteelle tehdään. Allaolevaan taulukkoon on koottu HTTP-verbit sekä niiden kuvaukset. Lisäksi siitä on nähtävissä palautuskoodit, joita HTTP-protokolla käyttää tiedottaessaan pyynnön lähettäjää operaation onnistumisesta.
+
+![HTTP-operaatiot ja niiden selitykset koodeineen \(https://www.restapitutorial.com/\)](.gitbook/assets/image%20%2812%29.png)
 
 ## Node.js ja REST APIt
 
 Node.js sopii erinomaisesti rajapintojen toteuttamiseen palvelimella. Se on paitsi nopea ja tehokas tekemisissään, mutta mahdollisuus luoda helposti reittejä sekä kommunikoida ja välittää JSON-dataa tietokannalle tekevät kehittämisestä melko helppoa.
 
 Aiemmin materiaalissa on jo esitelty oikeastaan kaikki ne toiminnallisuudet mitä tarvitse REST API:n rakentamiseen. Katsotaan seuraavaksi vielä kootusti miten yksinkertainen rajapinta toteutetaan.
+
+![Er&#xE4;&#xE4;n REST-rajapinnan kuvaus UML-muodossa \(L&#xE4;hde: https://firstinfinity.wordpress.com/modeling\_rest\_web\_services/\)](.gitbook/assets/image%20%2813%29.png)
 
 ## Luotavan rajapinnan hahmottelua
 

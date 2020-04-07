@@ -136,7 +136,7 @@ app.post("/kirjaudu", function(req, res) {
 
 Konsoliin tulostuu tieto POST-pyynnön datasta.
 
-![](../.gitbook/assets/image%20%2816%29.png)
+![](../.gitbook/assets/image%20%2817%29.png)
 
 Alla vielä ohjelma kokonaisuudessaan.
 
