@@ -49,6 +49,50 @@ lorem
 
 ## Reittien luominen
 
+Reittien luominen API:a varten on tutua jo aiemmista Expressiltä tehdyistä sovelluksista. Kaksi ensimmäistä reittiä perustuvat tuttuihin GET ja POST -verbeihin. Sen sijaan kaksi jälkimmäistä reittiä toteuttavat PUT \(tiedon päivitys\) ja DELETE operaatiot, joita ei aiemmin tässä materiaalissa ole hyödynnetty. Niiden kohdalla reitin perään lisätään merkintä **:id** joka kuvaa vaihtuvaa parametria reitin osana. Tämä parametri voidaan lukea koodissa talteen ja esim. päivitys tai poisto-operaatio tehdään sen perusteella. 
+
+```javascript
+// Otetaan express-moduuli käyttöön
+var express = require("express");
+var app = express();
+
+// Luodaan reitit ja niiden toiminnallisuudet
+
+ // Tulostetaan kaikki leffat
+app.get("/api/leffat", function(req, res) {
+ res.send("Tulostetaan kaikki leffat.")
+});
+
+// Lisätään yksi leffa
+app.post("/api/lisaa", function(req, res) {
+ res.send("Lisätään leffa.")
+});
+
+// Muokataan leffan tietoja id-numeron perusteella
+app.put("/api/muokkaa:id", function(req, res) {
+ res.send("Muokataan leffaa id:llä.")
+});
+
+// Poistetaan leffa id:n perusteella
+app.delete("/api/poista:id", function(req, res) {
+ res.send("Poisteaan leffa id:llä.")
+});
+
+// Web-palvelimen luonti Expressin avulla
+app.listen(8081, function() {
+  console.log("Kuunnellaan porttia 8081!");
+});
+
+```
+
+## Ohjelman testaus
+
+Ohjelman kokeiluun tarvitaan jo muita työkaluja kuin  pelkkää selainta - selain kun ei osaa tehdä muuta kuin GET ja POST-tyyppisiä HTTP-pyyntöjä. Yksi käytetyimmistä työkaluista REST API:en testauksessa on ohjelma nimeltä Postman. Komentorivityökaluihin tottuneet käyttävät usein myös CURL-nimistä ohjelmaa.
+
+Postmanin avulla on helppo tehdä erilaisia HTTP-kyselyjä haluttuun osoitteeseen ja seurata myös sieltä saapuvia vastauksia.
+
+
+
 ## Tietokantaoperaatiot
 
 ## Pyyntöön vastaaminen
