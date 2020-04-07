@@ -22,7 +22,7 @@ Alla olevassa taulukossa on koottu esimerkkejä verkosta löytyvistä avoimista 
 
 Käytännössä REST \(Representational State Transfer\) on tapa järjestää sovellusten välinen kommunikointi Internetissä selaintenkin käyttämää, melko yksinkertaista HTTP-protokollaa käyttäen. 
 
-REST:issä on kyse resursseista ja resurssien operoinnista http-metodien avulla. Resurssi on se /-kauttaviivalla erotettu osa URL:ia joka tulee vähän domain nimen jälkeen. Vaikkapa siis mielikuvituksellinen lista käyttäjistä [http://api.example.com/users](http://api.example.com/users) jossa /users on se varsinainen manipuloitava resurssi. Resursseja käsitellään HTTP-protokollan tarjoamilla metodeilla, joista käytetyimmät ovat GET, POST, DELETE, UPDATE, PATCH. 
+REST:issä on kyse resursseista ja resurssien operoinnista http-metodien avulla. Resurssi on se /-kauttaviivalla erotettu osa URL:ia joka tulee domain nimen jälkeen. Vaikkapa siis mielikuvituksellinen lista käyttäjistä [http://api.example.com/users](http://api.example.com/users) jossa /users on se varsinainen manipuloitava resurssi. Resursseja käsitellään HTTP-protokollan tarjoamilla metodeilla, joista käytetyimmät ovat GET, POST, DELETE, UPDATE, PATCH. 
 
 Yksinkertaistettuna noita metodeja voisi verrata tietokannan CRUD \(create, read, update, delete\) komentoihin. Esimerkiksi pyyntö HTTP:n GET [http://api.example.com/users](http://api.example.com/users)  voisi palauttaa listan käyttäjistä. 
 
