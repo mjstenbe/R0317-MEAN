@@ -33,7 +33,7 @@ DELETE-metodilla voitaisiin poistaa käyttäjä yksilöimällä käyttäjän tun
 
 Resurssi ja sen perässä mahdollisesti olevat tarkenteet kertovat siis kohteen, jota käsitellään ja käytetty HTTP-metodi kertoo, mitä tuolle kohteelle tehdään. Allaolevaan taulukkoon on koottu HTTP-verbit sekä niiden kuvaukset. Lisäksi siitä on nähtävissä palautuskoodit, joita HTTP-protokolla käyttää tiedottaessaan pyynnön lähettäjää operaation onnistumisesta.
 
-![HTTP-operaatiot ja niiden selitykset koodeineen \(https://www.restapitutorial.com/\)](.gitbook/assets/image%20%2812%29.png)
+![HTTP-operaatiot ja niiden selitykset koodeineen \(https://www.restapitutorial.com/\)](.gitbook/assets/image%20%2814%29.png)
 
 ## Node.js ja REST APIt
 
@@ -41,7 +41,7 @@ Node.js sopii erinomaisesti rajapintojen toteuttamiseen palvelimella. Se on pait
 
 Aiemmin materiaalissa on jo esitelty oikeastaan kaikki ne toiminnallisuudet mitä tarvitse REST API:n rakentamiseen. Katsotaan seuraavaksi vielä kootusti miten yksinkertainen rajapinta toteutetaan.
 
-![Er&#xE4;&#xE4;n REST-rajapinnan kuvaus UML-muodossa \(L&#xE4;hde: https://firstinfinity.wordpress.com/modeling\_rest\_web\_services/\)](.gitbook/assets/image%20%2813%29.png)
+![Er&#xE4;&#xE4;n REST-rajapinnan kuvaus UML-muodossa \(L&#xE4;hde: https://firstinfinity.wordpress.com/modeling\_rest\_web\_services/\)](.gitbook/assets/image%20%2816%29.png)
 
 ## Luotavan rajapinnan hahmottelua
 
@@ -49,33 +49,37 @@ lorem
 
 ## Reittien luominen
 
-Reittien luominen API:a varten on tutua jo aiemmista Expressiltä tehdyistä sovelluksista. Kaksi ensimmäistä reittiä perustuvat tuttuihin GET ja POST -verbeihin. Sen sijaan kaksi jälkimmäistä reittiä toteuttavat PUT \(tiedon päivitys\) ja DELETE operaatiot, joita ei aiemmin tässä materiaalissa ole hyödynnetty. Niiden kohdalla reitin perään lisätään merkintä **:id** joka kuvaa vaihtuvaa parametria reitin osana. Tämä parametri voidaan lukea koodissa talteen ja esim. päivitys tai poisto-operaatio tehdään sen perusteella. 
+Reittien luominen API:a varten on tutua jo aiemmista Expressiltä tehdyistä sovelluksista. Kaksi ensimmäistä reittiä perustuvat tuttuihin GET ja POST -verbeihin. Sen sijaan kaksi jälkimmäistä reittiä toteuttavat PUT \(tiedon päivitys\) ja DELETE operaatiot, joita ei aiemmin tässä materiaalissa ole hyödynnetty. Niiden kohdalla reitin perään lisätään merkintä **:id** joka kuvaa vaihtuvaa parametria reitin osana. Tämä parametri voidaan lukea koodissa talteen \(req.params.id -muuttuja\) ja esim. päivitys tai poisto-operaatio tehdään sen perusteella. 
 
 ```javascript
 // Otetaan express-moduuli käyttöön
 var express = require("express");
 var app = express();
 
+// Tämä tarvitaan lomakedatan lukemista varten
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // Luodaan reitit ja niiden toiminnallisuudet
 
- // Tulostetaan kaikki leffat
+// Tulostetaan kaikki leffat
 app.get("/api/leffat", function(req, res) {
- res.send("Tulostetaan kaikki leffat.")
+  res.send("Tulostetaan kaikki leffat.");
 });
 
-// Lisätään yksi leffa
+// Lisätään yksi leffa - huomaa POST-muuttujien lukeminen
 app.post("/api/lisaa", function(req, res) {
- res.send("Lisätään leffa.")
+  res.send("Lisätään leffa: " + req.body.title + " (" + req.body.year + ")");
 });
 
-// Muokataan leffan tietoja id-numeron perusteella
-app.put("/api/muokkaa:id", function(req, res) {
- res.send("Muokataan leffaa id:llä.")
+// Muokataan leffan tietoja id-numeron perusteella. Huomaa ID-arvon lukeminen
+app.put("/api/muokkaa/:id", function(req, res) {
+  res.send("Muokataan leffaa id:llä: " + req.params.id);
 });
 
-// Poistetaan leffa id:n perusteella
-app.delete("/api/poista:id", function(req, res) {
- res.send("Poisteaan leffa id:llä.")
+// Poistetaan leffa id:n perusteella. Huomaa ID-arvon lukeminen 
+app.delete("/api/poista/:id", function(req, res) {
+  res.send("Poisteaan leffa id:llä: " + req.params.id);
 });
 
 // Web-palvelimen luonti Expressin avulla
@@ -85,17 +89,49 @@ app.listen(8081, function() {
 
 ```
 
-## Ohjelman testaus
+## Ohjelman testaus Postmanilla
 
-Ohjelman kokeiluun tarvitaan jo muita työkaluja kuin  pelkkää selainta - selain kun ei osaa tehdä muuta kuin GET ja POST-tyyppisiä HTTP-pyyntöjä. Yksi käytetyimmistä työkaluista REST API:en testauksessa on ohjelma nimeltä Postman. Komentorivityökaluihin tottuneet käyttävät usein myös CURL-nimistä ohjelmaa.
+Kahta ensimmäistä reittiä voitaisiin testata selaimessa. Sen sijaan kahden muun reitin kokeiluun tarvitaan jo muita työkaluja kuin  pelkkää selainta -- selain kun ei osaa tehdä muuta kuin GET ja POST-tyyppisiä HTTP-pyyntöjä.
 
-Postmanin avulla on helppo tehdä erilaisia HTTP-kyselyjä haluttuun osoitteeseen ja seurata myös sieltä saapuvia vastauksia.
+![Kuva: Ohjelman yhden reitin suoritus selaimessa.](.gitbook/assets/image%20%2815%29.png)
+
+Yksi käytetyimmistä työkaluista REST API:en testauksessa on ohjelma nimeltä Postman. Sen avulla on helppo tehdä erilaisia HTTP-kyselyjä haluttuun osoitteeseen ja seurata myös sieltä saapuvia vastauksia. Komentorivityökaluihin tottuneet käyttävät usein myös CURL-nimistä ohjelmaa. 
+
+### GET
+
+Allaolevassa kuvassa Postman lähettää GET-pyynnön määriteltyyn osoitteeseen ja ohjelman laareunassa näkyy saatu vastaus.
+
+![Kuva: API:n testausta Postmanilla](.gitbook/assets/image%20%2832%29.png)
+
+### POST
+
+Vastaavasti voisimme lähettää POST-tyyppiset pyynnöt vaihtamalla vasemman yläreunan alasvetovalikosta verbiä sekä muokkaamalla URL:iin oikean reitin POST-pyynnölle. Body-välilehdellä on mahdollista määritellä arvo-avainpareja, joilla simuloidaan esim. lomakkeelta lähetettäviä kenttiä ja niiden sisältöjä. Alla API:lle välitetään muuttujat title ja year. Vastauksessa luetaan lähetetyt muuttujat body-parserin avulla ja tulostetaan ne ruudulle.
+
+![Kuva: POST-tyyppisen pyynn&#xF6;n l&#xE4;hett&#xE4;minen.](.gitbook/assets/image%20%2835%29.png)
 
 
+
+### DELETE
+
+DELETE-verbin testaamisessa alasvetovalikossa on valittuna DELETE ja osoitteeseen on kirjoitettu poistamisen mahdollistava reitti. Lisäksi reitin perässä on muuttuja, joka luetaan koodissa talteen ja tulostetaan alareunan vastauksessa ruudulle. Tämän parametrin perusteella voidaan tehdä tietokantaan poistopyyntö halutusta tiedosta. 
+
+![Kuva: DELETE-versin](.gitbook/assets/image%20%2837%29.png)
+
+### PUT
+
+Päivitysoperaatio suoriteaan PUT-verbillä ja testataan vielä sitäkin Postmanilla.
+
+![Kuva: PUT-verbin testaaminen Postmanilla.](.gitbook/assets/image%20%2813%29.png)
 
 ## Tietokantaoperaatiot
 
+Kun reitit on laadittu on jäljellä vielä kytkeä sopivat tietokantaoperaatiot jokaisen taakse. Esimerkeissä käytetään Mongoosea tietokantaoperaatioiden yksinkertaistamiseen. 
+
+
+
 ## Pyyntöön vastaaminen
+
+Vastaus ja HTML-koodit
 
 
 
