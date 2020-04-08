@@ -6,6 +6,8 @@ API \(Application Programming Interface\), tarkoittaa käytännössä sovellusra
 
 Lähes kaikki verkossa tai mobiililaitteessa ajettavat sovellukset hyödyntävät verkon kautta haettua dataa, oli sitten kyseessä lentojen tai hotellien varaukseen keskittyvä palvelu, uutissivusto tai sääpalvelu. API:t ovat se väylä jonka kautta järjestelmät voivat vaihtaa tarpeellisia tietoja keskenään. Voisi jopa sanoa että API:t pitävät modernin webin ja mobiilisovellukset toiminnassa. API:en ympärille on syntynyt mielenkiintoisia ilmiöitä kuten API-talous sekä Avoin Data \(Open Data\). 
 
+Katso [video: YouTubesta](https://www.youtube.com/watch?v=s7wmiS2mSXY), jossa esitellään API:en toimintaidea.
+
 Alla olevassa taulukossa on koottu esimerkkejä verkosta löytyvistä avoimista rajapinnoista, jotka tarjoavat dataa halukkaille. Kattavia listoja avoimista apeista löytyy mm. [täältä](https://github.com/public-apis/public-apis).
 
 | Kehittäjä | Osoite | Sisältö |
