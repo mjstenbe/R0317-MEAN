@@ -51,7 +51,7 @@ fs.appendFileSync('uusiFile.txt', "Lisää tekstiä!");
 
 Virheen sattuessa ohjelman suoritus loppuu, mikäli virhetilannetta ei käsitellä asianmukaisesti. Esim. olemattoman tiedoston lukuyritys näyttää ilman virheenkäsittelyä seuraavalta:
 
-![Virheilmoitus kun tiedostoa ei l&#xF6;ydy.](../.gitbook/assets/image%20%285%29.png)
+![Virheilmoitus kun tiedostoa ei l&#xF6;ydy.](../.gitbook/assets/image%20%287%29.png)
 
 Try-catch -rakenne mahdollistaa virhetilanteiden hallitun käsittelyn. Ideana on sijoittaa virhealtis koodi try-catch -lohkon sisään, minkä jälkeen määritellään miten virhetilanteen sattuessa toimitaan.
 
@@ -77,7 +77,7 @@ console.log(data.toString());
 
 Ylläolevan koodin suorittaminen tuottaa seuraavanlaisen tulostuksen:
 
-![Virheilmoitus try-catch -lohkossa k&#xE4;siteltyn&#xE4;.](../.gitbook/assets/image%20%2826%29.png)
+![Virheilmoitus try-catch -lohkossa k&#xE4;siteltyn&#xE4;.](../.gitbook/assets/image%20%2829%29.png)
 
 ## Tiedostojen käsittely \(asynkronisesti\)
 
@@ -100,7 +100,7 @@ var data = fs.readFile('example.txt',
 })
 ```
 
-![Suorituksen tulos konsolissa.](../.gitbook/assets/image%20%2823%29.png)
+![Suorituksen tulos konsolissa.](../.gitbook/assets/image%20%2825%29.png)
 
 Suoritus näyttää ihan samanlaiselta kuin synkroninenkin operaatio. Tämä johtuu siitä, että ohjelmassa ei ole muita operaatioita. Lisätään koodiin yksi silmukka. 
 
@@ -124,7 +124,7 @@ for (var i = 0; i < 10; i++) {
 
 Kun ohjelma suoritetaan sen tulostus saattaa näyttää erikoiselta. Huomaa, että ensin suoritetaan rivillä 3 oleva tulostuslause, sitten readFile\(\) funktio, joka jää kuitenkin asynkronisesti ikäänkuin "taustalle" odottelemaan käyttöjärjestelmältä tiedoston sisällön saapumista. Tämän odotteluajan Node käyttää hyväkseen suorittamalla koodirivejä edelleen. Näinollen rivellä 12-13 oleva silmukka suoritetaan ja ruudulle tulostuu sen sisällä olevat tulostusoperaatiot. Vasta kun silmukka päättyy, palautuu readFile\(\) funktio suoritukseen, ja sen sisältö tulostetaan ruudulle.
 
-![Ohjelman suoritus.](../.gitbook/assets/image%20%286%29.png)
+![Ohjelman suoritus.](../.gitbook/assets/image%20%288%29.png)
 
 Toisinaan Node.js ohjelmien suoritus siis näyttää siltä, että eri ohjelman osat Asynkronisen toiminnan ymmärtäminen on tärkeää
 

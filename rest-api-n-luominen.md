@@ -35,7 +35,7 @@ DELETE-metodilla voitaisiin poistaa käyttäjä yksilöimällä käyttäjän tun
 
 Resurssi ja sen perässä mahdollisesti olevat tarkenteet kertovat siis kohteen, jota käsitellään ja käytetty HTTP-metodi kertoo, mitä tuolle kohteelle tehdään. Allaolevaan taulukkoon on koottu HTTP-verbit sekä niiden kuvaukset. Lisäksi siitä on nähtävissä palautuskoodit, joita HTTP-protokolla käyttää tiedottaessaan pyynnön lähettäjää operaation onnistumisesta.
 
-![HTTP-operaatiot ja niiden selitykset koodeineen \(https://www.restapitutorial.com/\)](.gitbook/assets/image%20%2814%29.png)
+![HTTP-operaatiot ja niiden selitykset koodeineen \(https://www.restapitutorial.com/\)](.gitbook/assets/image%20%2816%29.png)
 
 ## Node.js ja REST APIt
 
@@ -43,7 +43,7 @@ Node.js sopii erinomaisesti rajapintojen toteuttamiseen palvelimella. Se on pait
 
 Aiemmin materiaalissa on jo esitelty oikeastaan kaikki ne toiminnallisuudet mitä tarvitse REST API:n rakentamiseen. Katsotaan seuraavaksi vielä kootusti miten yksinkertainen rajapinta toteutetaan.
 
-![Er&#xE4;&#xE4;n REST-rajapinnan kuvaus UML-muodossa \(L&#xE4;hde: https://firstinfinity.wordpress.com/modeling\_rest\_web\_services/\)](.gitbook/assets/image%20%2816%29.png)
+![Er&#xE4;&#xE4;n REST-rajapinnan kuvaus UML-muodossa \(L&#xE4;hde: https://firstinfinity.wordpress.com/modeling\_rest\_web\_services/\)](.gitbook/assets/image%20%2818%29.png)
 
 ## Luotavan rajapinnan hahmottelua
 
@@ -95,7 +95,7 @@ app.listen(8081, function() {
 
 Kahta ensimmäistä reittiä \(GET ja POST\) voitaisiin testata selaimessa. Sen sijaan kahden muun reitin kokeiluun tarvitaan jo muita työkaluja -- selain kun ei osaa tehdä muuta kuin GET ja POST-tyyppisiä HTTP-pyyntöjä.
 
-![Kuva: Ohjelman GET-reitin testausta selaimessa.](.gitbook/assets/image%20%2815%29.png)
+![Kuva: Ohjelman GET-reitin testausta selaimessa.](.gitbook/assets/image%20%2817%29.png)
 
 Yksi käytetyimmistä työkaluista REST API:en testauksessa on ohjelma nimeltä Postman. Sen avulla on helppo tehdä erilaisia HTTP-kyselyjä haluttuun osoitteeseen ja seurata myös sieltä saapuvia vastauksia. Ohjelman saat ladattua [täältä](https://www.postman.com/downloads/). Komentorivityökaluihin tottuneet käyttävät usein myös CURL-nimistä ohjelmaa. Se on [saatavilla myös Windowsille](https://curl.haxx.se/windows/). 
 
@@ -103,29 +103,29 @@ Yksi käytetyimmistä työkaluista REST API:en testauksessa on ohjelma nimeltä 
 
 Allaolevassa kuvassa Postman lähettää GET-pyynnön määriteltyyn osoitteeseen ja ohjelman laareunassa näkyy saatu vastaus.
 
-![Kuva: API:n testausta Postmanilla](.gitbook/assets/image%20%2833%29.png)
+![Kuva: API:n testausta Postmanilla](.gitbook/assets/image%20%2838%29.png)
 
 ### POST
 
 Vastaavasti voisimme lähettää POST-tyyppiset pyynnöt vaihtamalla vasemman yläreunan alasvetovalikosta verbiä sekä muokkaamalla URL:iin oikean reitin POST-pyynnölle. Body-välilehdellä on mahdollista määritellä arvo-avainpareja, joilla simuloidaan esim. lomakkeelta lähetettäviä kenttiä ja niiden sisältöjä. Alla API:lle välitetään muuttujat title ja year. Vastauksessa luetaan lähetetyt muuttujat body-parserin avulla ja tulostetaan ne ruudulle.
 
-![Kuva: POST-tyyppisen pyynn&#xF6;n l&#xE4;hett&#xE4;minen.](.gitbook/assets/image%20%2836%29.png)
+![Kuva: POST-tyyppisen pyynn&#xF6;n l&#xE4;hett&#xE4;minen.](.gitbook/assets/image%20%2841%29.png)
 
 ### DELETE
 
 DELETE-verbin testaamisessa alasvetovalikossa on valittuna DELETE ja osoitteeseen on kirjoitettu poistamisen mahdollistava reitti. Lisäksi reitin perässä on muuttuja, joka luetaan koodissa talteen ja tulostetaan alareunan vastauksessa ruudulle. Tämän parametrin perusteella voidaan tehdä tietokantaan poistopyyntö halutusta tiedosta. 
 
-![Kuva: DELETE-version testaamista Postmanilla.](.gitbook/assets/image%20%2838%29.png)
+![Kuva: DELETE-version testaamista Postmanilla.](.gitbook/assets/image%20%2843%29.png)
 
 ### PUT
 
 Päivitysoperaatio suoriteaan PUT-verbillä ja testataan vielä sitäkin Postmanilla.
 
-![Kuva: PUT-verbin testaaminen Postmanilla.](.gitbook/assets/image%20%2813%29.png)
+![Kuva: PUT-verbin testaaminen Postmanilla.](.gitbook/assets/image%20%2815%29.png)
 
 ## Tietokantaoperaatiot
 
-Kun reitit on laadittu on jäljellä vielä kytkeä sopivat tietokantaoperaatiot jokaisen taakse. Esimerkeissä käytetään Mongoosea tietokantaoperaatioiden yksinkertaistamiseen. Ohjelmaan  lisätään aluksi Mongoosen vaatima moduuli sekä tietokannan yhdistämiseen tarvittavat muuttujat. **Huomaa erityisesti uutena asiana se, kuinka haku tehdään olemassaolevaan "movies" kokoelmaan. Kokoelman nimi määritellään ao. koodissa skeemassa, rivillä 17.**
+Kun reitit on laadittu on jäljellä vielä kytkeä sopivat tietokantaoperaatiot jokaisen taakse. Esimerkeissä käytetään Mongoosea tietokantaoperaatioiden yksinkertaistamiseen. Ohjelmaan  lisätään aluksi Mongoosen vaatima moduuli sekä tietokannan yhdistämiseen tarvittavat muuttujat. **Huomaa erityisesti uutena asiana se, kuinka haku tehdään olemassaolevaan "movies" kokoelmaan. Kokoelman nimi määritellään ao. koodissa skeemassa, rivillä 17.** Kun haku tehdään olemassaolevaan dataan ei skeeman rakenteella ole juurikaan merkitystä.
 
 ```javascript
 // Otetaan moduuli käyttöön
@@ -148,7 +148,7 @@ const Movie = mongoose.model(
 );
 ```
 
-### Kaikkien leffojen hakeminen - GET
+### Leffojen hakeminen - GET
 
 Ensimmäinen reitti on suoraviivainen, koska sen tarkoitus on hakea kaikki tietokannassa olevat elokuvat ja palauttaa ne ruudulle. Käytännössä tämä saadaan aikaiseksi suorittamalla tietokantaan find\(\)-operaatio ja tulostamalla hakutulokset ruudulle. Koska tietokannasta saatu data on jo valmiiksi JSON-muotoista, se voidaan välittää sellaisenaan selaimelle.
 
@@ -166,7 +166,7 @@ app.get("/api/leffat", function (req, res) {
 
 Pienenä hienosäätönä edelliseen koodiin voitaisiin toteuttaa vielä esim. virhetilanteiden käsittely sekä tulosjoukon rajoittaminen. Nyt tietokannassa on 23 564 elokuvaa, mikä tarkoittaa että niiden hakeminen ja lähettäminen selaimelle kestää melko kauan. 
 
-Allaolevassa koodissa tietokantahakuun on lisätty rajoitus, joka paluttaa vain 20 tulosta. Lisäksi jos tietokantahaku päättyy virheeseen, lähetetään siitä virhekoodi 500 myös rajapinnan käyttäjälle. Lista kaikista HTTP-virhekoodeista löytyy [täältä](https://www.restapitutorial.com/httpstatuscodes.html).  Mongoosen Find\(\) -funktion hyväksymät parametrit löytyvät [dokumentaatiosta](%20https://mongoosejs.com/docs/api.html#model_Model.find).
+Allaolevassa koodissa tietokantahakuun on lisätty rajoitus, joka paluttaa vain 20 tulosta. Lisäksi jos tietokantahaku päättyy virheeseen, lähetetään siitä virhekoodi 500 \(Internal Server Error\) myös rajapinnan käyttäjälle. Lista kaikista HTTP-virhekoodeista löytyy [täältä](https://www.restapitutorial.com/httpstatuscodes.html).  Mongoosen Find\(\) -funktion hyväksymät parametrit löytyvät [dokumentaatiosta](%20https://mongoosejs.com/docs/api.html#model_Model.find).
 
 ```javascript
 // Tulostetaan kaikki leffat
@@ -186,13 +186,65 @@ app.get("/api/leffat", function (req, res) {
 
 Tämän reitin testaaminen Postmanilla näyttää seuraavalta:
 
-![Kuva: Reitin testaaminen Postmanilla. ](.gitbook/assets/image%20%2827%29.png)
+![Kuva: Reitin testaaminen Postmanilla. ](.gitbook/assets/image%20%2830%29.png)
 
+### Leffojen poistaminen - DELETE
 
+Leffojen poistaminen tapahtuu välittämällä reitin mukana koodiin jokin tunniste, jonka perusteella tietoja voidaan poistaa. Tunnisteen muoto riippuu toki taustajärjestelmästä ja datasta joka sinne on tallennettu. Näissä esimerkeissä käytetyn elokuvadatan tietueet yksilöivä **\_id -kenttä** näyttää Compass-työkalussa seuraavalta:
 
-## Pyyntöön vastaaminen
+![Kuva: MongoDB Compassin n&#xE4;kym&#xE4; elokuvadatasta.](.gitbook/assets/image%20%283%29.png)
 
-Vastaus ja HTML-koodit
+Pohtimisen arvoinen seikka on myös se, tulisiko DELETE-operaation käyttäjältä vaatia jonkinlainen kirjautuminen tai tunniste ettei sitä käytetä asiattomasti. Tämä jätetään kuitenkin huomioimatta esimerkeissä.
 
+Yksinkertaistetu versio poisto-operaation toteuttavasta reitistä näyttäisi seuraavalta. Kun id on saatu poimittua API:n kutsusta välitetään se Mongoosen findByIdAndDelete\(\) -funktiolle. Mikäli virheitä ei tapahtu, kyseinen alkio poistetaan kannasta ja käyttäjälle lähetetään siitä viesti selaimelle onnistumisesta kertovan tilakoodin \(200\) kera. 
 
+```javascript
+// Poistetaan leffa id:n perusteella
+app.delete("/api/poista/:id", function (req, res) {
+  // Poimitaan id talteen ja välitetään se tietokannan poisto-operaatioon
+  var id = req.params.id;
+
+  Movie.findByIdAndDelete(id, function (err, results) {
+      res.json("Deleted " + id + " " + results.title, 200);
+    }
+  });
+});
+```
+
+Poisto-operaatiossakin saattaa tapahtua muutamia erikoistilanteita. Näitä voisivat olla esim. tietokantayhteyteen liittyvät ongelmat sekä esim. se ettei poistettavaa alkiota löydy tietokannasta. Se miten poikkeustilanteista viestiään APIn käyttäjälle on aina sopimuskysymys, mutta alla yksi yleisluontoinen ratkaisu. Siinä varaudutaan edellä kuvattuihin virheilanteisiin kahdella if-haaralla.
+
+```javascript
+// Poistetaan leffa id:n perusteella
+app.delete("/api/poista/:id", function (req, res) {
+  // Poimitaan id talteen ja välitetään se tietokannan poisto-operaatioon
+  var id = req.params.id;
+
+  Movie.findByIdAndDelete(id, function (err, results) {
+      // Tietokantavirheen käsittely 
+      if (err) {
+       console.log(err);
+       res.json("Järjestelmässä tapahtui virhe.", 500);
+    } // Tietokanta ok, mutta poistettavaa ei löydy. Onko kyseessä virhe vai ei on semantiikkaa
+      else if (results == null) {
+       res.json("Poistetavaa ei löytynyt.", 200);
+    } // Viimeisenä tilanne jossa kaikki ok
+      else {
+      console.log(results);
+      res.json("Deleted " + id + " " + results.title, 200);
+    }
+  });
+});
+```
+
+Lopuksi vielä testataan luotu reitti Postmanilla:
+
+![Kuva. Onnistuneen poiston testaus Postmanilla.](.gitbook/assets/image%20%281%29.png)
+
+Mikäli sama alkio yritetään poistaa uudelleen, saadaan seuraava ilmoitus: 
+
+![](.gitbook/assets/image%20%2827%29.png)
+
+### PUT ja POST
+
+Tiedon lisäys- ja poistoreittien toteutus jätetään opiskelijoille itsenäiseksi harjoitukseksi. Edellä läpikäytyjen esimerkkien saattelemana uskoisin että se onnistuu ilman suuria ponnistuksia.
 
