@@ -93,31 +93,29 @@ app.listen(8081, function() {
 
 ## Ohjelman testaus Postmanilla
 
-Kahta ensimmäistä reittiä voitaisiin testata selaimessa. Sen sijaan kahden muun reitin kokeiluun tarvitaan jo muita työkaluja kuin  pelkkää selainta -- selain kun ei osaa tehdä muuta kuin GET ja POST-tyyppisiä HTTP-pyyntöjä.
+Kahta ensimmäistä reittiä \(GET ja POST\) voitaisiin testata selaimessa. Sen sijaan kahden muun reitin kokeiluun tarvitaan jo muita työkaluja -- selain kun ei osaa tehdä muuta kuin GET ja POST-tyyppisiä HTTP-pyyntöjä.
 
-![Kuva: Ohjelman yhden reitin suoritus selaimessa.](.gitbook/assets/image%20%2815%29.png)
+![Kuva: Ohjelman GET-reitin testausta selaimessa.](.gitbook/assets/image%20%2815%29.png)
 
-Yksi käytetyimmistä työkaluista REST API:en testauksessa on ohjelma nimeltä Postman. Sen avulla on helppo tehdä erilaisia HTTP-kyselyjä haluttuun osoitteeseen ja seurata myös sieltä saapuvia vastauksia. Komentorivityökaluihin tottuneet käyttävät usein myös CURL-nimistä ohjelmaa. 
+Yksi käytetyimmistä työkaluista REST API:en testauksessa on ohjelma nimeltä Postman. Sen avulla on helppo tehdä erilaisia HTTP-kyselyjä haluttuun osoitteeseen ja seurata myös sieltä saapuvia vastauksia. Ohjelman saat ladattua [täältä](https://www.postman.com/downloads/). Komentorivityökaluihin tottuneet käyttävät usein myös CURL-nimistä ohjelmaa. Se on [saatavilla myös Windowsille](https://curl.haxx.se/windows/). 
 
 ### GET
 
 Allaolevassa kuvassa Postman lähettää GET-pyynnön määriteltyyn osoitteeseen ja ohjelman laareunassa näkyy saatu vastaus.
 
-![Kuva: API:n testausta Postmanilla](.gitbook/assets/image%20%2832%29.png)
+![Kuva: API:n testausta Postmanilla](.gitbook/assets/image%20%2833%29.png)
 
 ### POST
 
 Vastaavasti voisimme lähettää POST-tyyppiset pyynnöt vaihtamalla vasemman yläreunan alasvetovalikosta verbiä sekä muokkaamalla URL:iin oikean reitin POST-pyynnölle. Body-välilehdellä on mahdollista määritellä arvo-avainpareja, joilla simuloidaan esim. lomakkeelta lähetettäviä kenttiä ja niiden sisältöjä. Alla API:lle välitetään muuttujat title ja year. Vastauksessa luetaan lähetetyt muuttujat body-parserin avulla ja tulostetaan ne ruudulle.
 
-![Kuva: POST-tyyppisen pyynn&#xF6;n l&#xE4;hett&#xE4;minen.](.gitbook/assets/image%20%2835%29.png)
-
-
+![Kuva: POST-tyyppisen pyynn&#xF6;n l&#xE4;hett&#xE4;minen.](.gitbook/assets/image%20%2836%29.png)
 
 ### DELETE
 
 DELETE-verbin testaamisessa alasvetovalikossa on valittuna DELETE ja osoitteeseen on kirjoitettu poistamisen mahdollistava reitti. Lisäksi reitin perässä on muuttuja, joka luetaan koodissa talteen ja tulostetaan alareunan vastauksessa ruudulle. Tämän parametrin perusteella voidaan tehdä tietokantaan poistopyyntö halutusta tiedosta. 
 
-![Kuva: DELETE-versin](.gitbook/assets/image%20%2837%29.png)
+![Kuva: DELETE-version testaamista Postmanilla.](.gitbook/assets/image%20%2838%29.png)
 
 ### PUT
 
@@ -127,7 +125,68 @@ Päivitysoperaatio suoriteaan PUT-verbillä ja testataan vielä sitäkin Postman
 
 ## Tietokantaoperaatiot
 
-Kun reitit on laadittu on jäljellä vielä kytkeä sopivat tietokantaoperaatiot jokaisen taakse. Esimerkeissä käytetään Mongoosea tietokantaoperaatioiden yksinkertaistamiseen. 
+Kun reitit on laadittu on jäljellä vielä kytkeä sopivat tietokantaoperaatiot jokaisen taakse. Esimerkeissä käytetään Mongoosea tietokantaoperaatioiden yksinkertaistamiseen. Ohjelmaan  lisätään aluksi Mongoosen vaatima moduuli sekä tietokannan yhdistämiseen tarvittavat muuttujat. **Huomaa erityisesti uutena asiana se, kuinka haku tehdään olemassaolevaan "movies" kokoelmaan. Kokoelman nimi määritellään ao. koodissa skeemassa, rivillä 17.**
+
+```javascript
+// Otetaan moduuli käyttöön
+var mongoose = require("mongoose");
+var uri =
+  "mongodb+srv://dbuser:demopass@cluster0-6tein.mongodb.net/sample_mflix";
+
+// Yhdistetään tietokantaan
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Määritellään Schema, eli tietomalli.
+const Movie = mongoose.model(
+  "Movie",
+  {
+    title: String,
+    year: Number,
+    poster: String, // HUOM. Kohdistetaan skeeman operaatiot tähän kokoelmaan
+  },
+  "movies"
+);
+```
+
+### Kaikkien leffojen hakeminen - GET
+
+Ensimmäinen reitti on suoraviivainen, koska sen tarkoitus on hakea kaikki tietokannassa olevat elokuvat ja palauttaa ne ruudulle. Käytännössä tämä saadaan aikaiseksi suorittamalla tietokantaan find\(\)-operaatio ja tulostamalla hakutulokset ruudulle. Koska tietokannasta saatu data on jo valmiiksi JSON-muotoista, se voidaan välittää sellaisenaan selaimelle.
+
+**Huomaa uutena asiana ao. koodissa se, miten res.send\(\) funktion sijaan vastauksen lähettämiseen käytetään res.json\(\) -funktiota**. Tämä lähettää vastauksen selaimelle kuten send-funktiokin, mutta se asettaa vastauksen otsaketietoihin sisältötyypin \(Content-type\) vastaamaan JSON-muotoa \(application/json\). **Toisena uutena asiana vastauksessa lähetetään myös HTTP:n tilakoodi, joka kertoo pyynnön onnistuneen \(200\).** Tämä on itseasiassa se koodi, jota selaimen AJAX-koodissa tutkitaan onnistuneen pyynnön seurauksena.
+
+```javascript
+// Tulostetaan kaikki leffat
+app.get("/api/leffat", function (req, res) {
+   Movie.find({}, function(err, results) {  
+    // Lähetetään tietokannan tulokset selaimelle JSON-tyyppisenä ja tilakoodin kanssa
+    res.json(results, 200);
+  });
+});
+```
+
+Pienenä hienosäätönä edelliseen koodiin voitaisiin toteuttaa vielä esim. virhetilanteiden käsittely sekä tulosjoukon rajoittaminen. Nyt tietokannassa on 23 564 elokuvaa, mikä tarkoittaa että niiden hakeminen ja lähettäminen selaimelle kestää melko kauan. 
+
+Allaolevassa koodissa tietokantahakuun on lisätty rajoitus, joka paluttaa vain 20 tulosta. Lisäksi jos tietokantahaku päättyy virheeseen, lähetetään siitä virhekoodi 500 myös rajapinnan käyttäjälle. Lista kaikista HTTP-virhekoodeista löytyy [täältä](https://www.restapitutorial.com/httpstatuscodes.html).  Mongoosen Find\(\) -funktion hyväksymät parametrit löytyvät [dokumentaatiosta](%20https://mongoosejs.com/docs/api.html#model_Model.find).
+
+```javascript
+// Tulostetaan kaikki leffat
+app.get("/api/leffat", function (req, res) {
+   Movie.find({}, null, { limit: 20 }, function (err, results) {
+    // Jos tietokantahaussa tapahtuu virhe, palautetaan virhekoodi myös selaimelle
+    if (err){
+     res.json("Järjestelmässä tapahtui virhe", 500);
+    }
+    // Muuten lähetetään tietokannan tulokset selaimelle 
+   else {
+     res.json(results, 200);
+    }
+  });
+});
+```
+
+Tämän reitin testaaminen Postmanilla näyttää seuraavalta:
+
+![Kuva: Reitin testaaminen Postmanilla. ](.gitbook/assets/image%20%2827%29.png)
 
 
 
