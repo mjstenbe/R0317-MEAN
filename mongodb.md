@@ -8,7 +8,7 @@ Uudemmat NoSQL-tietokannat sen sijaan tallentavat dataa tietokantaan arvo-avain 
 
 Yleisesti voidaan sanoa, että kun NoSQL-tietokannan ei tarvitse huolehtia syötetyn tiedon eheydestä \(skeeman puuttuminen\) saadaan vastineeksi suorituskykyä ja käytön joustavuutta. Kehittäjän harteille jää vastuu siitä, että syötettävä tieto on järkevää ja oikeellista kulloisenkiin käyttötarkoitukseen. 
 
-![Kuva: Tietokantojen suosituimmuustilastoja \(https://db-engines.com/en/ranking\) ](.gitbook/assets/image%20%282%29.png)
+![Kuva: Tietokantojen suosituimmuustilastoja \(https://db-engines.com/en/ranking\) ](.gitbook/assets/image%20%284%29.png)
 
 ### Paikallinen vai pilveen asennettu tietokanta
 
@@ -24,7 +24,7 @@ Tämän sivun esimerkeissä käytetään MongoDB Atlas -pilvipalvelussa sijaitse
 
 Tietokannan käyttö näyttäytyy kehittäjälle yksinkertaisimmillaan terminaalikomentoina ja siihen tulostuvina tuloksina. Onneksi nykään on saatavilla näppäriä graafisia työkaluja, joilla paitsi datan selailu mutta myös hakujen tekeminen ja viilailu on huomattavasti helpompaa. Mongon kehittäjien tarjoama ilmainen työkalu on nimeltään Compass ja myös sen voi ladata tuotteen [kotisivuilta](https://www.mongodb.com/products/compass).
 
-![Kuva: MongoDB Compassin graafinen n&#xE4;kym&#xE4; tietokantaan.](.gitbook/assets/image%20%2822%29.png)
+![Kuva: MongoDB Compassin graafinen n&#xE4;kym&#xE4; tietokantaan.](.gitbook/assets/image%20%2835%29.png)
 
 ### Kyselyiden tekeminen
 
@@ -32,7 +32,7 @@ Mongo-tietokantaan tehdään kyselyjä erilaisilla funktioilla, joiden parametri
 
 Alla esimerkki find\(\) -funktion käytöstä, joka kohdistuu tietokantaolion users-kokoelmaan. Huomaa funktion parametrina saamat JSON-muotoiset hakukriteerit \(query\) age: { $gt : 18 } sekä kentät jotka tulosjoukkoon \(projection\) halutaan :  {name: 1, address: 1}.  Hakutuloksien määrää voidaan rajoittaa vielä limit\(\) -funktiolla, joka rajaa palautettavien tulosten määrän viiteen.
 
-![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](.gitbook/assets/image%20%2820%29.png)
+![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](.gitbook/assets/image%20%2832%29.png)
 
 ## MongoDB:n käyttäminen Nodessa
 
@@ -234,7 +234,7 @@ client.connect(err => {
 
 Tietoalkioden muokkaaminen tapahtuu updateOne\(\) tai updateMany\(\) -funktioiden avulla. Erona näissä on se, moneenko osumaan päivitys tehdään. Parametrina funktio saa hakuehdon, jolla päivitettävät alkiot valitaan sekä operaation, joka palautuneisiin riveihin kohdistetaan.
 
-![Kuva: UpdateMany\(\)-funktion rakenne.](.gitbook/assets/image%20%2827%29.png)
+![Kuva: UpdateMany\(\)-funktion rakenne.](.gitbook/assets/image%20%2842%29.png)
 
 Alla esimerkkikoodi, joka päivittää halutun alkion arvoja tietokannassa.
 
@@ -441,7 +441,7 @@ client.connect(err => {
 
 Reitti "/leffat" tulostaa tietokantadatan raakamuodossa selaimeen.
 
-![Selaimessa n&#xE4;kyv&#xE4; JSON-data.](.gitbook/assets/image%20%288%29.png)
+![Selaimessa n&#xE4;kyv&#xE4; JSON-data.](.gitbook/assets/image%20%2811%29.png)
 
 ### Datan parsiminen
 
@@ -478,7 +478,7 @@ function parse(data) {
 
 Ohjelman suoritus selaimessa näyttää seuraavalta: 
 
-![](.gitbook/assets/image%20%2825%29.png)
+![](.gitbook/assets/image%20%2839%29.png)
 
 ### 
 
@@ -675,7 +675,7 @@ function getResult(query, callback) {
 
 Selaimen tuottama tulos on alla. 
 
-![](.gitbook/assets/image%20%2812%29.png)
+![](.gitbook/assets/image%20%2819%29.png)
 
 #### Moduulit
 
