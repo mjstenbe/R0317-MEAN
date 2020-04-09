@@ -319,7 +319,7 @@ ValidationError: username: Path `username` is required.
 
 Edellisessä esimerkissä skeema validoitiin koodissa Mongoosen avulla. On syytä mainita vielä mahdollisuus määritellä skeemalle validointifunktioita tietokannan toimesta MongoDB:ssä. Tämä tapahtuu Mongo Compassissa kokoelman välilehdellä nimeltä "Validate". 
 
-![](.gitbook/assets/image%20%2828%29.png)
+![](.gitbook/assets/image%20%2829%29.png)
 
 Sivulla aukeavaan ikkunaan voidaan määritellä JSON-muotoinen skeema, joka määrittelee kentttiin kohdistuvat tarkistukset. Idea on täsmälleen sama kuin Mongoosen kanssa, ainostaan kenttien määreet ja operaattorit ovat hieman erilaiset. Tarkemmin asiasta kerrotaan mm. [täällä](https://docs.mongodb.com/compass/master/validation/).
 
