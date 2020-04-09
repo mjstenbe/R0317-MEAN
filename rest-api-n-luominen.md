@@ -83,7 +83,7 @@ app.put("/api/muokkaa/:id", function(req, res) {
 
 // Poistetaan leffa id:n perusteella. Huomaa ID-arvon lukeminen 
 app.delete("/api/poista/:id", function(req, res) {
-  res.send("Poisteaan leffa id:llä: " + req.params.id);
+  res.send("Poistetaan leffa id:llä: " + req.params.id);
 });
 
 // Web-palvelimen luonti Expressin avulla
@@ -144,9 +144,9 @@ const Movie = mongoose.model(
   {
     title: String,
     year: Number,
-    poster: String, // HUOM. Kohdistetaan skeeman operaatiot tähän kokoelmaan
+    poster: String,
   },
-  "movies"
+  "movies"  // HUOM. Kohdistetaan skeeman operaatiot tähän kokoelmaan
 );
 ```
 
@@ -168,7 +168,7 @@ app.get("/api/leffat", function (req, res) {
 
 Pienenä hienosäätönä edelliseen koodiin voitaisiin toteuttaa vielä esim. virhetilanteiden käsittely sekä tulosjoukon rajoittaminen. Nyt tietokannassa on 23 564 elokuvaa, mikä tarkoittaa että niiden hakeminen ja lähettäminen selaimelle kestää melko kauan. 
 
-Allaolevassa koodissa tietokantahakuun on lisätty rajoitus, joka paluttaa vain 20 tulosta. Lisäksi jos tietokantahaku päättyy virheeseen, lähetetään siitä virhekoodi 500 \(Internal Server Error\) myös rajapinnan käyttäjälle. Lista kaikista HTTP-virhekoodeista löytyy [täältä](https://www.restapitutorial.com/httpstatuscodes.html).  Mongoosen Find\(\) -funktion hyväksymät parametrit löytyvät [dokumentaatiosta](%20https://mongoosejs.com/docs/api.html#model_Model.find).
+Allaolevassa koodissa tietokantahakuun on lisätty rajoitus, joka palauttaa vain 20 tulosta. Lisäksi jos tietokantahaku päättyy virheeseen, lähetetään siitä virhekoodi 500 \(Internal Server Error\) myös rajapinnan käyttäjälle. Lista kaikista HTTP-virhekoodeista löytyy [täältä](https://www.restapitutorial.com/httpstatuscodes.html).  Mongoosen Find\(\) -funktion hyväksymät parametrit löytyvät [dokumentaatiosta](%20https://mongoosejs.com/docs/api.html#model_Model.find).
 
 ```javascript
 // Tulostetaan kaikki leffat
