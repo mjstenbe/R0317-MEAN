@@ -8,6 +8,8 @@ Lähes kaikki verkossa tai mobiililaitteessa ajettavat sovellukset hyödyntävä
 
 Katso [video: YouTubesta](https://www.youtube.com/watch?v=s7wmiS2mSXY), jossa esitellään API:en toimintaidea.
 
+{% embed url="https://www.youtube.com/watch?v=s7wmiS2mSXY" %}
+
 Alla olevassa taulukossa on koottu esimerkkejä verkosta löytyvistä avoimista rajapinnoista, jotka tarjoavat dataa halukkaille. Kattavia listoja avoimista apeista löytyy mm. [täältä](https://github.com/public-apis/public-apis).
 
 | Kehittäjä | Osoite | Sisältö |
