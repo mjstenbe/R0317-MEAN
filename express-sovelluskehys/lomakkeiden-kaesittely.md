@@ -4,7 +4,7 @@
 
 Allaoleva lomake sisältää kaksi tekstikenttää sekä napin. Lomakkeen määrittelemä HTML-koodi on listattuna kuvan alapuolella. Nappia painamalla lomake lähettää siihen syötetyt tiedot haluttuun reittiin palvelimelle.
 
-![Kuva: HTML-lomake.](../.gitbook/assets/image%20%289%29.png)
+![Kuva: HTML-lomake.](../.gitbook/assets/image%20%2810%29.png)
 
 Lomakkeen tyylit on määritelty käyttäen Bootstrap-kirjastoa. Itse toiminnallisuus ei vaadi lukuisia Bootstrapin class-määreitä. Huomaa erityisesti FORM-tägin METHOD-attribuutti, joka on tyyppiä POST. Samoin ACTION-attribuutti, joka määrittelee mihin URL:n lomake lähettää POST-tyyppisen sivupyynnön.
 
@@ -136,7 +136,7 @@ app.post("/kirjaudu", function(req, res) {
 
 Konsoliin tulostuu tieto POST-pyynnön datasta.
 
-![](../.gitbook/assets/image%20%2823%29.png)
+![](../.gitbook/assets/image%20%2824%29.png)
 
 Alla vielä ohjelma kokonaisuudessaan.
 

@@ -77,7 +77,7 @@ console.log(data.toString());
 
 Ylläolevan koodin suorittaminen tuottaa seuraavanlaisen tulostuksen:
 
-![Virheilmoitus try-catch -lohkossa k&#xE4;siteltyn&#xE4;.](../.gitbook/assets/image%20%2830%29.png)
+![Virheilmoitus try-catch -lohkossa k&#xE4;siteltyn&#xE4;.](../.gitbook/assets/image%20%2831%29.png)
 
 ## Tiedostojen käsittely \(asynkronisesti\)
 
@@ -100,7 +100,7 @@ var data = fs.readFile('example.txt',
 })
 ```
 
-![Suorituksen tulos konsolissa.](../.gitbook/assets/image%20%2826%29.png)
+![Suorituksen tulos konsolissa.](../.gitbook/assets/image%20%2827%29.png)
 
 Suoritus näyttää ihan samanlaiselta kuin synkroninenkin operaatio. Tämä johtuu siitä, että ohjelmassa ei ole muita operaatioita. Lisätään koodiin yksi silmukka. 
 
@@ -124,7 +124,7 @@ for (var i = 0; i < 10; i++) {
 
 Kun ohjelma suoritetaan sen tulostus saattaa näyttää erikoiselta. Huomaa, että ensin suoritetaan rivillä 3 oleva tulostuslause, sitten readFile\(\) funktio, joka jää kuitenkin asynkronisesti ikäänkuin "taustalle" odottelemaan käyttöjärjestelmältä tiedoston sisällön saapumista. Tämän odotteluajan Node käyttää hyväkseen suorittamalla koodirivejä edelleen. Näinollen rivellä 12-13 oleva silmukka suoritetaan ja ruudulle tulostuu sen sisällä olevat tulostusoperaatiot. Vasta kun silmukka päättyy, palautuu readFile\(\) funktio suoritukseen, ja sen sisältö tulostetaan ruudulle.
 
-![Ohjelman suoritus.](../.gitbook/assets/image%20%288%29.png)
+![Ohjelman suoritus.](../.gitbook/assets/image%20%289%29.png)
 
 Toisinaan Node.js ohjelmien suoritus siis näyttää siltä, että eri ohjelman osat Asynkronisen toiminnan ymmärtäminen on tärkeää
 
