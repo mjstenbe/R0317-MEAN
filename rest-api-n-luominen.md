@@ -51,7 +51,7 @@ Aiemmin materiaalissa on jo esitelty oikeastaan kaikki ne toiminnallisuudet mit�
 
 Hahmotellaan ensin luotava rajapinta reittien ja niissä käytettyjen verbien mukaan:
 
-![Kuva: Luotavan rajapinnan hahmottelua.](.gitbook/assets/image%20%2831%29.png)
+![Kuva: Luotavan rajapinnan hahmottelua.](.gitbook/assets/image%20%2832%29.png)
 
 ## Reittien luominen
 
@@ -107,19 +107,19 @@ Yksi käytetyimmistä työkaluista REST API:en testauksessa on ohjelma nimeltä 
 
 Allaolevassa kuvassa Postman lähettää GET-pyynnön määriteltyyn osoitteeseen ja ohjelman laareunassa näkyy saatu vastaus.
 
-![Kuva: API:n testausta Postmanilla](.gitbook/assets/image%20%2846%29.png)
+![Kuva: API:n testausta Postmanilla](.gitbook/assets/image%20%2848%29.png)
 
 ### POST
 
 Vastaavasti voisimme lähettää POST-tyyppiset pyynnöt vaihtamalla vasemman yläreunan alasvetovalikosta verbiä sekä muokkaamalla URL:iin oikean reitin POST-pyynnölle. Body-välilehdellä on mahdollista määritellä arvo-avainpareja, joilla simuloidaan esim. lomakkeelta lähetettäviä kenttiä ja niiden sisältöjä. Alla API:lle välitetään muuttujat title ja year. Vastauksessa luetaan lähetetyt muuttujat body-parserin avulla ja tulostetaan ne ruudulle.
 
-![Kuva: POST-tyyppisen pyynn&#xF6;n l&#xE4;hett&#xE4;minen.](.gitbook/assets/image%20%2849%29.png)
+![Kuva: POST-tyyppisen pyynn&#xF6;n l&#xE4;hett&#xE4;minen.](.gitbook/assets/image%20%2851%29.png)
 
 ### DELETE
 
 DELETE-verbin testaamisessa alasvetovalikossa on valittuna DELETE ja osoitteeseen on kirjoitettu poistamisen mahdollistava reitti. Lisäksi reitin perässä on muuttuja, joka luetaan koodissa talteen ja tulostetaan alareunan vastauksessa ruudulle. Tämän parametrin perusteella voidaan tehdä tietokantaan poistopyyntö halutusta tiedosta. 
 
-![Kuva: DELETE-version testaamista Postmanilla.](.gitbook/assets/image%20%2851%29.png)
+![Kuva: DELETE-version testaamista Postmanilla.](.gitbook/assets/image%20%2853%29.png)
 
 ### PUT
 
@@ -190,7 +190,7 @@ app.get("/api/leffat", function (req, res) {
 
 Tämän reitin testaaminen Postmanilla näyttää seuraavalta:
 
-![Kuva: Reitin testaaminen Postmanilla. ](.gitbook/assets/image%20%2838%29.png)
+![Kuva: Reitin testaaminen Postmanilla. ](.gitbook/assets/image%20%2839%29.png)
 
 ### Leffojen poistaminen - DELETE
 
@@ -246,7 +246,7 @@ Lopuksi vielä testataan luotu reitti Postmanilla:
 
 Mikäli sama alkio yritetään poistaa uudelleen, saadaan seuraava ilmoitus: 
 
-![](.gitbook/assets/image%20%2835%29.png)
+![](.gitbook/assets/image%20%2836%29.png)
 
 ### PUT ja POST
 

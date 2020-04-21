@@ -77,7 +77,7 @@ console.log(data.toString());
 
 Ylläolevan koodin suorittaminen tuottaa seuraavanlaisen tulostuksen:
 
-![Virheilmoitus try-catch -lohkossa k&#xE4;siteltyn&#xE4;.](../.gitbook/assets/image%20%2837%29.png)
+![Virheilmoitus try-catch -lohkossa k&#xE4;siteltyn&#xE4;.](../.gitbook/assets/image%20%2838%29.png)
 
 ## Tiedostojen käsittely \(asynkronisesti\)
 
@@ -100,7 +100,7 @@ var data = fs.readFile('example.txt',
 })
 ```
 
-![Suorituksen tulos konsolissa.](../.gitbook/assets/image%20%2833%29.png)
+![Suorituksen tulos konsolissa.](../.gitbook/assets/image%20%2834%29.png)
 
 Suoritus näyttää ihan samanlaiselta kuin synkroninenkin operaatio. Tämä johtuu siitä, että ohjelmassa ei ole muita operaatioita. Lisätään koodiin yksi silmukka. 
 

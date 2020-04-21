@@ -46,9 +46,9 @@ Sovellus aukeaa selaimeen ja näyttää esimerkkisovelluksen tuottaman HTML-sivu
 
 Sovellus asuu hakemistossa **myApp**, joka annettiin create-react-app -komennolle parametrina. Sen sisällä on monenlaista tavaraa, josta keskeisin on kuitenkin sovelluksen JavaScript-koodin sisältämä **src**.
 
-Avataan src-kansiosta indes.js -tiedosto ja korvataan koko sen sisältö omalla sovelluksella. 
+Avataan src-kansiosta index.js -tiedosto ja korvataan koko sen sisältö omalla sovelluksella. 
 
-```bash
+```jsx
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -72,13 +72,100 @@ Ohjelmakoodissa tuodaan ensin import-lauseilla sovelluksen käyttöön Reactin o
 
 Lopuksi rivillä 10 pyydetään Reactia renderöimään eli piirtämään äsken luomamme komponentti "App" HTML-sivulta löytyvään elementtiin, jonka id=root \[document.getElementById\("root"\)\]. 
 
-Sivupohja johon sovellus komponentteja sijoittele löytyy public-hakemistosta ja on nimeltään index.html. Sivupohjan &lt;body&gt; -tägin sisältö on käyvissä ao. kuvassa. Huomaa &lt;div&gt; -elementti ja sen id "root". Tämän lohkon sisälle React siis sijoittaa edellä luodun komponentin.
+Sivupohja johon sovellus komponentteja sijoittelee löytyy public-hakemistosta ja on nimeltään index.html. Se on käytännössä tyhjä HTML-sivu, johon on lisätty muutamia rakenteellisia elementtejä. 
+
+Sivupohjan &lt;body&gt; -tägin sisältö on näkyvissä ao. kuvassa. Huomaa &lt;div&gt; -elementti ja sen id "root". Tämän lohkon sisälle React siis sijoittaa edellä luodun komponentin.
 
 ![](.gitbook/assets/image.png)
+
+## **Komponenttien kierrätystä**
+
+Reactissa komponentteja voidaan luoda lisää ja uudelleenkäyttää. Luodaan seuraavaksi toinen komponentti &lt;Hello /&gt; jota kutsutaan aiemmin luodusta &lt;App /&gt; komponentista.
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+
+const App = () => (
+  <div>
+    <h1>Ensimmäinen React-sovellukseni!</h1>
+    <Hello />
+    <Hello />
+    <Hello />
+  </div>
+);
+
+const Hello = () => (
+  <div>
+    <p>Hoi Maailma!</p>
+  </div>
+);
+
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+
+Lisäämällä tuulimääreet index.html -tiedostoon \( ennen &lt;body&gt; tägiä \) saadaan sivulle vähän ilmettä.
+
+```jsx
+<style>
+    div p {
+      border: 1px solid blue;
+      border-radius: 10px;
+      padding: 10px;
+    }
+  </style>
+```
+
+![Kuva: React-sovellus tyyleill&#xE4;.](.gitbook/assets/image%20%2844%29.png)
 
 ## **Reactin sielunelämää**
 
 Vaikka esimerkkiohjelma käynnistää Reactin Node-sovelluksen pyörittämässä web-palvelimessa, voidaan Reactia hyödyntävä web-sivu tai -sovellus tarjoilla minkä tahansa web-palvelimen kautta; sehän koostuu tutuista HTML/CSS/JavaScript-tiedostoista, joita selain osaa sellaisenaan suorittaa. 
 
 Mainittakoon myös, että React-sovelluksen "paketointi" vaatii kohtalaisen määrän työkaluja, joiden läpi kirjoitettu sovelus ajetaan \(edellä ajetussa esimerkkiohjelmassa työkalut ovat valmiiksi konfiguroitu\) Näitä ovat mm. [Babel](https://babeljs.io/) \(joka kääntää JavaScriptin uusimman version ES6:n mukaan kirjoitetun koodin selainten tukemaan JS:n muotoon\) sekä [Webpack](https://webpack.js.org/) \(joka paketoi lukuisat JavaScript-moduulit yhdeksi fyysiseksi tiedostoksi selainten ymmärtämään muotoon\) . Näitä ei tässä materiaalissa kuitenkaan sen enempää käsitellä.
+
+## Tiedonvälitys komponenteille \(props\)
+
+Komponentti joka tulostaa tervehdyksen on kätevä, mutta se olisi vielä monikäyttöisempi jos tervehdystä voisi tarpeen vaatiessa muuttaa. Tähän käytetään propseja, jotka toimivat ohjelmointikielissä tuttujen parametrien tavoin. Tehdään komponentti, joka saa kutsuvaiheessa parametreja 
+
+Komponentin määrittelyssä JSX funktio saa parametrina props-olion. Komponentin luoma HTML-koodi puolestaan sijoittelee props-olion sisältämiä kenttiä \(color, greetging, author\) sopiviin paikkoihin.
+
+```jsx
+const CustomHello = (props) => {
+  return (
+    <div>
+      <p className={props.color}>
+        {props.greeting} (<strong> {props.author} </strong> )
+      </p>
+    </div>
+  );
+};
+```
+
+Komponentin käyttö tapahtuisi seuraavalla tavalla. Huomaa miten komponentin kutsussa määritellään attrribuutit, jotka välittävät tietoa komponenttiin:
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+
+const App = () => (
+  <div>
+    <h1>Ensimmäinen React-sovellukseni!</h1>
+    <Hello />
+    <Hello />
+    <CustomHello author="Mika" greeting="Tervepä terve." />
+    <CustomHello
+      author="Matti"
+      greeting="Se on morjens!"
+      color="green"
+    />
+  </div>
+);
+```
+
+Ohjelman suoritus näyttää seuraavalta:
+
+![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2830%29.png)
+
+
 
