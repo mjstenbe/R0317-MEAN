@@ -15,5 +15,5 @@
 * [MongoDB ja Node](mongodb.md)
 * [Mongoose ja olioita tietokantaan](mongoose-ja-olioita-tietokantaan-orm.md)
 * [REST APIt ja Node](rest-api-n-luominen.md)
-* [Käyttöliittymän rakentaminen Nodessa: React.js](kaeyttoeliittymaen-rakentaminen-react.js.md)
+* [Käyttöliittymän rakentaminen Node-sovellukselle: React.js](kaeyttoeliittymaen-rakentaminen-react.js.md)
 
