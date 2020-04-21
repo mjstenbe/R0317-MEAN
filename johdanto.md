@@ -6,13 +6,13 @@ Web-sovellusten kehittäminen voidaan jakaa kahteen osa-aluuseen; ns.  front-end
 
 ## Front-end ja Back-end
 
-![Web-kehityksen putki; front- ja back-end kehitys.](.gitbook/assets/image%20%2816%29.png)
+![Web-kehityksen putki; front- ja back-end kehitys.](.gitbook/assets/image%20%2818%29.png)
 
 Front-endin näkyvin osuus on selaimen esittämä käyttöliittymä verkkosivulle tai -sovellukselle, jonka tuottamiseen käytetään HTML-sivunkuvauskieltä ja CSS -tyylejä. Toiminnallisuus ja interaktiot käyttäjän kanssa toteutetaan selaimen suorittamalla JavaScript-ohjelmointikielellä. 
 
 Back-endissä ajetaan tyypillisesti verkkosovelluksen logiikkaa sekä hallitaan siihen liittyviä tiedostoja. Tarvittaessa back-end suorittaa myös tietokantahakuja tai tallentaa selaimen sille välittämää uutta tietoa tietokantaan.
 
-![Front- ja back-endin roolit verkkosovelluksessa.](.gitbook/assets/image%20%2829%29.png)
+![Front- ja back-endin roolit verkkosovelluksessa.](.gitbook/assets/image%20%2832%29.png)
 
 ## Teknologiapinot
 
@@ -22,7 +22,7 @@ LAMP on ollut standardiympäristö kehittäjille viimeiset 20 vuotta. Se  tulee 
 
 MEAN edustaa uuden sukupolven web-teknologioita ja tulee sanoista MondoDB, Express.js, Angular ja Node. Siinä koko palvelimen virkaa hoitaa Node.js ympäristö, ohjelmointikielenä käytetään JavaScriptiä jota sekä Node että Express-sovelluskehys puhuvat. Tietokantaratkaisuna käytetään MongoDB:tä ja käyttöliittymän rakentamisessa hyödynnetään Angular-sovelluskehystä.
 
-![LAMP- ja MEAN-teknologiapinot](.gitbook/assets/image%20%2842%29.png)
+![LAMP- ja MEAN-teknologiapinot](.gitbook/assets/image%20%2845%29.png)
 
 Huomattavaa on, että pinot ovat vain hyviin käytäntöihin ja kokemuksiin perustuvia määritelmiä käytetyistä ohjelmointi-ympäristöistä. Näinollen kukin kehittäjä voi koota oman "pinoonsa" tai vaihtaa komponentteja jo olemassaoleviin. Esim. MEAN stack -kehittäjät käyttävät usein käyttöliittymän rakentamiseen jotain muuta kuin Angularia, esim. Reactia. Tällöin puhutaan usein MERN-pinosta tai jopa ME\*N -pinosta. 
 

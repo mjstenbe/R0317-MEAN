@@ -26,7 +26,7 @@ Reactiin kehitettyjen lisäpalikoiden, kuten [React Nativen](https://reactnative
 
 Verkosta löytyy erilaisia [vertailuja ](https://www.themexpert.com/blog/angular-vs-react-vs-vue)näiden kolmen ominaisuuksista. 
 
-![Kuva: Frameworkkien vertailua \(https://www.themexpert.com/blog/angular-vs-react-vs-vue\).](.gitbook/assets/image%20%289%29.png)
+![Kuva: Frameworkkien vertailua \(https://www.themexpert.com/blog/angular-vs-react-vs-vue\).](.gitbook/assets/image%20%2811%29.png)
 
 ## Ensimmäinen ohjelma 
 
@@ -42,16 +42,41 @@ npm start
 
 Sovellus aukeaa selaimeen ja näyttää esimerkkisovelluksen tuottaman HTML-sivun \(alla\). Vieressä myös hakemistolistaus React-sovelluksen sisältämistä tiedostoista.
 
-![](.gitbook/assets/image%20%2823%29.png)
+![](.gitbook/assets/image%20%2825%29.png)
 
-Sovellus asuu hakemistossa myApp, joka annettiin create-react-app -komennolle parametrina. Sen sisällä on seuraavat hakemistot:
+Sovellus asuu hakemistossa **myApp**, joka annettiin create-react-app -komennolle parametrina. Sen sisällä on monenlaista tavaraa, josta keskeisin on kuitenkin sovelluksen JavaScript-koodin sisältämä **src**.
 
-* build: Tuotantokäyttöön julkaistava, käännetty ja optimoitu React-sovellus riippuvuksineen julkaistaan tänne. Web-sovellus tarjoilee tämän hakemiston selaimelle.
-* public: Esimerkkisovelluksen React HTML-koodi 
-* src: JavaScript-tiedostot
-* node\_modules: Noden lataamat moduulit
+Avataan src-kansiosta indes.js -tiedosto ja korvataan koko sen sisältö omalla sovelluksella. 
 
-## Reactin sielunelämää
+```bash
+import React from "react";
+import ReactDOM from "react-dom";
+
+const App = () => (
+  <div>
+    <h1>Ensimmäinen React-sovellukseni!</h1>
+  </div>
+);
+
+ReactDOM.render(<App />, document.getElementById("root"));
+
+```
+
+Tallenna tiedosto tämän jälkeen \(Node-palvelin käynnistyy uudestaan automaattisesti= ja lataa selaimella sivu uudestaan. Muutosten tulisi näkyä selaimessa.  
+
+![Kuva: Muokattu React-sovellus.](.gitbook/assets/image%20%2828%29.png)
+
+## Koodin läpikäynti
+
+Ohjelmakoodissa tuodaan ensin import-lauseilla sovelluksen käyttöön Reactin omia kirjastoja. Tämän jälkeen riveillä 4-8 määritellään App-niminen "komponentti" käyttäen Reactin omaa JSX-notaatiota. Tässä luodaan siis HTML-koodia JavaScriptin avulla, ja siitä koko Reactissa on oikeastaan kysymys. 
+
+Lopuksi rivillä 10 pyydetään Reactia renderöimään eli piirtämään äsken luomamme komponentti "App" HTML-sivulta löytyvään elementtiin, jonka id=root \[document.getElementById\("root"\)\]. 
+
+Sivupohja johon sovellus komponentteja sijoittele löytyy public-hakemistosta ja on nimeltään index.html. Sivupohjan &lt;body&gt; -tägin sisältö on käyvissä ao. kuvassa. Huomaa &lt;div&gt; -elementti ja sen id "root". Tämän lohkon sisälle React siis sijoittaa edellä luodun komponentin.
+
+![](.gitbook/assets/image.png)
+
+## **Reactin sielunelämää**
 
 Vaikka esimerkkiohjelma käynnistää Reactin Node-sovelluksen pyörittämässä web-palvelimessa, voidaan Reactia hyödyntävä web-sivu tai -sovellus tarjoilla minkä tahansa web-palvelimen kautta; sehän koostuu tutuista HTML/CSS/JavaScript-tiedostoista, joita selain osaa sellaisenaan suorittaa. 
 
