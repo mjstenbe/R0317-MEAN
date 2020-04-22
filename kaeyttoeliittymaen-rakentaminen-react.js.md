@@ -42,7 +42,7 @@ npm start
 
 Sovellus aukeaa selaimeen ja näyttää esimerkkisovelluksen tuottaman HTML-sivun \(alla\). Vieressä myös hakemistolistaus React-sovelluksen sisältämistä tiedostoista.
 
-![](.gitbook/assets/image%20%2825%29.png)
+![](.gitbook/assets/image%20%2826%29.png)
 
 Sovellus asuu hakemistossa **myApp**, joka annettiin create-react-app -komennolle parametrina. Sen sisällä on monenlaista tavaraa, josta keskeisin on kuitenkin sovelluksen JavaScript-koodin sisältämä **src**.
 
@@ -64,7 +64,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 Tallenna tiedosto tämän jälkeen \(Node-palvelin käynnistyy uudestaan automaattisesti= ja lataa selaimella sivu uudestaan. Muutosten tulisi näkyä selaimessa.  
 
-![Kuva: Muokattu React-sovellus.](.gitbook/assets/image%20%2828%29.png)
+![Kuva: Muokattu React-sovellus.](.gitbook/assets/image%20%2829%29.png)
 
 ## Koodin läpikäynti
 
@@ -116,7 +116,7 @@ Lisäämällä tuulimääreet index.html -tiedostoon \( ennen &lt;body&gt; tägi
   </style>
 ```
 
-![Kuva: React-sovellus tyyleill&#xE4;.](.gitbook/assets/image%20%2844%29.png)
+![Kuva: React-sovellus tyyleill&#xE4;.](.gitbook/assets/image%20%2845%29.png)
 
 ## **Reactin sielunelämää**
 
@@ -128,7 +128,7 @@ Mainittakoon myös, että React-sovelluksen "paketointi" vaatii kohtalaisen mä�
 
 Komponentti joka tulostaa tervehdyksen on kätevä, mutta se olisi vielä monikäyttöisempi jos tervehdystä voisi tarpeen vaatiessa muuttaa. Tähän käytetään propseja, jotka toimivat ohjelmointikielissä tuttujen parametrien tavoin. Tehdään komponentti, joka saa kutsuvaiheessa parametreja 
 
-Komponentin määrittelyssä JSX funktio saa parametrina props-olion. Komponentin luoma HTML-koodi puolestaan sijoittelee props-olion sisältämiä kenttiä \(color, greetging, author\) sopiviin paikkoihin.
+Komponentin määrittelyssä JSX funktio saa parametrina props-olion. Komponentin luoma HTML-koodi puolestaan sijoittelee props-olion sisältämiä kenttiä \(color, greeting, author\) sopiviin paikkoihin.
 
 ```jsx
 const CustomHello = (props) => {
@@ -142,7 +142,7 @@ const CustomHello = (props) => {
 };
 ```
 
-Komponentin käyttö tapahtuisi seuraavalla tavalla. Huomaa miten komponentin kutsussa määritellään attrribuutit, jotka välittävät tietoa komponenttiin:
+Komponentin käyttö tapahtuisi alla kuvatulla  tavalla. Huomaa miten komponentin kutsussa määritellään attrribuutit, jotka välittävät tietoa komponenttiin. 
 
 ```jsx
 import React from "react";
@@ -161,11 +161,120 @@ const App = () => (
     />
   </div>
 );
+
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+
+Lopuksi lisätään vielä CSS-tyylimääritys index.html -tiedostoon, jotta viimeisen &lt;CustomHello&gt; kutsun ja siinä olevan color-määrityksn tuottama HTML-tyyli voidaan esittää selaimessa.
+
+```jsx
+<style>
+    div p {
+      border: 1px solid blue;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .green {
+      color: green;
+    }
+  </style>
 ```
 
 Ohjelman suoritus näyttää seuraavalta:
 
-![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2830%29.png)
+![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2831%29.png)
 
+## JSON-datan käsittely
 
+Usein sovellus saa dataa valmiina pakettina JSON-muodossa, jolloin se pitää parsia ja esittää loppukäyttäjälle jossain järkevässä muodossa. Tehdään seuraavaksi komponentti joka käy läpi saamansa JSON taulukon ja esittää sen ruudulla. Data sisältää tietoja kuuluisista sitaateista. 
+
+Datasetti voidaan esitellä tässä vaiheessa osana JavaScript-koodia. Todellisissa sovelluksisa se yleensä kuitenkin saadaan AJAX-kutsun vastauksena esim. REST API:n kautta. 
+
+```jsx
+const quotes = [
+  {
+    quote: "Life isn’t about getting and having, it’s about giving and being.",
+    author: "Kevin Kruse",
+  },
+  {
+    quote: "Whatever the mind of man can conceive and believe, it can achieve.",
+    author: "Napoleon Hill",
+  },
+  {
+    quote: "Strive not to be a success, but rather to be of value.",
+    author: "Albert Einstein",
+  },
+  {
+    quote:
+      "Two roads diverged in a wood, and I—I took the one less traveled by, And that has made all the difference.",
+    author: "Robert Frost",
+  },
+  {
+    quote: "I attribute my success to this: I never gave or took any excuse.",
+    author: "Florence Nightingale",
+  },
+];
+```
+
+Määritellään seuraavaksi komponentti, joka saa parametrit propseina. Tämän jälkeen esitellään &lt;div&gt; lohko, jonka sisälle rakennetaan HTML-lista. Listan sisään poimitaan JSON datasta quote- ja author -kentät. Koodissa käytetään JavaScriptin map\(\)-funktiota taulukon läpikäyntiin, sillä JSX:n kanssa for-silmukat aiheuttavat haasteita. Tähän liittyen voit lukea lisää [täältä](https://blog.cloudboost.io/for-loops-in-react-render-no-you-didnt-6c9f4aa73778).
+
+```jsx
+const QuoteArray = (props) => {
+  const { data } = props;
+
+  return (
+    <div>
+      <ul>
+        {data.map((item) => (
+          <li>
+            {item.quote} ( {item.author} )
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+```
+
+Tämän jälkeen komponentteja kutsutaan sopivissa kohdin:
+
+```jsx
+const App = () => (
+  <div>
+    <h1>Ensimmäinen React-sovellukseni!</h1>
+    <Hello />
+    <Hello />
+    <CustomHello author="Mika" greeting="Tervepä terve." />
+    <CustomHello author="Matti" greeting="Se on morjens!" color="green" />
+    <QuoteArray data={quotes} />
+  </div>
+);
+
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+
+Lopputulos näyttää seuraavalta:
+
+![Kuva: JSON-data esitettyn&#xE4; ruudulla.](.gitbook/assets/image%20%2823%29.png)
+
+Mainittakoon myös toinen vaihtoehto. Yleensä yhden sivun sovellukset \(SPA=Single Page Application\) Reactissa on tapana rakentaa siten, että sivulla on vain yksi &lt;div&gt; lohko, jonka sisältö rakennetaan &lt;App /&gt; komponentissa lukuisista pienemmistä komponenteista .
+
+Periaatteessa sovelluksessa voidaan kutsua ReactDOM.render\(\) -metodia myös useampaan kertaan. Myös tämä mahdollistaa komponenttien sijoittelun eri kohtiin sivulla. Alla olevassa esimerkissä ensimmäinen render-funktio sijoittaa &lt;App /&gt; komponentin root-nimiseen elementtiin. Toinen puolestaan sijoittaa &lt;QuoteArray /&gt; komponentin quotes-nimiseen elementtiin.
+
+```jsx
+ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<QuoteArray data={quotes} />,
+  document.getElementById("quotes")
+);
+```
+
+Tällaisen koodin käyttö vaatii sen, että lisäämme HTML-sivupohjaan tarvittavat rakenteet, tässä tapauksessa quotes-nimisen DIV-lohkon.
+
+```jsx
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <div id="quotes"></div>
+  </body>
+```
 

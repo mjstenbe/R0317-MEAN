@@ -237,7 +237,7 @@ Selaimista löytyvien kehittäjän työkalujen \(F12\) avulla voi olla mielenkii
 
 Headers-välilehden alta löytyvät sekä lähetetty data että saapuneen vastauksen sisältö.
 
-![Kuva: AJAX-pyyn&#xF6;n mukana l&#xE4;hetetty data.](../.gitbook/assets/image%20%2829%29.png)
+![Kuva: AJAX-pyyn&#xF6;n mukana l&#xE4;hetetty data.](../.gitbook/assets/image%20%2830%29.png)
 
 ![Kuva: AJAX-pyynn&#xF6;n palauttama vastaus.](../.gitbook/assets/image%20%2816%29.png)
 
