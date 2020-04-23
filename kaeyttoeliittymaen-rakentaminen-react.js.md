@@ -59,7 +59,6 @@ const App = () => (
 );
 
 ReactDOM.render(<App />, document.getElementById("root"));
-
 ```
 
 Tallenna tiedosto tämän jälkeen \(Node-palvelin käynnistyy uudestaan automaattisesti= ja lataa selaimella sivu uudestaan. Muutosten tulisi näkyä selaimessa.  
@@ -68,9 +67,41 @@ Tallenna tiedosto tämän jälkeen \(Node-palvelin käynnistyy uudestaan automaa
 
 ## Koodin läpikäynti
 
-Ohjelmakoodissa tuodaan ensin import-lauseilla sovelluksen käyttöön Reactin omia kirjastoja. Tämän jälkeen riveillä 4-8 määritellään App-niminen "komponentti" käyttäen Reactin omaa JSX-notaatiota. Tässä luodaan siis HTML-koodia JavaScriptin avulla, ja siitä koko Reactissa on oikeastaan kysymys. 
+Ohjelmakoodissa tuodaan ensin import-lauseilla sovelluksen käyttöön Reactin omia kirjastoja. Tämän jälkeen riveillä 4-8 määritellään App-niminen "komponentti" käyttäen ES6:n notaatiota.  Alla olevassa esimerkissä on esitetty miten sama komponentti ja toiminnallisuus voidaan koodata myös perinteisenä nimettynä funktiona tai anonyymina mutta aukikirjoitetuna funktiona.
 
-Lopuksi rivillä 10 pyydetään Reactia renderöimään eli piirtämään äsken luomamme komponentti "App" HTML-sivulta löytyvään elementtiin, jonka id=root \[document.getElementById\("root"\)\]. 
+```jsx
+// Komponenetin määrittely funktiona
+function App(){
+return (   <div>
+             <h1>Ensimmäinen React-sovellukseni!</h1>
+           </div>
+ )
+}
+
+// Komponenetin määrittely perinteiseen tapaan anonyymifunktiona
+const App = function() {
+return (   <div>
+             <h1>Ensimmäinen React-sovellukseni!</h1>
+           </div>
+ )
+}
+
+// Komponenetin määrittely ES6:n tapaan anonyymifunktiona
+
+const App = () => (
+  <div>
+    <h1>Ensimmäinen React-sovellukseni!</h1>
+  </div>
+);
+```
+
+Komponentti luo siis HTML-koodia JavaScriptin avulla hyödyntäen Reactin omaa JSX-notaatiota. Ja siitä koko Reactissa on oikeastaan kysymys. 
+
+Lopuksi rivillä 10 pyydetään Reactia renderöimään eli piirtämään äsken luomamme komponentti "App" HTML-sivulta löytyvään elementtiin, jonka id-tunniste on "root".
+
+```jsx
+ReactDOM.render(<App />, document.getElementById("root"));
+```
 
 Sivupohja johon sovellus komponentteja sijoittelee löytyy public-hakemistosta ja on nimeltään index.html. Se on käytännössä tyhjä HTML-sivu, johon on lisätty muutamia rakenteellisia elementtejä. 
 
@@ -104,7 +135,7 @@ const Hello = () => (
 ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
-Lisäämällä tuulimääreet index.html -tiedostoon \( ennen &lt;body&gt; tägiä \) saadaan sivulle vähän ilmettä.
+Lisäämällä tyylimääreet index.html -tiedostoon \( ennen &lt;body&gt; tägiä \) saadaan sivulle vähän ilmettä.
 
 ```jsx
 <style>
