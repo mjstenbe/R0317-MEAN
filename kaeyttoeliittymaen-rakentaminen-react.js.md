@@ -317,7 +317,9 @@ Jatkokehitetään ohjelmaa siten, että se hakee esittämänsä datan AJAXin avu
 
 Määritellään kompoentti GetData, joka suorittaa AJAX-kutsun haluttuun osoitteeseen. Esimerkissä olen vienyt edellisen esimerkin sitaattidatan jsonbin.io -nimiseen verkkopalveluun, josta JSON-dataa voi näppärästi hakea. 
 
-Fetch hakee datan ja palauttaa ensimmäisessä then\(\) -lohkossa saamansa vastauksen. Tämän jälkeen then\(\) -lohkoja voidaan ketjuttaa peräkkäisten operaatioiden aikaansaamiseksi. Toisessa then\(\) -lohkossa JSON-muotoinen data otetaan items-muuttujaan talteen ja välitetään &lt;QuoteArray&gt; -komponenttiin props-parametrina.
+Fetch hakee datan ja palauttaa ensimmäisessä then\(\) -lohkossa saamansa vastauksen. Tämän jälkeen then\(\) -lohkoja voidaan ketjuttaa peräkkäisten operaatioiden aikaansaamiseksi. Toisessa then\(\) -lohkossa JSON-muotoinen data otetaan items-muuttujaan talteen ja välitetään &lt;QuoteArray&gt; -komponenttiin props-parametrina. Samalla pyydetään ReactDOM-render\(\) -metodia piirtämään kyseinen komponentti "quotes"-nimiseen lohkoon sivulla.
+
+Lopuksi kutsutaan &lt;GetData /&gt; komponenttia ja sijoiteaan se root-lohkoon sivulla. Lopputulos on sama kuin aiemmin, sillä erotuksella että tiedot haetaan nyt AJAXin avulla.
 
 ```jsx
 const GetData = () => {
@@ -330,17 +332,79 @@ const GetData = () => {
       const items = data.quotes;
       ReactDOM.render(
         <QuoteArray data={items} />,
-        document.getElementById("json")
+        document.getElementById("quotes")
       );
     });
   return <div>Nothing here. Fething data...</div>;
 };
 
+ReactDOM.render(<GetData />, document.getElementById("root"));
 ```
 
 Toinen vaihtoehto olisi tarjoilla dataa paikallisen REST API:n kautta tai esim. näppärän JSON-server-moduulin avulla. Kyseisen moduulin saa tarjoilemaan lokaalisti tiedostossa sitaatit.json olevaa dataa yksinkertaisella komennolla:
 
 ```jsx
 npx json-server --port=5000 --sitaatit.json
+```
+
+## Lomakkeiden käsittely
+
+Lomakkeiden käsittely Reactilla on melko haastavaa.  Reactin dokumentaatiossa lomakkeet laaditaan luokkapohjaisina komponentteina, joihin voidaan sijoittaa kuuntelijoita ja joissa kenttien arvot tallennetaan luokkien sisältämiin kenttiin tiloina \(state\). Hiljattain julkaistu Reactin uusi versio näyttää hiljalleen luopuvan luokkaan määritellyistä komponenteista ja tilanhallinta on toteutettu hieman uudella tavalla.
+
+Seuraavassa esimerkissä rakennetaan hakupalkkina toimiva lomake tutulla komponenttimallilla ilman luokkia. Kenttien lukemisessa käytetään natiivi-JavaScriptiä. Lomakkeen tyylittelyssä on käytetty Bootstrapia.
+
+Huomaa erityisesti: komponenttiin on määritelty "alikomponentteja" jotka käsittelevät lomakkeelta tulevat onClick ja onSubmit -tapahtumat. Lisäksi 
+
+```jsx
+const SearchBar = () => {
+
+// Määritellään käsittelija napille 1 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Tapahtuman aiheutti: ", event.target);
+    var form = event.target;
+    console.log("Hakusana: ", form.query.value);
+  };
+  
+  // Määritellään käsittelija napille 2 
+  const handleClick = (event) => {
+    event.preventDefault();
+    console.log("Tapahtuman aiheutti: ", event.target);
+  };
+
+  return (
+    <div>
+      <h1>Hakusivu</h1>
+      <div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Hae: </label>
+            <input
+              type="query"
+              className="form-control"
+              id="query"
+              placeholder="Syötä hakutermi"
+              name="query"
+            />
+          </div>
+          <div className="form-group">
+            <button type="submit" id="button1" className="btn btn-primary">
+              Submit
+            </button>
+
+            <button
+              type="button"
+              className="btn"
+              onClick={ handleClick }
+              >
+              Hae kaikki
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 ```
 
