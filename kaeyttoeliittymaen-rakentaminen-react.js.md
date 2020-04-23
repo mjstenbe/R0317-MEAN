@@ -26,7 +26,7 @@ Reactiin kehitettyjen lisäpalikoiden, kuten [React Nativen](https://reactnative
 
 Verkosta löytyy erilaisia [vertailuja ](https://www.themexpert.com/blog/angular-vs-react-vs-vue)näiden kolmen ominaisuuksista. 
 
-![Kuva: Frameworkkien vertailua \(https://www.themexpert.com/blog/angular-vs-react-vs-vue\).](.gitbook/assets/image%20%2811%29.png)
+![Kuva: Frameworkkien vertailua \(https://www.themexpert.com/blog/angular-vs-react-vs-vue\).](.gitbook/assets/image%20%2812%29.png)
 
 ## Ensimmäinen ohjelma 
 
@@ -42,7 +42,7 @@ npm start
 
 Sovellus aukeaa selaimeen ja näyttää esimerkkisovelluksen tuottaman HTML-sivun \(alla\). Vieressä myös hakemistolistaus React-sovelluksen sisältämistä tiedostoista.
 
-![](.gitbook/assets/image%20%2826%29.png)
+![](.gitbook/assets/image%20%2828%29.png)
 
 Sovellus asuu hakemistossa **myApp**, joka annettiin create-react-app -komennolle parametrina. Sen sisällä on monenlaista tavaraa, josta keskeisin on kuitenkin sovelluksen JavaScript-koodin sisältämä **src**.
 
@@ -63,7 +63,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 Tallenna tiedosto tämän jälkeen \(Node-palvelin käynnistyy uudestaan automaattisesti= ja lataa selaimella sivu uudestaan. Muutosten tulisi näkyä selaimessa.  
 
-![Kuva: Muokattu React-sovellus.](.gitbook/assets/image%20%2829%29.png)
+![Kuva: Muokattu React-sovellus.](.gitbook/assets/image%20%2831%29.png)
 
 ## Koodin läpikäynti
 
@@ -147,7 +147,7 @@ Lisäämällä tyylimääreet index.html -tiedostoon \( ennen &lt;body&gt; tägi
   </style>
 ```
 
-![Kuva: React-sovellus tyyleill&#xE4;.](.gitbook/assets/image%20%2845%29.png)
+![Kuva: React-sovellus tyyleill&#xE4;.](.gitbook/assets/image%20%2848%29.png)
 
 ## **Reactin sielunelämää**
 
@@ -215,7 +215,7 @@ Lopuksi lisätään vielä CSS-tyylimääritys index.html -tiedostoon, jotta vii
 
 Ohjelman suoritus näyttää seuraavalta:
 
-![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2831%29.png)
+![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2833%29.png)
 
 ## JSON-datan käsittely
 
@@ -288,7 +288,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 Lopputulos näyttää seuraavalta:
 
-![Kuva: JSON-data esitettyn&#xE4; ruudulla.](.gitbook/assets/image%20%2823%29.png)
+![Kuva: JSON-data esitettyn&#xE4; ruudulla.](.gitbook/assets/image%20%2825%29.png)
 
 Mainittakoon myös toinen vaihtoehto. Yleensä yhden sivun sovellukset \(SPA=Single Page Application\) Reactissa on tapana rakentaa siten, että sivulla on vain yksi &lt;div&gt; lohko, jonka sisältö rakennetaan &lt;App /&gt; komponentissa lukuisista pienemmistä komponenteista .
 
@@ -351,9 +351,53 @@ npx json-server --port=5000 --sitaatit.json
 
 Lomakkeiden käsittely Reactilla on melko haastavaa.  Reactin dokumentaatiossa lomakkeet laaditaan luokkapohjaisina komponentteina, joihin voidaan sijoittaa kuuntelijoita ja joissa kenttien arvot tallennetaan luokkien sisältämiin kenttiin tiloina \(state\). Hiljattain julkaistu Reactin uusi versio näyttää hiljalleen luopuvan luokkaan määritellyistä komponenteista ja tilanhallinta on toteutettu hieman uudella tavalla.
 
-Seuraavassa esimerkissä rakennetaan hakupalkkina toimiva lomake tutulla komponenttimallilla ilman luokkia. Kenttien lukemisessa käytetään natiivi-JavaScriptiä. Lomakkeen tyylittelyssä on käytetty Bootstrapia.
+Seuraavassa esimerkissä rakennetaan hakupalkkina toimiva lomake tutulla komponenttimallilla ilman luokkia. Kenttien lukemisessa käytetään natiivi-JavaScriptiä. Lomakkeen tyylittelyssä on käytetty Bootstrapia, mikä johdosta index.html -tiedoston &lt;head&gt; lohkoon on lisätty viittaus Bootstrapin CSS-tiedostoon.
 
-Huomaa erityisesti: komponenttiin on määritelty "alikomponentteja" jotka käsittelevät lomakkeelta tulevat onClick ja onSubmit -tapahtumat. Lisäksi 
+```jsx
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+```
+
+Itse lomakkeen määrittely HTML-koodilla on seuraavanlainen. Myöhemin koodi sijoitetaan osaksi React-komponenttia.
+
+```jsx
+        <form>
+          <div className="form-group">
+            <label>Hae: </label>
+            <input
+              type="query"
+              className="form-control"
+              id="query"
+              placeholder="Syötä hakutermi"
+              name="query"
+            />
+          </div>
+          <div className="form-group">
+            <button type="submit" id="button1" className="btn btn-primary">
+              Submit
+            </button>
+
+            <button
+              type="button"
+              className="btn"
+              >
+              Hae kaikki
+            </button>
+          </div>
+        </form>
+```
+
+Lomake näyttää selaimessa seuraavalta:
+
+![Kuva: Bootstrap-tyylitelty lomake.](.gitbook/assets/image%20%2811%29.png)
+
+Määritellään index.js tiedostoon komponentti nimeltä SearchBar. Huomaa erityisesti että komponenttiin on määritelty "alikomponentteja" \(handleSubmit ja handleClick\) jotka käsittelevät lomakkeelta tulevat onClick ja onSubmit -tapahtumat. Ne ovat siis funktioita komponenttien sisällä. 
+
+Lomakkeen kenttiin voidaan liittää tapahtuman kuuntelijoita saman tapaan kuin HTML:ssä. Notaatio ainoastaan on hieman erilainen. 
 
 ```jsx
 const SearchBar = () => {
@@ -371,7 +415,7 @@ const SearchBar = () => {
     event.preventDefault();
     console.log("Tapahtuman aiheutti: ", event.target);
   };
-
+  // Komponentin palauttama JSX muotoinen esitys
   return (
     <div>
       <h1>Hakusivu</h1>
@@ -405,6 +449,16 @@ const SearchBar = () => {
     </div>
   );
 };
-
+ReactDOM.render(<SearchBar />, document.getElementById("root"));
 ```
+
+Suoritettuna ohjelma näyttää seuraavalta. 
+
+![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2842%29.png)
+
+Kun nappeja painetaan tulostaa konsoliin ao. kuvan mukaiset tekstit. Nämä ovat siis tapahtumankäsittelijöiden suorittamat rivit. Ensimmäinen nappi tulostaa tiedot tapahtuman onSubmit aiheuttajasta \(form\). Sen avulla päästään myös kiinni kenttään kirjoitettuun hakusanaan, joka tulostetaan query-kentästä myös konsoliin.
+
+Toisen napin pinaminen tulostaa konsoliin sen tapahtuman aiheuttajan, eli viitteen Button-elementtiin.
+
+![](.gitbook/assets/image%20%2814%29.png)
 
