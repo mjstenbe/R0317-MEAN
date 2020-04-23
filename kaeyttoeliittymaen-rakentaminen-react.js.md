@@ -161,6 +161,8 @@ Komponentti joka tulostaa tervehdyksen on kätevä, mutta se olisi vielä monik�
 
 Komponentin määrittelyssä JSX funktio saa parametrina props-olion. Komponentin luoma HTML-koodi puolestaan sijoittelee props-olion sisältämiä kenttiä \(color, greeting, author\) sopiviin paikkoihin.
 
+Huomaa myös className-attribuutti, jota Reactin JSX käyttää class-tyylimääreen asettamiseen HTML:stä tutun class:in sijaan.
+
 ```jsx
 const CustomHello = (props) => {
   return (
@@ -307,5 +309,38 @@ Tällaisen koodin käyttö vaatii sen, että lisäämme HTML-sivupohjaan tarvitt
     <div id="root"></div>
     <div id="quotes"></div>
   </body>
+```
+
+## AJAX-kutsun tekeminen
+
+Jatkokehitetään ohjelmaa siten, että se hakee esittämänsä datan AJAXin avulla. Tähän voidaan käyttää peruskurssiltakin tuttua natiivi-Javascriptiä mutta helpoteaan elämää hieman Fetch API:n avulla. Se on uusien selaimien tukema tapa tehdä AJAX-kutsu hieman hallitummin.
+
+Määritellään kompoentti GetData, joka suorittaa AJAX-kutsun haluttuun osoitteeseen. Esimerkissä olen vienyt edellisen esimerkin sitaattidatan jsonbin.io -nimiseen verkkopalveluun, josta JSON-dataa voi näppärästi hakea. 
+
+Fetch hakee datan ja palauttaa ensimmäisessä then\(\) -lohkossa saamansa vastauksen. Tämän jälkeen then\(\) -lohkoja voidaan ketjuttaa peräkkäisten operaatioiden aikaansaamiseksi. Toisessa then\(\) -lohkossa JSON-muotoinen data otetaan items-muuttujaan talteen ja välitetään &lt;QuoteArray&gt; -komponenttiin props-parametrina.
+
+```jsx
+const GetData = () => {
+  fetch("https://api.jsonbin.io/b/5e9ef7272940c704e1dc1099")
+    .then((results) => {
+      return results.json();
+    })
+    .then((data) => {
+      console.log(data);
+      const items = data.quotes;
+      ReactDOM.render(
+        <QuoteArray data={items} />,
+        document.getElementById("json")
+      );
+    });
+  return <div>Nothing here. Fething data...</div>;
+};
+
+```
+
+Toinen vaihtoehto olisi tarjoilla dataa paikallisen REST API:n kautta tai esim. näppärän JSON-server-moduulin avulla. Kyseisen moduulin saa tarjoilemaan lokaalisti tiedostossa sitaatit.json olevaa dataa yksinkertaisella komennolla:
+
+```jsx
+npx json-server --port=5000 --sitaatit.json
 ```
 
