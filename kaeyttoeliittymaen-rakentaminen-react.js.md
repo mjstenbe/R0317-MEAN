@@ -355,6 +355,17 @@ Toinen vaihtoehto olisi tarjoilla dataa paikallisen REST API:n kautta tai esim. 
 npx json-server --port=5000 --sitaatit.json
 ```
 
+## CORS
+
+Selain saattaa estää operaatiot CORS-tietoturvarajoitusten johdosta \(skriptit sijaitsevat eri domainissa\). Helpoin tapa kiertää tämä on asentaa selaimeen CORS-lisäosa, jolla ongelma katoaa. Tämä toimii kuitenkin vain omassa kehitysympäristössä. Nodessa pyörivän web-palvelin voidaan antaa sallia CORS sääntöä rikkovat pyynnöt. Se tapahtuu asentamalla [CORS-moduuli](https://expressjs.com/en/resources/middleware/cors.html) ja liittämällä se Noden Express-sovellukseen.
+
+```jsx
+var express = require('express')
+var cors = require('cors')
+var app = express()
+app.use(cors())
+```
+
 ## Lomakkeiden ja tapahtumien käsittely
 
 Lomakkeiden käsittely Reactilla on melko haastavaa perinteiseen JavaScriptiin tottuneelle.  Reactin dokumentaatiossa lomakkeet laaditaan luokkapohjaisina komponentteina, joihin voidaan sijoittaa kuuntelijoita ja joissa kenttien arvot tallennetaan luokkien sisältämiin kenttiin tiloina \(state\). Hiljattain julkaistu Reactin uusi versio näyttää hiljalleen luopuvan luokkaan määritellyistä komponenteista ja tilanhallinta on toteutettu hieman uudella tavalla. Se ei myöskään vaadi enää luokkapohjaisia komponentteja vaan toimii myös funktioina laadituilla komponentteina.
