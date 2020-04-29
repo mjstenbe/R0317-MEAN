@@ -6,7 +6,7 @@ Nodella on tässä materiaalissa toteutettu back-end sovelluksia, jotka vastaano
 
 Sovellusten front-endiin eli selaimen esittämään käyttöliittymäkerrokseen ei ole vielä otettu kantaa, muuten valmiiden tyylikirjastojen hyödyntämisen näkökulmasta \(Bootstrap, Pure.css\). 
 
-Tässä osassa tehdään tiivis katsaus suosittuun React-kirjastoon, jota voidaan hyödyntää käyttöliittymien rakentamisessa web-sovelluksiin.
+Tässä osassa tehdään tiivis katsaus suosittuun React-kirjastoon, jota voidaan hyödyntää käyttöliittymien rakentamisessa web-sovelluksiin. Käytössä olevan ajan vuoksi mutkia hieman oiotaan eikä esim. tilanhallintaan perehdytä.
 
 ## Yleistä
 
