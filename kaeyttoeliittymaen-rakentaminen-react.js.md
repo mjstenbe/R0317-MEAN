@@ -26,7 +26,7 @@ Reactiin kehitettyjen lisäpalikoiden, kuten [React Nativen](https://reactnative
 
 Verkosta löytyy erilaisia [vertailuja ](https://www.themexpert.com/blog/angular-vs-react-vs-vue)näiden kolmen ominaisuuksista. 
 
-![Kuva: Frameworkkien vertailua \(https://www.themexpert.com/blog/angular-vs-react-vs-vue\).](.gitbook/assets/image%20%2812%29.png)
+![Kuva: Frameworkkien vertailua \(https://www.themexpert.com/blog/angular-vs-react-vs-vue\).](.gitbook/assets/image%20%2813%29.png)
 
 ## Ensimmäinen ohjelma 
 
@@ -42,7 +42,7 @@ npm start
 
 Sovellus aukeaa selaimeen ja näyttää esimerkkisovelluksen tuottaman HTML-sivun \(alla\). Vieressä myös hakemistolistaus React-sovelluksen sisältämistä tiedostoista.
 
-![](.gitbook/assets/image%20%2828%29.png)
+![](.gitbook/assets/image%20%2829%29.png)
 
 Sovellus asuu hakemistossa **myApp**, joka annettiin create-react-app -komennolle parametrina. Sen sisällä on monenlaista tavaraa, josta keskeisin on kuitenkin sovelluksen JavaScript-koodin sisältämä **src**.
 
@@ -63,7 +63,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 Tallenna tiedosto tämän jälkeen \(Node-palvelin käynnistyy uudestaan automaattisesti= ja lataa selaimella sivu uudestaan. Muutosten tulisi näkyä selaimessa.  
 
-![Kuva: Muokattu React-sovellus.](.gitbook/assets/image%20%2831%29.png)
+![Kuva: Muokattu React-sovellus.](.gitbook/assets/image%20%2832%29.png)
 
 ## Koodin läpikäynti
 
@@ -147,11 +147,19 @@ Lisäämällä tyylimääreet index.html -tiedostoon \( ennen &lt;body&gt; tägi
   </style>
 ```
 
-![Kuva: React-sovellus tyyleill&#xE4;.](.gitbook/assets/image%20%2848%29.png)
+![Kuva: React-sovellus tyyleill&#xE4;.](.gitbook/assets/image%20%2849%29.png)
 
 ## **Reactin sielunelämää**
 
-Vaikka esimerkkiohjelma käynnistää Reactin Node-sovelluksen pyörittämässä web-palvelimessa, voidaan Reactia hyödyntävä web-sivu tai -sovellus tarjoilla minkä tahansa web-palvelimen kautta; sehän koostuu tutuista HTML/CSS/JavaScript-tiedostoista, joita selain osaa sellaisenaan suorittaa. 
+Vaikka esimerkkiohjelma käynnistää Reactin Node-sovelluksen pyörittämässä web-palvelimessa, voidaan Reactia hyödyntävä web-sivu tai -sovellus tarjoilla minkä tahansa web-palvelimen kautta; sehän koostuu tutuista HTML/CSS/JavaScript-tiedostoista, joita selain osaa sellaisenaan suorittaa.
+
+React-sovellus kootaan käännösvaiheen jälkeen build-hakemistoon, josta sen voi tarjoilla vaikkapa Nodella tehdyn serve-nimisen web-palvelimen kautta ao. komennolla.  ME\*N-pinossa voidaan luonnollisesti käyttää Noden tarjoamaa web-palvelinta - tästä lisää tuonnempana.
+
+```jsx
+npx serve ./build/ -p 8081
+```
+
+![Kuva: Serve-web-palvelin k&#xE4;ynnistyy.](.gitbook/assets/image%20%286%29.png)
 
 Mainittakoon myös, että React-sovelluksen "paketointi" vaatii kohtalaisen määrän työkaluja, joiden läpi kirjoitettu sovelus ajetaan \(edellä ajetussa esimerkkiohjelmassa työkalut ovat valmiiksi konfiguroitu\) Näitä ovat mm. [Babel](https://babeljs.io/) \(joka kääntää JavaScriptin uusimman version ES6:n mukaan kirjoitetun koodin selainten tukemaan JS:n muotoon\) sekä [Webpack](https://webpack.js.org/) \(joka paketoi lukuisat JavaScript-moduulit yhdeksi fyysiseksi tiedostoksi selainten ymmärtämään muotoon\) . Näitä ei tässä materiaalissa kuitenkaan sen enempää käsitellä.
 
@@ -215,7 +223,7 @@ Lopuksi lisätään vielä CSS-tyylimääritys index.html -tiedostoon, jotta vii
 
 Ohjelman suoritus näyttää seuraavalta:
 
-![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2833%29.png)
+![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2834%29.png)
 
 ## JSON-datan käsittely
 
@@ -288,7 +296,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 Lopputulos näyttää seuraavalta:
 
-![Kuva: JSON-data esitettyn&#xE4; ruudulla.](.gitbook/assets/image%20%2825%29.png)
+![Kuva: JSON-data esitettyn&#xE4; ruudulla.](.gitbook/assets/image%20%2826%29.png)
 
 Mainittakoon myös toinen vaihtoehto. Yleensä yhden sivun sovellukset \(SPA=Single Page Application\) Reactissa on tapana rakentaa siten, että sivulla on vain yksi &lt;div&gt; lohko, jonka sisältö rakennetaan &lt;App /&gt; komponentissa lukuisista pienemmistä komponenteista .
 
@@ -393,7 +401,7 @@ Itse lomakkeen määrittely HTML-koodilla on seuraavanlainen. Myöhemin koodi si
 
 Lomake näyttää selaimessa seuraavalta:
 
-![Kuva: Bootstrap-tyylitelty lomake.](.gitbook/assets/image%20%2811%29.png)
+![Kuva: Bootstrap-tyylitelty lomake.](.gitbook/assets/image%20%2812%29.png)
 
 Määritellään index.js tiedostoon komponentti nimeltä SearchBar. Huomaa erityisesti että komponenttiin on määritelty "alikomponentteja" \(handleSubmit ja handleClick\) jotka käsittelevät lomakkeelta tulevat onClick ja onSubmit -tapahtumat. Ne ovat siis funktioita komponenttien sisällä. 
 
@@ -454,11 +462,11 @@ ReactDOM.render(<SearchBar />, document.getElementById("root"));
 
 Suoritettuna ohjelma näyttää seuraavalta. 
 
-![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2842%29.png)
+![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2843%29.png)
 
 Kun nappeja painetaan tulostaa konsoliin ao. kuvan mukaiset tekstit. Nämä ovat siis tapahtumankäsittelijöiden suorittamat rivit. Ensimmäinen nappi tulostaa tiedot tapahtuman onSubmit aiheuttajasta \(form\). Sen avulla päästään myös kiinni kenttään kirjoitettuun hakusanaan, joka tulostetaan query-kentästä myös konsoliin.
 
 Toisen napin pinaminen tulostaa konsoliin sen tapahtuman aiheuttajan, eli viitteen Button-elementtiin.
 
-![](.gitbook/assets/image%20%2814%29.png)
+![](.gitbook/assets/image%20%2815%29.png)
 
