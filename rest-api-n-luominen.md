@@ -37,7 +37,7 @@ DELETE-metodilla voitaisiin poistaa käyttäjä yksilöimällä käyttäjän tun
 
 Resurssi ja sen perässä mahdollisesti olevat tarkenteet kertovat siis kohteen, jota käsitellään ja käytetty HTTP-metodi kertoo, mitä tuolle kohteelle tehdään. Allaolevaan taulukkoon on koottu HTTP-verbit sekä niiden kuvaukset. Lisäksi siitä on nähtävissä palautuskoodit, joita HTTP-protokolla käyttää tiedottaessaan pyynnön lähettäjää operaation onnistumisesta.
 
-![HTTP-operaatiot ja niiden selitykset koodeineen \(https://www.restapitutorial.com/\)](.gitbook/assets/image%20%2824%29.png)
+![HTTP-operaatiot ja niiden selitykset koodeineen \(https://www.restapitutorial.com/\)](.gitbook/assets/image%20%2826%29.png)
 
 ## Node.js ja REST APIt
 
@@ -45,13 +45,13 @@ Node.js sopii erinomaisesti rajapintojen toteuttamiseen palvelimella. Se on pait
 
 Aiemmin materiaalissa on jo esitelty oikeastaan kaikki ne toiminnallisuudet mitä tarvitse REST API:n rakentamiseen. Katsotaan seuraavaksi vielä kootusti miten yksinkertainen rajapinta toteutetaan.
 
-![Er&#xE4;&#xE4;n REST-rajapinnan kuvaus UML-muodossa \(L&#xE4;hde: https://firstinfinity.wordpress.com/modeling\_rest\_web\_services/\)](.gitbook/assets/image%20%2827%29.png)
+![Er&#xE4;&#xE4;n REST-rajapinnan kuvaus UML-muodossa \(L&#xE4;hde: https://firstinfinity.wordpress.com/modeling\_rest\_web\_services/\)](.gitbook/assets/image%20%2829%29.png)
 
 ## Luotavan rajapinnan hahmottelua
 
 Hahmotellaan ensin luotava rajapinta reittien ja niissä käytettyjen verbien mukaan:
 
-![Kuva: Luotavan rajapinnan hahmottelua.](.gitbook/assets/image%20%2836%29.png)
+![Kuva: Luotavan rajapinnan hahmottelua.](.gitbook/assets/image%20%2840%29.png)
 
 ## Reittien luominen
 
@@ -99,7 +99,7 @@ app.listen(8081, function() {
 
 Kahta ensimmäistä reittiä \(GET ja POST\) voitaisiin testata selaimessa. Sen sijaan kahden muun reitin kokeiluun tarvitaan jo muita työkaluja -- selain kun ei osaa tehdä muuta kuin GET ja POST-tyyppisiä HTTP-pyyntöjä.
 
-![Kuva: Ohjelman GET-reitin testausta selaimessa.](.gitbook/assets/image%20%2825%29.png)
+![Kuva: Ohjelman GET-reitin testausta selaimessa.](.gitbook/assets/image%20%2827%29.png)
 
 Yksi käytetyimmistä työkaluista REST API:en testauksessa on ohjelma nimeltä Postman. Sen avulla on helppo tehdä erilaisia HTTP-kyselyjä haluttuun osoitteeseen ja seurata myös sieltä saapuvia vastauksia. Ohjelman saat ladattua [täältä](https://www.postman.com/downloads/). Komentorivityökaluihin tottuneet käyttävät usein myös CURL-nimistä ohjelmaa. Se on [saatavilla myös Windowsille](https://curl.haxx.se/windows/). 
 
@@ -107,25 +107,25 @@ Yksi käytetyimmistä työkaluista REST API:en testauksessa on ohjelma nimeltä 
 
 Allaolevassa kuvassa Postman lähettää GET-pyynnön määriteltyyn osoitteeseen ja ohjelman laareunassa näkyy saatu vastaus.
 
-![Kuva: API:n testausta Postmanilla](.gitbook/assets/image%20%2853%29.png)
+![Kuva: API:n testausta Postmanilla](.gitbook/assets/image%20%2859%29.png)
 
 ### POST
 
 Vastaavasti voisimme lähettää POST-tyyppiset pyynnöt vaihtamalla vasemman yläreunan alasvetovalikosta verbiä sekä muokkaamalla URL:iin oikean reitin POST-pyynnölle. Body-välilehdellä on mahdollista määritellä arvo-avainpareja, joilla simuloidaan esim. lomakkeelta lähetettäviä kenttiä ja niiden sisältöjä. Alla API:lle välitetään muuttujat title ja year. Vastauksessa luetaan lähetetyt muuttujat body-parserin avulla ja tulostetaan ne ruudulle.
 
-![Kuva: POST-tyyppisen pyynn&#xF6;n l&#xE4;hett&#xE4;minen.](.gitbook/assets/image%20%2856%29.png)
+![Kuva: POST-tyyppisen pyynn&#xF6;n l&#xE4;hett&#xE4;minen.](.gitbook/assets/image%20%2862%29.png)
 
 ### DELETE
 
 DELETE-verbin testaamisessa alasvetovalikossa on valittuna DELETE ja osoitteeseen on kirjoitettu poistamisen mahdollistava reitti. Lisäksi reitin perässä on muuttuja, joka luetaan koodissa talteen ja tulostetaan alareunan vastauksessa ruudulle. Tämän parametrin perusteella voidaan tehdä tietokantaan poistopyyntö halutusta tiedosta. 
 
-![Kuva: DELETE-version testaamista Postmanilla.](.gitbook/assets/image%20%2858%29.png)
+![Kuva: DELETE-version testaamista Postmanilla.](.gitbook/assets/image%20%2864%29.png)
 
 ### PUT
 
 Päivitysoperaatio suoriteaan PUT-verbillä ja testataan vielä sitäkin Postmanilla.
 
-![Kuva: PUT-verbin testaaminen Postmanilla.](.gitbook/assets/image%20%2823%29.png)
+![Kuva: PUT-verbin testaaminen Postmanilla.](.gitbook/assets/image%20%2825%29.png)
 
 ## Tietokantaoperaatiot
 
@@ -190,7 +190,7 @@ app.get("/api/leffat", function (req, res) {
 
 Tämän reitin testaaminen Postmanilla näyttää seuraavalta:
 
-![Kuva: Reitin testaaminen Postmanilla. ](.gitbook/assets/image%20%2844%29.png)
+![Kuva: Reitin testaaminen Postmanilla. ](.gitbook/assets/image%20%2850%29.png)
 
 ### Leffojen poistaminen - DELETE
 
@@ -246,7 +246,7 @@ Lopuksi vielä testataan luotu reitti Postmanilla:
 
 Mikäli sama alkio yritetään poistaa uudelleen, saadaan seuraava ilmoitus: 
 
-![](.gitbook/assets/image%20%2840%29.png)
+![](.gitbook/assets/image%20%2845%29.png)
 
 ### PUT ja POST
 

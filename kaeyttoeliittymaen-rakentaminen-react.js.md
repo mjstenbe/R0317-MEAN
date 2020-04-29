@@ -26,7 +26,7 @@ Reactiin kehitettyjen lisäpalikoiden, kuten [React Nativen](https://reactnative
 
 Verkosta löytyy erilaisia [vertailuja ](https://www.themexpert.com/blog/angular-vs-react-vs-vue)näiden kolmen ominaisuuksista. 
 
-![Kuva: Frameworkkien vertailua \(https://www.themexpert.com/blog/angular-vs-react-vs-vue\).](.gitbook/assets/image%20%2813%29.png)
+![Kuva: Frameworkkien vertailua \(https://www.themexpert.com/blog/angular-vs-react-vs-vue\).](.gitbook/assets/image%20%2814%29.png)
 
 ## Ensimmäinen ohjelma 
 
@@ -42,7 +42,7 @@ npm start
 
 Sovellus aukeaa selaimeen ja näyttää esimerkkisovelluksen tuottaman HTML-sivun \(alla\). Vieressä myös hakemistolistaus React-sovelluksen sisältämistä tiedostoista.
 
-![](.gitbook/assets/image%20%2829%29.png)
+![](.gitbook/assets/image%20%2832%29.png)
 
 Sovellus asuu hakemistossa **myApp**, joka annettiin create-react-app -komennolle parametrina. Sen sisällä on monenlaista tavaraa, josta keskeisin on kuitenkin sovelluksen JavaScript-koodin sisältämä **src**.
 
@@ -63,7 +63,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 Tallenna tiedosto tämän jälkeen \(Node-palvelin käynnistyy uudestaan automaattisesti= ja lataa selaimella sivu uudestaan. Muutosten tulisi näkyä selaimessa.  
 
-![Kuva: Muokattu React-sovellus.](.gitbook/assets/image%20%2832%29.png)
+![Kuva: Muokattu React-sovellus.](.gitbook/assets/image%20%2835%29.png)
 
 ## Koodin läpikäynti
 
@@ -147,7 +147,7 @@ Lisäämällä tyylimääreet index.html -tiedostoon \( ennen &lt;body&gt; tägi
   </style>
 ```
 
-![Kuva: React-sovellus tyyleill&#xE4;.](.gitbook/assets/image%20%2849%29.png)
+![Kuva: React-sovellus tyyleill&#xE4;.](.gitbook/assets/image%20%2855%29.png)
 
 ## **Reactin sielunelämää**
 
@@ -223,7 +223,7 @@ Lopuksi lisätään vielä CSS-tyylimääritys index.html -tiedostoon, jotta vii
 
 Ohjelman suoritus näyttää seuraavalta:
 
-![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2834%29.png)
+![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2837%29.png)
 
 ## JSON-datan käsittely
 
@@ -296,7 +296,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 Lopputulos näyttää seuraavalta:
 
-![Kuva: JSON-data esitettyn&#xE4; ruudulla.](.gitbook/assets/image%20%2826%29.png)
+![Kuva: JSON-data esitettyn&#xE4; ruudulla.](.gitbook/assets/image%20%2828%29.png)
 
 Mainittakoon myös toinen vaihtoehto. Yleensä yhden sivun sovellukset \(SPA=Single Page Application\) Reactissa on tapana rakentaa siten, että sivulla on vain yksi &lt;div&gt; lohko, jonka sisältö rakennetaan &lt;App /&gt; komponentissa lukuisista pienemmistä komponenteista .
 
@@ -355,11 +355,11 @@ Toinen vaihtoehto olisi tarjoilla dataa paikallisen REST API:n kautta tai esim. 
 npx json-server --port=5000 --sitaatit.json
 ```
 
-## Lomakkeiden käsittely
+## Lomakkeiden ja tapahtumien käsittely
 
-Lomakkeiden käsittely Reactilla on melko haastavaa.  Reactin dokumentaatiossa lomakkeet laaditaan luokkapohjaisina komponentteina, joihin voidaan sijoittaa kuuntelijoita ja joissa kenttien arvot tallennetaan luokkien sisältämiin kenttiin tiloina \(state\). Hiljattain julkaistu Reactin uusi versio näyttää hiljalleen luopuvan luokkaan määritellyistä komponenteista ja tilanhallinta on toteutettu hieman uudella tavalla.
+Lomakkeiden käsittely Reactilla on melko haastavaa perinteiseen JavaScriptiin tottuneelle.  Reactin dokumentaatiossa lomakkeet laaditaan luokkapohjaisina komponentteina, joihin voidaan sijoittaa kuuntelijoita ja joissa kenttien arvot tallennetaan luokkien sisältämiin kenttiin tiloina \(state\). Hiljattain julkaistu Reactin uusi versio näyttää hiljalleen luopuvan luokkaan määritellyistä komponenteista ja tilanhallinta on toteutettu hieman uudella tavalla. Se ei myöskään vaadi enää luokkapohjaisia komponentteja vaan toimii myös funktioina laadituilla komponentteina.
 
-Seuraavassa esimerkissä rakennetaan hakupalkkina toimiva lomake tutulla komponenttimallilla ilman luokkia. Kenttien lukemisessa käytetään natiivi-JavaScriptiä. Lomakkeen tyylittelyssä on käytetty Bootstrapia, mikä johdosta index.html -tiedoston &lt;head&gt; lohkoon on lisätty viittaus Bootstrapin CSS-tiedostoon.
+Seuraavassa esimerkissä rakennetaan hakupalkkina toimiva lomake tutulla komponenttimallilla ilman luokkia. Kenttien lukemisessa käytetään natiivi-JavaScriptiä ja oiotaan tarkoituksella jotta koodi ei karkaisi liian haastavaksi tämän kurssin tarpeisiin. Lomakkeen tyylittelyssä on käytetty Bootstrapia, mikä johdosta index.html -tiedoston &lt;head&gt; lohkoon on lisätty viittaus Bootstrapin CSS-tiedostoon.
 
 ```jsx
     <link
@@ -401,7 +401,7 @@ Itse lomakkeen määrittely HTML-koodilla on seuraavanlainen. Myöhemin koodi si
 
 Lomake näyttää selaimessa seuraavalta:
 
-![Kuva: Bootstrap-tyylitelty lomake.](.gitbook/assets/image%20%2812%29.png)
+![Kuva: Bootstrap-tyylitelty lomake.](.gitbook/assets/image%20%2813%29.png)
 
 Määritellään index.js tiedostoon komponentti nimeltä SearchBar. Huomaa erityisesti että komponenttiin on määritelty "alikomponentteja" \(handleSubmit ja handleClick\) jotka käsittelevät lomakkeelta tulevat onClick ja onSubmit -tapahtumat. Ne ovat siis funktioita komponenttien sisällä. 
 
@@ -462,11 +462,167 @@ ReactDOM.render(<SearchBar />, document.getElementById("root"));
 
 Suoritettuna ohjelma näyttää seuraavalta. 
 
-![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2843%29.png)
+![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2849%29.png)
 
 Kun nappeja painetaan tulostaa konsoliin ao. kuvan mukaiset tekstit. Nämä ovat siis tapahtumankäsittelijöiden suorittamat rivit. Ensimmäinen nappi tulostaa tiedot tapahtuman onSubmit aiheuttajasta \(form\). Sen avulla päästään myös kiinni kenttään kirjoitettuun hakusanaan, joka tulostetaan query-kentästä myös konsoliin.
 
 Toisen napin pinaminen tulostaa konsoliin sen tapahtuman aiheuttajan, eli viitteen Button-elementtiin.
 
-![](.gitbook/assets/image%20%2815%29.png)
+![Kuva: Konsolin tulostus nappeja painettaessa.](.gitbook/assets/image%20%2816%29.png)
+
+## Tulosten esittäminen
+
+Tulosten esittämistä varten tehdään oma komponentti, joka käytännössä kutsuu aiemmin rakentamaamme Leffa-APIa ja hyödyntää sen palauttamaa raakadataa. Alla esimerkki API:n kutsumisen tuottamasta vastauksesta. Jos kehität omalla koneella, huomaa, että joudut käynnistämään API-sovelluksen ja sen tulee käyttää eri porttia kuin React-sovellus \(3000\).
+
+![Kuva: Leffa-APIn tuottama vastaus.](.gitbook/assets/image%20%2846%29.png)
+
+Määritellään ensin GetMovieData-komponentti \(itse asiassa funktio\) joka tekee AJAX-haun ja palauttaa kaikki leffat. Huomaa, että funktio kutsuu ReactDom.render\(\) -metodia joka piirtää tulokset ruudulle. Logiikan voisi järjestää toisinkin, mutta tämän kurssin puitteissa tyydytään yksinkertaisiin ja suoraviivaisiin ratkaisuihin.
+
+```jsx
+const GetMovieData = () => {
+  fetch("http://localhost:8081/api/leffat")
+    .then((results) => {
+      return results.json();
+    })
+    .then((data) => {
+      console.log(data);
+      const items = data;
+
+      ReactDOM.render(
+        <MovieArray data={items} />,
+        document.getElementById("root")
+      );
+    });
+  return <div>Nothing here. Fething data...</div>;
+};
+```
+
+Toinen GetOneMovie\(\)-komponentti hakee API:sta käyttäjän syöttämän hakusanan mukaisia leffoja. Rakenne on muuten sama, mutta APIn reitti on erilainen. Reitin perään liitetään käyttäjän kirjoittama hakusana.
+
+```jsx
+const GetOneMovie = (query) => {
+  fetch("http://localhost:8081/api/hae/" + query)
+    .then((results) => {
+      return results.json();
+    })
+    .then((data) => {
+      console.log("Haun tulokset", data);
+      const items = data;
+      console.log("One movie: ", data);
+
+      ReactDOM.render(
+        <MovieArray data={items} />,
+        document.getElementById("root")
+      );
+    });
+  return <div>Nothing here. Fething data...</div>;
+};
+
+```
+
+Tulostaulukko rakentuu MovieArray-komponentissa, joka saa props-parametreina AJX-haun tulokset. Komponentin siäsllä on kaksi alifunktiota, joilla hoidetaan erikoistilanteet: jos leffalla ei ole kuvaa tai sen lataamisessa tulee virhe, laitetaan kuvakkeeksi placeholder-kuva verkosta.
+
+```jsx
+// Leffatietojen esittäminen taulukossa
+const MovieArray = (props) => {
+  const { data } = props;
+  // Leffan kuvake
+  var posterImg;
+  var url;
+  
+  // Funktio tyhjien kuvien tsekkaamiseen
+  const CheckPoster = (props) => {
+    var poster = props.src;
+    // Jos kuvaa ei ole määritelty, korvataan se ikonilla
+    if (poster == "" || poster == null) {
+      posterImg = "https://via.placeholder.com/150";
+    } else {
+      posterImg = poster;
+    }
+    // Palautetaan kuvatägi. onError suoritetaan jos kuvan lataus ei onnistu
+    return (
+      <img
+        src={posterImg}
+        className="img-thumbnail"
+        alt="Poster image"
+        onError={addDefaultSrc}
+        width="50%"
+      />
+    );
+  };
+
+  //Yritetään asettaa rikkinäiseen kuvaan tyhjä ikoni tai edes poistaa src-tägistä kokonaan
+  const addDefaultSrc = (ev) => {
+    console.log(ev.target);
+    ev.target.src = "https://via.placeholder.com/150";
+    ev.onError = null;
+  };
+
+  return (
+    <div>
+      <SearchBar />
+      <table className="table table-striped table-bordered">
+        <thead>
+          <tr key={props.id}>
+            <th scope="col">Title</th>
+            <th scope="col">Year</th>
+            <th scope="col">Directors</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Poster</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, i) => (
+            <tr>
+              <td key={i}> {item.title}</td>
+              <td> {item.year} </td>
+              <td> {item.directors} </td>
+              <td> {item.imdb.rating}</td>
+              {/*  Luodaan kuvatägi komponentin sisältämässä funktiossa */}
+              <td id="pic">
+                <CheckPoster src={item.poster} />
+              </td>
+             </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+```
+
+Lopuksi lomakkeen nappiin pitää vielä liittää kutsu, joka laukaisee koodin suorituksen. Tässäkin vähän oikotaan mutkia, joten kutsutaan funktiota vain sen nimellä päivittämällä SearchBarin handleClick- ja handleSubmit funktioita seuraavasti:
+
+```jsx
+  // Määritellään käsittelija napille 1
+   const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Tapahtuman aiheutti: ", event.target);
+    var form = event.target;
+    console.log("Hakusana: ", form.query.value);
+    // Kutsutaan funktiota ja välitään sinne käyttäjän hakusana
+    GetOneMovie(form.query.value);
+  };
+
+  // Määritellään käsittelija napille 2
+  const handleClick = (event) => {
+    event.preventDefault();
+    console.log("Tapahtuman aiheutti: ", event.target);
+    // Kutsutaan funktiota ilman hakusanaa
+     GetMovieData();
+  };
+```
+
+Hae kaikki-nappi tuottaa seuraavanlaisen tuloksen:
+
+![Kuva: Kaikki leffat taulukkossa.](.gitbook/assets/image%20%2844%29.png)
+
+Kirjoittamalla hakutermi ja painamalla nappia saadan tietokannasta vain hakua vastaavat nimekkeet:
+
+![Kuva: Hakutermi&#xE4; vastaavat tulokset.](.gitbook/assets/image%20%2838%29.png)
+
+
+
+
 
