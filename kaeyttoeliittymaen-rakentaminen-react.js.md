@@ -531,7 +531,7 @@ const GetOneMovie = (query) => {
 
 ```
 
-Tulostaulukko rakentuu MovieArray-komponentissa, joka saa props-parametreina AJX-haun tulokset. Komponentin siäsllä on kaksi alifunktiota, joilla hoidetaan erikoistilanteet: jos leffalla ei ole kuvaa tai sen lataamisessa tulee virhe, laitetaan kuvakkeeksi placeholder-kuva verkosta.
+Tulostaulukko rakentuu MovieArray-komponentissa, joka saa props-parametreina AJAX-haun tulokset. Komponentin sisällä on kaksi alifunktiota, joilla hoidetaan erikoistilanteet: jos leffalla ei ole kuvaa tai sen lataamisessa tulee virhe, laitetaan kuvakkeeksi placeholder-kuva verkosta.
 
 ```jsx
 // Leffatietojen esittäminen taulukossa
