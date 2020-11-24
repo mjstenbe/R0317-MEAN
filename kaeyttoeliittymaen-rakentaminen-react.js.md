@@ -161,7 +161,7 @@ npx serve ./build/ -p 8081
 
 ![Kuva: Serve-web-palvelin k&#xE4;ynnistyy.](.gitbook/assets/image%20%286%29.png)
 
-Mainittakoon myös, että React-sovelluksen "paketointi" vaatii kohtalaisen määrän työkaluja, joiden läpi kirjoitettu sovelus ajetaan \(edellä ajetussa esimerkkiohjelmassa työkalut ovat valmiiksi konfiguroitu\) Näitä ovat mm. [Babel](https://babeljs.io/) \(joka kääntää JavaScriptin uusimman version ES6:n mukaan kirjoitetun koodin selainten tukemaan JS:n muotoon\) sekä [Webpack](https://webpack.js.org/) \(joka paketoi lukuisat JavaScript-moduulit yhdeksi fyysiseksi tiedostoksi selainten ymmärtämään muotoon\) . Näitä ei tässä materiaalissa kuitenkaan sen enempää käsitellä.
+Mainittakoon myös, että React-sovelluksen "paketointi" vaatii kohtalaisen määrän työkaluja, joiden läpi kirjoitettu sovellus ajetaan \(edellä ajetussa esimerkkiohjelmassa työkalut ovat valmiiksi konfiguroitu\) Näitä ovat mm. [Babel](https://babeljs.io/) \(joka kääntää JavaScriptin uusimman version ES6:n mukaan kirjoitetun koodin selainten tukemaan JS:n muotoon\) sekä [Webpack](https://webpack.js.org/) \(joka paketoi lukuisat JavaScript-moduulit yhdeksi fyysiseksi tiedostoksi selainten ymmärtämään muotoon\) . Näitä ei tässä materiaalissa kuitenkaan sen enempää käsitellä.
 
 ## Tiedonvälitys komponenteille \(props\)
 
