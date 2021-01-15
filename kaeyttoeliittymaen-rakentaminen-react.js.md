@@ -633,6 +633,15 @@ Kirjoittamalla hakutermi ja painamalla nappia saadan tietokannasta vain hakua va
 
 ![Kuva: Hakutermi&#xE4; vastaavat tulokset.](.gitbook/assets/image%20%2838%29.png)
 
+## Sovelluksen julkaiseminen Netlify-palvelussa
+
+Netlify on helppokäyttöinen ja tunnettu verkkopalvelu joka mahdollistaa verkkosivujen ja -sovelusten ajamisen palvelimella. Netlify osaa julkaista palvelun suoraan GitHubin kautta, tai sinne voi julkaista sisältöä kätevällä komentorivityökalulla.
+
+```text
+npm install netlify-cli -g
+netlify deploy
+```
+
 
 
 
