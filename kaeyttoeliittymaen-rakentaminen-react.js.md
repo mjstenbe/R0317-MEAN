@@ -4,7 +4,11 @@
 
 Nodella on tässä materiaalissa toteutettu back-end sovelluksia, jotka vastaanottavat selaimelta palvelupyyntöjä ja lomakkeilta lähetettyä dataa, suorittavat pyyntöihin liittyvät toimenpiteet kuten tiedoston käsittely tai tietokantakutsut ja lopuksi palauttavat selaimelle jonkinlaisen vastauksen. 
 
+<<<<<<< HEAD
 Sovellusten front-endiin eli selaimen esittämään käyttöliittymäkerrokseen ei ole vielä otettu kantaa, muuten valmiiden tyylikirjastojen hyödyntämisen näkökulmasta \([Bootstrap](https://getbootstrap.com/), [Pure.css](https://purecss.io/), [TailwindCSS](https://tailwindcss.com/)\). 
+=======
+Sovellusten front-endiin eli selaimen esittämään käyttöliittymäkerrokseen ei ole vielä otettu kantaa, muuten kuin valmiiden tyylikirjastojen hyödyntämisen näkökulmasta \(Bootstrap, Pure.css\). 
+>>>>>>> af2f34467c8d80bfde10c98117b61abd849ed161
 
 Tässä osassa tehdään tiivis katsaus suosittuun React-kirjastoon, jota voidaan hyödyntää käyttöliittymien rakentamisessa web-sovelluksiin. Käytössä olevan ajan vuoksi mutkia hieman oiotaan eikä esim. tilanhallintaan perehdytä.
 
@@ -32,7 +36,7 @@ Verkosta löytyy erilaisia [vertailuja](https://www.themexpert.com/blog/angular-
 
 Reactin kokeilu on tehty helpoksi. Saat ladattua Reactin kirjastot ja esimerkkisovelluksen yhdellä komennolla käyttöösi. Tämä prosessi on kuvattu hyvin Reactin omassa dokumentaatiossa [täällä](https://reactjs.org/docs/create-a-new-react-app.html#create-react-app). Ideana on käyttää npx-komentoa, joka lataa \(kuten npm\) tarvittavat koodit koneellesi ja suorittaa asennustoimenpiteet. 
 
-Tämän jälkeen voit käynnistää Node-sovelluksen \(npm start\), joka käynnistää web-palvelin ja tarjoilee esimerkkisovelluksen selaimessa osoitteessa http://localhost:3000.
+Tämän jälkeen voit käynnistää Node-sovelluksen \(npm start\), joka käynnistää web-palvelimen ja tarjoilee esimerkkisovelluksen selaimessa osoitteessa http://localhost:3000.
 
 ```bash
 npx create-react-app my-app
@@ -156,7 +160,7 @@ Tyylimääritteet voidaan tehdä src-kansion juureen, tai vaikka css-kansioon sr
 
 ## **Reactin sielunelämää**
 
-Vaikka esimerkkiohjelma käynnistää Reactin Node-sovelluksen pyörittämässä web-palvelimessa, voidaan Reactia hyödyntävä web-sivu tai -sovellus tarjoilla minkä tahansa web-palvelimen kautta; sehän koostuu tutuista HTML/CSS/JavaScript-tiedostoista, joita selain osaa sellaisenaan suorittaa.
+Vaikka esimerkkiohjelma käynnistää Reactin Node-sovelluksen pyörittämässä web-palvelimessa, voidaan Reactia hyödyntävä web-sivu tai -sovellus tarjoilla minkä tahansa web-palvelimen kautta; sehän koostuu tutuista HTML/CSS/JavaScript-tiedostoista, joita selain osaa sellaisenaan suorittaa ja näyttää.
 
 React-sovellus kootaan käännösvaiheen jälkeen build-hakemistoon, josta sen voi tarjoilla vaikkapa Nodella tehdyn serve-nimisen web-palvelimen kautta ao. komennolla.  ME\*N-pinossa voidaan luonnollisesti käyttää Noden tarjoamaa web-palvelinta - tästä lisää tuonnempana.
 
@@ -388,7 +392,7 @@ npx json-server --port=5000 --sitaatit.json
 
 ## CORS
 
-Selain saattaa estää operaatiot CORS-tietoturvarajoitusten johdosta \(skriptit sijaitsevat eri domainissa\). Helpoin tapa kiertää tämä on asentaa selaimeen CORS-lisäosa, jolla ongelma katoaa. Tämä toimii kuitenkin vain omassa kehitysympäristössä. Nodessa pyörivän web-palvelin voidaan antaa sallia CORS sääntöä rikkovat pyynnöt. Se tapahtuu asentamalla [CORS-moduuli](https://expressjs.com/en/resources/middleware/cors.html) ja liittämällä se Noden Express-sovellukseen.
+Selain saattaa estää operaatiot CORS-tietoturvarajoitusten johdosta \(skriptit sijaitsevat eri domainissa\). Helpoin tapa kiertää tämä on asentaa selaimeen CORS-lisäosa, jolla ongelma katoaa. Tämä toimii kuitenkin vain omassa kehitysympäristössä. Nodessa pyörivän web-palvelimen voidaan antaa sallia CORS- sääntöä rikkovat pyynnöt. Se tapahtuu asentamalla [CORS-moduuli](https://expressjs.com/en/resources/middleware/cors.html) ja liittämällä se Noden Express-sovellukseen.
 
 ```jsx
 var express = require('express')
@@ -677,6 +681,15 @@ Hae kaikki-nappi tuottaa seuraavanlaisen tuloksen:
 Kirjoittamalla hakutermi ja painamalla nappia saadan tietokannasta vain hakua vastaavat nimekkeet:
 
 ![Kuva: Hakutermi&#xE4; vastaavat tulokset.](.gitbook/assets/image%20%2838%29.png)
+
+## Sovelluksen julkaiseminen Netlify-palvelussa
+
+Netlify on helppokäyttöinen ja tunnettu verkkopalvelu joka mahdollistaa verkkosivujen ja -sovelusten ajamisen palvelimella. Netlify osaa julkaista palvelun suoraan GitHubin kautta, tai sinne voi julkaista sisältöä kätevällä komentorivityökalulla.
+
+```text
+npm install netlify-cli -g
+netlify deploy
+```
 
 
 
