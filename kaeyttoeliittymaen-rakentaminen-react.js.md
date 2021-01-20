@@ -4,13 +4,13 @@
 
 Nodella on tässä materiaalissa toteutettu back-end sovelluksia, jotka vastaanottavat selaimelta palvelupyyntöjä ja lomakkeilta lähetettyä dataa, suorittavat pyyntöihin liittyvät toimenpiteet kuten tiedoston käsittely tai tietokantakutsut ja lopuksi palauttavat selaimelle jonkinlaisen vastauksen. 
 
-Sovellusten front-endiin eli selaimen esittämään käyttöliittymäkerrokseen ei ole vielä otettu kantaa, muuten valmiiden tyylikirjastojen hyödyntämisen näkökulmasta \(Bootstrap, Pure.css\). 
+Sovellusten front-endiin eli selaimen esittämään käyttöliittymäkerrokseen ei ole vielä otettu kantaa, muuten valmiiden tyylikirjastojen hyödyntämisen näkökulmasta \([Bootstrap](https://getbootstrap.com/), [Pure.css](https://purecss.io/), [TailwindCSS](https://tailwindcss.com/)\). 
 
 Tässä osassa tehdään tiivis katsaus suosittuun React-kirjastoon, jota voidaan hyödyntää käyttöliittymien rakentamisessa web-sovelluksiin. Käytössä olevan ajan vuoksi mutkia hieman oiotaan eikä esim. tilanhallintaan perehdytä.
 
 ## Yleistä
 
-Front-end ohjelmoinnissa on tällä hetkellä kaksi suurta frameworkkia \(sovelluskehystä\): [Angular ](https://angularjs.org/)ja [ReactJS](https://facebook.github.io/react/). Lisäksi altavastaajana markkinoille on ilmestynyt kevyempi ja monen mielestä edellisiä helpommin omaksuttava ja pienempikokoinen Vue. 
+Front-end ohjelmoinnissa on tällä hetkellä kaksi suurta frameworkkia \(sovelluskehystä\): [Angular](https://angularjs.org/) ja [ReactJS](https://facebook.github.io/react/). Lisäksi altavastaajana markkinoille on ilmestynyt kevyempi ja monen mielestä edellisiä helpommin omaksuttava ja pienempikokoinen [Vue](https://vuejs.org/). 
 
 AngularJS on Googlen vuonna 2010 julkaisema tuote, joka koki uudelleensyntymän vuonna 2016. Tämän jälkeen siitä on käytetty nimeä Angular V2 \(ilman JS-päätettä\). React on puolestaan Facebookin alunperin vuonna 2013 kehittämä framework, joka saavutti nopeasti suuren suosion julkaisunsa jälkeen. 
 
@@ -24,7 +24,7 @@ Sen sijaan React on oikeastaan enemmänkin JavaScript-kirjasto, joka tarjoaa mah
 
 Reactiin kehitettyjen lisäpalikoiden, kuten [React Nativen](https://reactnative.dev/) avulla, on sillä myös mahdollista tehdä mobiilisovelluksia jotka kääntyvät natiivikoodiksi Androidille ja iOS:lle. Latausmäärien ja työpaikkailmoitusten perusteella React tuntuu olevan tällä hetkellä kaikkein suosituin ja kysytyin teknologia.
 
-Verkosta löytyy erilaisia [vertailuja ](https://www.themexpert.com/blog/angular-vs-react-vs-vue)näiden kolmen ominaisuuksista. 
+Verkosta löytyy erilaisia [vertailuja](https://www.themexpert.com/blog/angular-vs-react-vs-vue) näiden kolmen ominaisuuksista. 
 
 ![Kuva: Frameworkkien vertailua \(https://www.themexpert.com/blog/angular-vs-react-vs-vue\).](.gitbook/assets/image%20%2814%29.png)
 
@@ -61,7 +61,7 @@ const App = () => (
 ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
-Tallenna tiedosto tämän jälkeen \(Node-palvelin käynnistyy uudestaan automaattisesti= ja lataa selaimella sivu uudestaan. Muutosten tulisi näkyä selaimessa.  
+Tallenna tiedosto tämän jälkeen \(Node-palvelin käynnistyy uudestaan automaattisesti ja lataa selaimella sivu uudestaan. Muutosten tulisi näkyä selaimessa.  
 
 ![Kuva: Muokattu React-sovellus.](.gitbook/assets/image%20%2835%29.png)
 
@@ -72,17 +72,19 @@ Ohjelmakoodissa tuodaan ensin import-lauseilla sovelluksen käyttöön Reactin o
 ```jsx
 // Komponenetin määrittely funktiona
 function App(){
-return (   <div>
-             <h1>Ensimmäinen React-sovellukseni!</h1>
-           </div>
+return (   
+  <div>
+    <h1>Ensimmäinen React-sovellukseni!</h1>
+  </div>
  )
 }
 
 // Komponenetin määrittely perinteiseen tapaan anonyymifunktiona
 const App = function() {
-return (   <div>
-             <h1>Ensimmäinen React-sovellukseni!</h1>
-           </div>
+return (   
+  <div>
+    <h1>Ensimmäinen React-sovellukseni!</h1>
+  </div>
  )
 }
 
@@ -98,6 +100,8 @@ const App = () => (
 Komponentti luo siis HTML-koodia JavaScriptin avulla hyödyntäen Reactin omaa JSX-notaatiota. Ja siitä koko Reactissa on oikeastaan kysymys. 
 
 Lopuksi rivillä 10 pyydetään Reactia renderöimään eli piirtämään äsken luomamme komponentti "App" HTML-sivulta löytyvään elementtiin, jonka id-tunniste on "root".
+
+**HUOM! ReactDOM.render-funktiota kannattaa käyttää vain index.js-tiedostossa.**
 
 ```jsx
 ReactDOM.render(<App />, document.getElementById("root"));
@@ -117,6 +121,9 @@ Reactissa komponentteja voidaan luoda lisää ja uudelleenkäyttää. Luodaan se
 import React from "react";
 import ReactDOM from "react-dom";
 
+// tuomalla tyylimääreet css-tiedostosta saadaan sivulle vähän ilmettä
+import './styles.css';
+
 const App = () => (
   <div>
     <h1>Ensimmäinen React-sovellukseni!</h1>
@@ -135,16 +142,14 @@ const Hello = () => (
 ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
-Lisäämällä tyylimääreet index.html -tiedostoon \( ennen &lt;body&gt; tägiä \) saadaan sivulle vähän ilmettä.
+Tyylimääritteet voidaan tehdä src-kansion juureen, tai vaikka css-kansioon src-kansiossa.
 
-```jsx
-<style>
-    div p {
-      border: 1px solid blue;
-      border-radius: 10px;
-      padding: 10px;
-    }
-  </style>
+```css
+  div p {
+    border: 1px solid blue;
+    border-radius: 10px;
+    padding: 10px;
+  }
 ```
 
 ![Kuva: React-sovellus tyyleill&#xE4;.](.gitbook/assets/image%20%2855%29.png)
@@ -206,19 +211,17 @@ const App = () => (
 ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
-Lopuksi lisätään vielä CSS-tyylimääritys index.html -tiedostoon, jotta viimeisen &lt;CustomHello&gt; kutsun ja siinä olevan color-määrityksn tuottama HTML-tyyli voidaan esittää selaimessa.
+Lopuksi lisätään vielä CSS-tyylimääritys luomaamme css-tiedostoon, jotta viimeisen &lt;CustomHello&gt; kutsun ja siinä olevan color-määrityksn tuottama HTML-tyyli voidaan esittää selaimessa.
 
-```jsx
-<style>
-    div p {
-      border: 1px solid blue;
-      border-radius: 10px;
-      padding: 10px;
-    }
-    .green {
-      color: green;
-    }
-  </style>
+```css
+  div p {
+    border: 1px solid blue;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .green {
+    color: green;
+  }
 ```
 
 Ohjelman suoritus näyttää seuraavalta:
@@ -257,7 +260,7 @@ const quotes = [
 ];
 ```
 
-Määritellään seuraavaksi komponentti, joka saa parametrit propseina. Tämän jälkeen esitellään &lt;div&gt; lohko, jonka sisälle rakennetaan HTML-lista. Listan sisään poimitaan JSON datasta quote- ja author -kentät. Koodissa käytetään JavaScriptin map\(\)-funktiota taulukon läpikäyntiin, sillä JSX:n kanssa for-silmukat aiheuttavat haasteita. Tähän liittyen voit lukea lisää [täältä](https://blog.cloudboost.io/for-loops-in-react-render-no-you-didnt-6c9f4aa73778).
+Määritellään seuraavaksi komponentti, joka saa parametrit propseina. Tämän jälkeen esitellään &lt;div&gt; lohko, jonka sisälle rakennetaan HTML-lista. Listan sisään poimitaan JSON datasta quote- ja author -kentät. Koodissa käytetään JavaScriptin [map\(\)-funktiota](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) taulukon läpikäyntiin, sillä JSX:n kanssa for-silmukat aiheuttavat haasteita. Tähän liittyen voit lukea lisää [täältä](https://blog.cloudboost.io/for-loops-in-react-render-no-you-didnt-6c9f4aa73778).
 
 ```jsx
 const QuoteArray = (props) => {
@@ -298,26 +301,44 @@ Lopputulos näyttää seuraavalta:
 
 ![Kuva: JSON-data esitettyn&#xE4; ruudulla.](.gitbook/assets/image%20%2828%29.png)
 
-Mainittakoon myös toinen vaihtoehto. Yleensä yhden sivun sovellukset \(SPA=Single Page Application\) Reactissa on tapana rakentaa siten, että sivulla on vain yksi &lt;div&gt; lohko, jonka sisältö rakennetaan &lt;App /&gt; komponentissa lukuisista pienemmistä komponenteista .
+## Tilanhallinta lyhyesti
 
-Periaatteessa sovelluksessa voidaan kutsua ReactDOM.render\(\) -metodia myös useampaan kertaan. Myös tämä mahdollistaa komponenttien sijoittelun eri kohtiin sivulla. Alla olevassa esimerkissä ensimmäinen render-funktio sijoittaa &lt;App /&gt; komponentin root-nimiseen elementtiin. Toinen puolestaan sijoittaa &lt;QuoteArray /&gt; komponentin quotes-nimiseen elementtiin.
+Reactin versiossa 16.8 julkaistiin [React-hooks](https://reactjs.org/docs/hooks-intro.html), mikä muutti Reactin tilanhallintaa. Kaksi yleisintä hookkia ovat useState, ja useEffect.
 
+### useState
+
+useState-hookkia käytetään muutosten tekemiseen sivuun. Kyseilellä hookilla luodaan muuttujia, joihin muutoksia tehdessä React uudelleenrenderöi sivun, ja muutokset näkyvät sivulla.
+
+useState-muuttuja luodaan seuraavasti.
 ```jsx
-ReactDOM.render(<App />, document.getElementById("root"));
-ReactDOM.render(<QuoteArray data={quotes} />,
-  document.getElementById("quotes")
-);
+  const [muuttuja, setMuuttuja] = useState('alkuperäinen')
 ```
 
-Tällaisen koodin käyttö vaatii sen, että lisäämme HTML-sivupohjaan tarvittavat rakenteet, tässä tapauksessa quotes-nimisen DIV-lohkon.
+Kun muuttujaa halutaan muuttaa, ei sitä tehdä perinteisellä tavalla 
 
 ```jsx
-<body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <div id="quotes"></div>
-  </body>
+muuttuja = 'uusi';
 ```
+
+vaan seuraavasti
+
+```jsx
+setMuuttuja('uusi');
+```
+
+Tämä aiheuttaa Reactin uudelleenrenderöinnin.
+
+### useEffect
+
+Jotta esimerkiksi AJAX-kutsuja ei tehtäisi joka kerta, kun React uudelleenrenderöi, voidaan käyttää useEffect-hookkia. 
+
+```jsx
+useEffect(() => {
+  // suoritettava koodi
+}, [])
+```
+
+Ylläoleva syntaksi suorittaa sisällä olevan koodin vain kerran, silloin kun componentti ensimmäisen kerran renderöidään. useEffectin toisena argumenttina on annettu tyhjät []-sulkeet. Näiden sisälle voidaan laittaa useState-muuttujia. Tällöin suoritettava koodi suoritetaan aina, kun useState-muuttujan arvo vaihtuu.
 
 ## AJAX-kutsun tekeminen
 
@@ -325,26 +346,36 @@ Jatkokehitetään ohjelmaa siten, että se hakee esittämänsä datan AJAXin avu
 
 Määritellään kompoentti GetData, joka suorittaa AJAX-kutsun haluttuun osoitteeseen. Esimerkissä olen vienyt edellisen esimerkin sitaattidatan jsonbin.io -nimiseen verkkopalveluun, josta JSON-dataa voi näppärästi hakea. 
 
-Fetch hakee datan ja palauttaa ensimmäisessä then\(\) -lohkossa saamansa vastauksen. Tämän jälkeen then\(\) -lohkoja voidaan ketjuttaa peräkkäisten operaatioiden aikaansaamiseksi. Toisessa then\(\) -lohkossa JSON-muotoinen data otetaan items-muuttujaan talteen ja välitetään &lt;QuoteArray&gt; -komponenttiin props-parametrina. Samalla pyydetään ReactDOM-render\(\) -metodia piirtämään kyseinen komponentti "quotes"-nimiseen lohkoon sivulla.
+Fetch hakee datan ja palauttaa ensimmäisessä then\(\) -lohkossa saamansa vastauksen. Tämän jälkeen then\(\) -lohkoja voidaan ketjuttaa peräkkäisten operaatioiden aikaansaamiseksi. Toisessa then\(\) -lohkossa JSON-muotoinen data otetaan items-muuttujaan talteen ja välitetään &lt;QuoteArray&gt; -komponenttiin props-parametrina.
 
 Lopuksi kutsutaan &lt;GetData /&gt; komponenttia ja sijoiteaan se root-lohkoon sivulla. Lopputulos on sama kuin aiemmin, sillä erotuksella että tiedot haetaan nyt AJAXin avulla.
 
 ```jsx
+import React, { useState, useEffect } from 'react';
+
 const GetData = () => {
-  fetch("https://api.jsonbin.io/b/5e9ef7272940c704e1dc1099")
-    .then((results) => {
-      return results.json();
-    })
-    .then((data) => {
-      console.log(data);
-      const items = data.quotes;
-      ReactDOM.render(
-        <QuoteArray data={items} />,
-        document.getElementById("quotes")
-      );
-    });
-  return <div>Nothing here. Fething data...</div>;
-};
+  const [quotes, setQuotes] = useState(null)
+  useEffect(() => {
+    fetch("https://api.jsonbin.io/b/5e9ef7272940c704e1dc1099")
+      .then((results) => {
+        return results.json();
+      })
+      .then((data) => {
+        console.log(data.quotes)
+        setQuotes(data.quotes)
+      });
+  }, [])
+
+  return (
+    <>
+      {
+        quotes ?
+          <QuoteArray quotes={quotes} />
+          : <div>Nothing here.Fething data...</div>
+      }
+    </>
+  );
+}
 
 ReactDOM.render(<GetData />, document.getElementById("root"));
 ```
@@ -368,9 +399,9 @@ app.use(cors())
 
 ## Lomakkeiden ja tapahtumien käsittely
 
-Lomakkeiden käsittely Reactilla on melko haastavaa perinteiseen JavaScriptiin tottuneelle.  Reactin dokumentaatiossa lomakkeet laaditaan luokkapohjaisina komponentteina, joihin voidaan sijoittaa kuuntelijoita ja joissa kenttien arvot tallennetaan luokkien sisältämiin kenttiin tiloina \(state\). Hiljattain julkaistu Reactin uusi versio näyttää hiljalleen luopuvan luokkaan määritellyistä komponenteista ja tilanhallinta on toteutettu hieman uudella tavalla. Se ei myöskään vaadi enää luokkapohjaisia komponentteja vaan toimii myös funktioina laadituilla komponentteina.
+Lomakkeiden käsittely Reactilla on melko haastavaa perinteiseen JavaScriptiin tottuneelle.  Reactin dokumentaatiossa lomakkeet laaditaan luokkapohjaisina komponentteina, joihin voidaan sijoittaa kuuntelijoita ja joissa kenttien arvot tallennetaan luokkien sisältämiin kenttiin tiloina \(state\). Vuoden 2019 alussa julkaistu Reactin versio 16.8 näyttää hiljalleen luopuvan luokkaan määritellyistä komponenteista ja tilanhallinta on toteutettu hieman uudella tavalla. Se ei myöskään vaadi enää luokkapohjaisia komponentteja vaan toimii myös funktioina laadituilla komponentteina.
 
-Seuraavassa esimerkissä rakennetaan hakupalkkina toimiva lomake tutulla komponenttimallilla ilman luokkia. Kenttien lukemisessa käytetään natiivi-JavaScriptiä ja oiotaan tarkoituksella jotta koodi ei karkaisi liian haastavaksi tämän kurssin tarpeisiin. Lomakkeen tyylittelyssä on käytetty Bootstrapia, mikä johdosta index.html -tiedoston &lt;head&gt; lohkoon on lisätty viittaus Bootstrapin CSS-tiedostoon.
+Seuraavassa esimerkissä rakennetaan hakupalkkina toimiva lomake tutulla komponenttimallilla ilman luokkia. Lomakkeen tyylittelyssä on käytetty Bootstrapia, mikä johdosta index.html -tiedoston &lt;head&gt; lohkoon on lisätty viittaus Bootstrapin CSS-tiedostoon.
 
 ```jsx
     <link
@@ -384,30 +415,28 @@ Seuraavassa esimerkissä rakennetaan hakupalkkina toimiva lomake tutulla kompone
 Itse lomakkeen määrittely HTML-koodilla on seuraavanlainen. Myöhemin koodi sijoitetaan osaksi React-komponenttia.
 
 ```jsx
-        <form>
-          <div className="form-group">
-            <label>Hae: </label>
-            <input
-              type="query"
-              className="form-control"
-              id="query"
-              placeholder="Syötä hakutermi"
-              name="query"
-            />
-          </div>
-          <div className="form-group">
-            <button type="submit" id="button1" className="btn btn-primary">
-              Submit
-            </button>
+  <form>
+    <div className="form-group">
+      <label>Hae: </label>
+      <input
+        type="search"
+        className="form-control"
+        placeholder="Syötä hakutermi"
+      />
+    </div>
+    <div className="form-group">
+      <button type="submit" className="btn btn-primary">
+        Submit
+      </button>
 
-            <button
-              type="button"
-              className="btn"
-              >
-              Hae kaikki
-            </button>
-          </div>
-        </form>
+      <button
+        type="button"
+        className="btn"
+        >
+        Hae kaikki
+      </button>
+    </div>
+  </form>
 ```
 
 Lomake näyttää selaimessa seuraavalta:
@@ -416,24 +445,28 @@ Lomake näyttää selaimessa seuraavalta:
 
 Määritellään index.js tiedostoon komponentti nimeltä SearchBar. Huomaa erityisesti että komponenttiin on määritelty "alikomponentteja" \(handleSubmit ja handleClick\) jotka käsittelevät lomakkeelta tulevat onClick ja onSubmit -tapahtumat. Ne ovat siis funktioita komponenttien sisällä. 
 
-Lomakkeen kenttiin voidaan liittää tapahtuman kuuntelijoita saman tapaan kuin HTML:ssä. Notaatio ainoastaan on hieman erilainen. 
+Lomakkeen kenttiin voidaan liittää tapahtuman kuuntelijoita saman tapaan kuin HTML:ssä. Notaatio ainoastaan on hieman erilainen.
 
 ```jsx
+import React, { useState } from 'react'
+
 const SearchBar = () => {
 
-// Määritellään käsittelija napille 1 
+  const [query, setQuery] = useState('')
+
+  // Määritellään käsittelija napille 1 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Tapahtuman aiheutti: ", event.target);
-    var form = event.target;
-    console.log("Hakusana: ", form.query.value);
+    console.log("Hakusana: ", query);
   };
-  
+
   // Määritellään käsittelija napille 2 
   const handleClick = (event) => {
     event.preventDefault();
     console.log("Tapahtuman aiheutti: ", event.target);
   };
+
   // Komponentin palauttama JSX muotoinen esitys
   return (
     <div>
@@ -443,25 +476,26 @@ const SearchBar = () => {
           <div className="form-group">
             <label>Hae: </label>
             <input
-              type="query"
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
               className="form-control"
-              id="query"
               placeholder="Syötä hakutermi"
               name="query"
             />
           </div>
           <div className="form-group">
-            <button type="submit" id="button1" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary">
               Submit
-            </button>
+              </button>
 
             <button
               type="button"
               className="btn"
-              onClick={ handleClick }
-              >
+              onClick={handleClick}
+            >
               Hae kaikki
-            </button>
+              </button>
           </div>
         </form>
       </div>
@@ -471,13 +505,15 @@ const SearchBar = () => {
 ReactDOM.render(<SearchBar />, document.getElementById("root"));
 ```
 
+Huomaa myös, että hakusana tallennetaan ja muutetaan useState-hookilla. Näin hakusanaan päästään helposti käsiksi handleSubmit-käsittelijässä.
+
 Suoritettuna ohjelma näyttää seuraavalta. 
 
 ![Kuva: Ohjelman suoritus.](.gitbook/assets/image%20%2849%29.png)
 
 Kun nappeja painetaan tulostaa konsoliin ao. kuvan mukaiset tekstit. Nämä ovat siis tapahtumankäsittelijöiden suorittamat rivit. Ensimmäinen nappi tulostaa tiedot tapahtuman onSubmit aiheuttajasta \(form\). Sen avulla päästään myös kiinni kenttään kirjoitettuun hakusanaan, joka tulostetaan query-kentästä myös konsoliin.
 
-Toisen napin pinaminen tulostaa konsoliin sen tapahtuman aiheuttajan, eli viitteen Button-elementtiin.
+Toisen napin painaminen tulostaa konsoliin sen tapahtuman aiheuttajan, eli viitteen Button-elementtiin.
 
 ![Kuva: Konsolin tulostus nappeja painettaessa.](.gitbook/assets/image%20%2816%29.png)
 
@@ -487,31 +523,29 @@ Tulosten esittämistä varten tehdään oma komponentti, joka käytännössä ku
 
 ![Kuva: Leffa-APIn tuottama vastaus.](.gitbook/assets/image%20%2846%29.png)
 
-Määritellään ensin GetMovieData-komponentti \(itse asiassa funktio\) joka tekee AJAX-haun ja palauttaa kaikki leffat. Huomaa, että funktio kutsuu ReactDom.render\(\) -metodia joka piirtää tulokset ruudulle. Logiikan voisi järjestää toisinkin, mutta tämän kurssin puitteissa tyydytään yksinkertaisiin ja suoraviivaisiin ratkaisuihin.
+Määritellään ensin GetMovieData-komponentti \(itse asiassa funktio\) joka tekee AJAX-haun ja palauttaa kaikki leffat. Asetamme leffat results-muuttujaan, joka on luotu useState-hookilla. Tämä aiheuttaa Reactissa uudelleenrenderöinnin, jolloin leffat tullaan näyttämään table-komponentissa, jonka kohta teemme.
 
 ```jsx
-const GetMovieData = () => {
-  fetch("http://localhost:8081/api/leffat")
-    .then((results) => {
-      return results.json();
-    })
-    .then((data) => {
-      console.log(data);
-      const items = data;
+  const [results, setResults] = useState([])
 
-      ReactDOM.render(
-        <MovieArray data={items} />,
-        document.getElementById("root")
-      );
-    });
-  return <div>Nothing here. Fething data...</div>;
-};
+  const GetMovieData = () => {
+    fetch("http://localhost:8081/api/leffat")
+      .then((results) => {
+        return results.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const items = data;
+  
+        setResults(items)
+      });
+  };
 ```
 
 Toinen GetOneMovie\(\)-komponentti hakee API:sta käyttäjän syöttämän hakusanan mukaisia leffoja. Rakenne on muuten sama, mutta APIn reitti on erilainen. Reitin perään liitetään käyttäjän kirjoittama hakusana.
 
 ```jsx
-const GetOneMovie = (query) => {
+const GetOneMovie = () => {
   fetch("http://localhost:8081/api/hae/" + query)
     .then((results) => {
       return results.json();
@@ -521,14 +555,9 @@ const GetOneMovie = (query) => {
       const items = data;
       console.log("One movie: ", data);
 
-      ReactDOM.render(
-        <MovieArray data={items} />,
-        document.getElementById("root")
-      );
+      setResults(items)
     });
-  return <div>Nothing here. Fething data...</div>;
 };
-
 ```
 
 Tulostaulukko rakentuu MovieArray-komponentissa, joka saa props-parametreina AJAX-haun tulokset. Komponentin sisällä on kaksi alifunktiota, joilla hoidetaan erikoistilanteet: jos leffalla ei ole kuvaa tai sen lataamisessa tulee virhe, laitetaan kuvakkeeksi placeholder-kuva verkosta.
@@ -538,14 +567,13 @@ Tulostaulukko rakentuu MovieArray-komponentissa, joka saa props-parametreina AJA
 const MovieArray = (props) => {
   const { data } = props;
   // Leffan kuvake
-  var posterImg;
-  var url;
-  
+  let posterImg;
+
   // Funktio tyhjien kuvien tsekkaamiseen
   const CheckPoster = (props) => {
-    var poster = props.src;
+    let poster = props.src;
     // Jos kuvaa ei ole määritelty, korvataan se ikonilla
-    if (poster == "" || poster == null) {
+    if (poster === "" || poster === null) {
       posterImg = "https://via.placeholder.com/150";
     } else {
       posterImg = poster;
@@ -554,8 +582,8 @@ const MovieArray = (props) => {
     return (
       <img
         src={posterImg}
+        alt="Poster"
         className="img-thumbnail"
-        alt="Poster image"
         onError={addDefaultSrc}
         width="50%"
       />
@@ -571,7 +599,6 @@ const MovieArray = (props) => {
 
   return (
     <div>
-      <SearchBar />
       <table className="table table-striped table-bordered">
         <thead>
           <tr key={props.id}>
@@ -593,12 +620,13 @@ const MovieArray = (props) => {
               <td id="pic">
                 <CheckPoster src={item.poster} />
               </td>
-             </tr>
+            </tr>
           ))}
         </tbody>
       </table>
     </div>
   );
+};
 };
 
 ```
@@ -606,23 +634,40 @@ const MovieArray = (props) => {
 Lopuksi lomakkeen nappiin pitää vielä liittää kutsu, joka laukaisee koodin suorituksen. Tässäkin vähän oikotaan mutkia, joten kutsutaan funktiota vain sen nimellä päivittämällä SearchBarin handleClick- ja handleSubmit funktioita seuraavasti:
 
 ```jsx
-  // Määritellään käsittelija napille 1
-   const handleSubmit = (event) => {
+  // Määritellään käsittelija napille 1 
+  const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Tapahtuman aiheutti: ", event.target);
-    var form = event.target;
-    console.log("Hakusana: ", form.query.value);
-    // Kutsutaan funktiota ja välitään sinne käyttäjän hakusana
-    GetOneMovie(form.query.value);
+    console.log("Hakusana: ", query);
+
+    GetOneMovie();
   };
 
-  // Määritellään käsittelija napille 2
+  // Määritellään käsittelija napille 2 
   const handleClick = (event) => {
     event.preventDefault();
     console.log("Tapahtuman aiheutti: ", event.target);
-    // Kutsutaan funktiota ilman hakusanaa
-     GetMovieData();
+
+    GetMovieData();
   };
+```
+
+Lisätään vielä MovieArray-komponentti Searchbar-komponentin renderöimään koodiin.
+
+```jsx
+  // Komponentin palauttama JSX muotoinen esitys
+  return (
+    <div>
+      <h1>Hakusivu</h1>
+      <div>
+        <form onSubmit={handleSubmit}>
+          ...
+        </form>
+      </div>
+      <MovieArray data={results} />
+    </div>
+  );
+};
 ```
 
 Hae kaikki-nappi tuottaa seuraavanlaisen tuloksen:
