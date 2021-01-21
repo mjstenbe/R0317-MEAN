@@ -1,18 +1,10 @@
 # Käyttöliittymän rakentaminen Node-sovellukselle: React.js
 
-## Käyttöliittymän rakentaminen Node-sovellukselle: React.js
-
 ### Orientaatio
 
 Nodella on tässä materiaalissa toteutettu back-end sovelluksia, jotka vastaanottavat selaimelta palvelupyyntöjä ja lomakkeilta lähetettyä dataa, suorittavat pyyntöihin liittyvät toimenpiteet kuten tiedoston käsittely tai tietokantakutsut ja lopuksi palauttavat selaimelle jonkinlaisen vastauksen.
 
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-
-## Sovellusten front-endiin eli selaimen esittämään käyttöliittymäkerrokseen ei ole vielä otettu kantaa, muuten valmiiden tyylikirjastojen hyödyntämisen näkökulmasta \([Bootstrap](https://getbootstrap.com/), [Pure.css](https://purecss.io/), [TailwindCSS](https://tailwindcss.com/)\).
-
-Sovellusten front-endiin eli selaimen esittämään käyttöliittymäkerrokseen ei ole vielä otettu kantaa, muuten kuin valmiiden tyylikirjastojen hyödyntämisen näkökulmasta \(Bootstrap, Pure.css\).
-
-> > > > > > > af2f34467c8d80bfde10c98117b61abd849ed161
+Sovellusten front-endiin eli selaimen esittämään käyttöliittymäkerrokseen ei ole vielä otettu kantaa, muuten valmiiden tyylikirjastojen hyödyntämisen näkökulmasta \([Bootstrap](https://getbootstrap.com/), [Pure.css](https://purecss.io/), [TailwindCSS](https://tailwindcss.com/)\).
 
 Tässä osassa tehdään tiivis katsaus suosittuun React-kirjastoon, jota voidaan hyödyntää käyttöliittymien rakentamisessa web-sovelluksiin. Käytössä olevan ajan vuoksi mutkia hieman oiotaan eikä esim. tilanhallintaan perehdytä.
 
