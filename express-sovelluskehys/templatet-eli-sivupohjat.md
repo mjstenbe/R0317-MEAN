@@ -32,7 +32,7 @@ Sivupohjaa kutsuttaessa, sille tulee välittää muuttuja, joka pitää sisäll�
 
 Sivupohjamoottorin läpi ajettuna EJS-määrittely tuottaisi allaolevan HTML:n selaimelle:
 
-![](../.gitbook/assets/image%20%2854%29.png)
+![](../.gitbook/assets/image%20%2834%29%20%283%29.png)
 
 ### Sivupohjamoottorin käyttöönotto
 
@@ -283,7 +283,7 @@ Ja vielä /partials/footer-tiedoston sisältö:
 
 Toinen varsin suosittu sivupohjamoottori on PUG \(entinen Jade\). Se menee vielä pidemmälle koodarin työn helpottamisessa: sivupohjiin ei tarvitse tuottaa HTML-tägejä lainkaan. Ainoastaan tägien nimet riittävät. Allaolevassa kuvassa vasemmalla on PUG sivupohjan määrittely ja oikealla template-moottorin siitä tuottama HTML-koodi. 
 
-![](../.gitbook/assets/image%20%2861%29.png)
+![](../.gitbook/assets/image%20%284%29%20%281%29.png)
 
 Vaikka PUG vähentää HTML-koodin kirjoittamista, niin se saattaa vaikeuttaa esim. sivupohjan tekemistä jollain muulla välineellä tai vaikkapa graafisen suunnittelijan toimesta. Tätä varten verkossa on toki saatavilla erilaisia automaattisia muuntimia kuten [HTML to PUG](https://html-to-pug.com/).
 

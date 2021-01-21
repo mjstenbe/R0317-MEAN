@@ -4,13 +4,13 @@ Aiemmin kävimme läpi lomakkeen lähettämän datan  käsittelyä Nodella. Yhä
 
 ### Muutoksia lomakkeeseen
 
-Alla on lomakkeen määrittelevä HTML-koodi. Se on lähes identtinen edellisen luvun kanssa. Mekittävin  muutos on siinä, että lomakkeen nappi on muutettu tyypistä "Submit" tavalliseksi "button" -tyyppiseksi napiksi. Tämä aiheuttaa sen, että napin painallus ei lähetä lomaketta edelleen. 
+Alla on lomakkeen määrittelevä HTML-koodi. Se on lähes identtinen edellisen luvun kanssa. Merkittävin  muutos on siinä, että lomakkeen nappi on muutettu tyypistä "Submit" tavalliseksi "button" -tyyppiseksi napiksi. Tämä aiheuttaa sen, että napin painallus ei käske selainta lähettmäänä lomaketta edelleen. Sen sijaan käsitellään napin painallus JavaScriptin avulla. 
 
 ```markup
  <button type="button" id="button1" class="btn btn-primary">
 ```
 
-Tällä kertaa luodaan siis JavaScriptin avulla AJAX olio, joka lähettää lomakkeen tiedot edelleen palvelimelle. 
+Tällä kertaa luodaan siis JavaScriptin avulla AJAX-olio, joka lähettää lomakkeen tiedot edelleen palvelimelle. 
 
 Lisäksi olen lisännyt  HTML-sivulle lomakkeen alle tyhjän DIV-lohkon nimeltä "status". Ideana on, että kun AJAX pyyntö palauttaa palvelimen vastauksen, tuodaan tämä vastaus näkyviin kyseiseen kenttään.
 
@@ -83,7 +83,7 @@ Alla vielä koko HTML-koodi.
 
 Jotta lomake saadaan lähettämään data edelleen, tulee sivulle lisätä JavaScript-koodia. Koodit voi joko lisätä sivulle script-tägin sisällä tai linkittää osaksi sitä erillisestä JS-tiedostosta. Selkeyden vuoksi lisään koodin nyt osaksi HTML-sivua, riviltä 50 alkaen.
 
-Lomakkeen nappiin voidaan lisätä JS-toiminnallisuutta kahdella tapaa; joko lisäämällä button tägiin onclick -kuuntelija, tai lisäämällä kyseinen kuuntelija dynaamisesti jälkeenpäin. Käytän tässä jälkimmäistä tapaa.
+Lomakkeen nappiin voidaan lisätä JS-toiminnallisuutta kahdella tapaa; joko lisäämällä button tägiin onclick -kuuntelija, tai lisäämällä kyseinen kuuntelija dynaamisesti jälkeenpäin. Käytän tässä selvyyden vuoksi jälkimmäistä tapaa.
 
 Lisätään sivulle ensin window.onload -kuuntelija. Tämä seuraa koska selain on ladannut sivun kokonaan valmiiksi ja suorittaa koodin vasta sitten. Tämä on tärkeää koska kuuntelijoiden lisääminen ei onnistu mikäli sivu on vain osittain ladattu.
 
@@ -146,7 +146,7 @@ Huomionarvoista on myös se, miten data liitetään osaksi AJAX-pyyntöä. Ensin
 
 ### Vaihtoehtoinen tapa lähettää parametrit
 
-Edellä lomakkeen data lähetettiin URL:n mukana avain-arvo -pareina palvelimelle. Toinen vaihtoehto on koodata lomakkeen kentät JSON-olioksi ja lähettää ne sitten edelleen palvelimelle. Tämä tapahtuu asettamalla ensin AJAX-pyynnön Content-type arvoon "application/json". Luotu JSON olio muutetaan tekstimuotoon JSON.stringify\(\) -funktiolla ennen sen lähettämistä.
+Edellä lomakkeen data lähetettiin URL:n mukana avain-arvo -pareina palvelimelle. Toinen vaihtoehto on koodata lomakkeen kentät JSON-olioksi ja lähettää ne sitten edelleen palvelimelle. Tämä saattaisi olle kannattavampaa erityisesti jos välitettävää dataa on paljon. Tämä tapahtuu asettamalla ensin AJAX-pyynnön Content-type arvoon "application/json". Luotu JSON olio muutetaan tekstimuotoon JSON.stringify\(\) -funktiolla ennen sen lähettämistä.
 
 ```javascript
       xmlhttp.open("POST", "/kirjaudu", true);
@@ -161,7 +161,7 @@ Edellä lomakkeen data lähetettiin URL:n mukana avain-arvo -pareina palvelimell
           xmlhttp.send(JSON.stringify(data));
 ```
 
-Mikäli data lähetetään JSON-muodossa, palvelimen Express-koodiin täytyy lisätä seraava rivi:
+Mikäli data lähetetään JSON-muodossa, palvelimen Express-koodiin täytyy lisätä seraava rivi jotta sen vastaanotto onnistuu:
 
 ```javascript
 // Lomakkeen käsittelyä varten
