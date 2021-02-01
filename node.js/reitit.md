@@ -2,7 +2,9 @@
 
 Reittien avulla Nodella luotuun web-palvelimeen saadaan rakennettua erilaisia toiminnallisia lohkoja. Ideana on tutkia käyttäjän lähettämästä HTTP-pyynnöstä mitä polkua palvelimelta pyydetään. Esim. jos käyttäjän selain pyytää palvelimen juurihakemistoa \("/"\) voidaan suorittaa eri koodilohko kuin jos pyyntönä on esim. polku "/helloworld".
 
-Alla esimerkkikoodi, jossa käyttäjälle tarjoillaan 3 erilaista reittiä.
+Alla esimerkkikoodi, jossa käyttäjälle tarjoillaan 3 erilaista reittiä. Huomaa, että reitit 2 ja 3 tarjoilevat käyttäjälle tiedoston sisällön staattisen tulosteen sijaan. 
+
+Viimeinen reitti tulostaa JSON-muotoisen datasetin ruudulle. Jos tämä näyttää tutulta, niin olet ehkä operoinut erilaisten REST APIen kanssa joskus aiemmin. Tyypillisesti sekä REST API:t että useat NoSQL-tietokannat palauttavat selaimelle datan nimenomaan JSON-muodossa. Jotta JSON-saadan esitettyä merkkijonona ruudulla, käytetään JSON.stringify-funktiota.
 
 ```javascript
 var http = require("http");
@@ -41,4 +43,6 @@ http.createServer(function(request, response) {
   .listen(8081); // palvelin kuuntelee porttia 8081
 
 ```
+
+## 
 
