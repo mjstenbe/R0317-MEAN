@@ -27,7 +27,7 @@ http.createServer(function(request, response) {
         response.writeHead(200, { "Content-Type": "text/html" });
         
         // Luetaan HTML-tiedosto ja lähetetään se selaimelle
-        var html = fs.readFileSync('frontpage.html');
+        var html = fs.readFileSync('./frontpage.html');
         response.write(html);
         } 
 
