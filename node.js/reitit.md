@@ -2,9 +2,11 @@
 
 Reittien avulla Nodella luotuun web-palvelimeen saadaan rakennettua erilaisia toiminnallisia lohkoja. Ideana on tutkia käyttäjän lähettämästä HTTP-pyynnöstä mitä polkua palvelimelta pyydetään. Esim. jos käyttäjän selain pyytää palvelimen juurihakemistoa \("/"\) voidaan suorittaa eri koodilohko kuin jos pyyntönä on esim. polku "/helloworld".
 
-Alla esimerkkikoodi, jossa käyttäjälle tarjoillaan 3 erilaista reittiä. Huomaa, että reitit 2 ja 3 tarjoilevat käyttäjälle tiedoston sisällön staattisen tulosteen sijaan. 
+Alla esimerkkikoodi, jossa käyttäjälle tarjoillaan 3 erilaista reittiä. Huomaa, että toinen reitti tarjoilee käyttäjälle staattisen tulosteen sijaan HTML-tiedoston sisällön. Halutessasi voit hakea HTML-sivun rungon vaikkapa [täältä](https://pastebin.com/raw/mmN3YtKK).
 
-Viimeinen reitti tulostaa JSON-muotoisen datasetin ruudulle. Jos tämä näyttää tutulta, niin olet ehkä operoinut erilaisten REST APIen kanssa joskus aiemmin. Tyypillisesti sekä REST API:t että useat NoSQL-tietokannat palauttavat selaimelle datan nimenomaan JSON-muodossa. Jotta JSON-saadan esitettyä merkkijonona ruudulla, käytetään JSON.stringify-funktiota.
+Viimeinen reitti tulostaa JSON-muotoisen datasetin ruudulle. Tyypillisesti sekä REST API:t että useat NoSQL-tietokannat palauttavat selaimelle datan nimenomaan JSON-muodossa. Jotta JSON-saadaan esitettyä merkkijonona ruudulla, käytetään JSON.stringify-funktiota. Voit hakea esimerkkidatan [täältä](https://pastebin.com/raw/007hQiM4).
+
+ Huomaa myös, että selaimelle välitettävä Content-type-otsake on joka reitillä erilainen.
 
 ```javascript
 var http = require("http");
@@ -31,7 +33,7 @@ http.createServer(function(request, response) {
 
     else if (request.url === "/json"){
         // Valitaan Content-type tarjoiltavan sisällön suhteen
-        response.writeHead(200, { "Content-Type": "text/html" });
+        response.writeHead(200, { "Content-Type": "text/json" });
         
         // Luetaan JSON muotoinen tiedosto ja lähetetään se selaimelle
         var json = require('./data.json');      
