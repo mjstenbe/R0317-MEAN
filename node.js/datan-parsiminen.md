@@ -37,7 +37,7 @@ Ajettuna koodi tulostaa konsoliin seuraavat tiedot:
 
 ### Alkioiden poistaminen tai lisääminen taulukkoon
 
-JavaScript tarjoaa useita funktiota taulukon elementtien käsittelyyn. Näistä ehkä näppärimpinä pop\(\), push\(\) ja splice\(\), joilla taulukosta voidaan poistaa ja siihen voidaan lisätä lisätä alkioita. Katso muutkin metodit esim. [täältä](https://www.w3schools.com/js/js_array_methods.asp). 
+JavaScript tarjoaa useita funktiota taulukon elementtien käsittelyyn. Näistä ehkä näppärimpinä push\(\) ja unshift\(\) sekä pop\(\) ja splice\(\), joilla taulukosta voidaan poistaa ja siihen voidaan lisätä lisätä alkioita. Katso muutkin metodit esim. [täältä](https://www.w3schools.com/js/js_array_methods.asp). 
 
 Täydennetään edellä luotua sovellusta luomalla uusi JavaScript-olio koodissa ja lisätään se JSON-muotoiseen taulukkoon. Tämän jälkeen kirjoitetaan taulukko takaisin tiedostoon.
 
@@ -62,7 +62,7 @@ var newitem = {
 // Lisätään olio taulukon loppuun push()-funktiolla
 json.push(newitem);
 
-// Lisätään olio taulukon alkuun unshit()-funktiolla
+// Lisätään olio taulukon alkuun unshift()-funktiolla
 json.unshift(newitem);
 
 // Tulostetaan taulukon koko
@@ -72,12 +72,16 @@ console.log("Taulukon koko: " + json.length);
 
 json.pop(); // Poistaa taulukon viimeisen alkion
 json.splice(); // Poistaa taulukon ekan alkion
-json.splice (4,2); // Poistaa indeksistä 4 alkaen 2 alkiota
+json.splice (3,2); // Poistaa indeksistä 4 alkaen 2 alkiota
 
 // Tulostetaan taulukon koko
 console.log("Taulukon koko: " + json.length);
 
 // Kirjoitetaan lopuksi tiedosto levylle JSON-muodossa, eli sellaisenaan
+var data = JSON.stringify(json, "", 1); // Parametreilla "" ja 1 saadaan kaunis tulostus
+
+// Kirjoitetaan lopuksi tiedosto levylle JSON-muodossa, eli sellaisenaan
+fs.writeFileSync("./data.json", data);
 
 ```
 
