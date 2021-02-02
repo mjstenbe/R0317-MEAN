@@ -4,7 +4,7 @@ JSON-muotoisen datan käsittely Nodella on helppoa - koska kysessä JavaScriptin
 
 ### Tiedon lukeminen ja tulostaminen
 
-Luodaan ensin komentorivipohjainen sovellus jossa luetaan JSON-muotoinen tiedosto ja käydään sen sisältämät tietoalkiot läpi.
+Luodaan ensin komentorivipohjainen sovellus jossa luetaan JSON-muotoinen tiedosto ja käydään sen sisältämät tietoalkiot läpi. Tiedosto voidaan lukea sisään sellaisenaan require-funktion avulla. Tässä olisi toki mahdollista käyttää myös aiemmin esiteltyjä fs-kirjaston funktioita.
 
 ```javascript
 // Luetaan JSON tiedosto sisään muuttujaan käyttäen require-komentoa
@@ -39,7 +39,32 @@ Ajettuna koodi tulostaa konsoliin seuraavat tiedot:
 
 JavaScript tarjoaa useita funktiota taulukon elementtien käsittelyyn. Näistä ehkä näppärimpinä push\(\) ja unshift\(\) sekä pop\(\) ja splice\(\), joilla taulukosta voidaan poistaa ja siihen voidaan lisätä lisätä alkioita. Katso muutkin metodit esim. [täältä](https://www.w3schools.com/js/js_array_methods.asp). 
 
-Täydennetään edellä luotua sovellusta luomalla uusi JavaScript-olio koodissa ja lisätään se JSON-muotoiseen taulukkoon. Tämän jälkeen kirjoitetaan taulukko takaisin tiedostoon.
+Täydennetään edellä luotua sovellusta luomalla uusi JavaScript-olio koodissa ja lisätään se JSON-muotoiseen taulukkoon. 
+
+```javascript
+// Esitellään uusi JS-olio
+var newitem = {
+  age: 65,
+  eyeColor: "Brown",
+  gender: "Male",
+  email: "James@mi6.com",
+  name: "James Bond",
+};
+// Lisätään olio taulukon loppuun push()-funktiolla
+json.push(newitem);
+```
+
+Tämän jälkeen kirjoitetaan JS-muuttuja kaikkine tietoineen takaisin tiedostoon. Ennen kirjoitusoperaatiota muuttuja tulee muuttaa merkkijonomuotoon käyttäen JSON.stringify\(\) -funktiota. Esimerkissä käytetyt parametrit tekevät tulostuksesta kauniisti muotoillun. Ilman niitä kaikki data kirjoitetaan yhdelle riville.
+
+```javascript
+// Kirjoitetaan lopuksi tiedosto levylle JSON-muodossa, eli sellaisenaan
+var data = JSON.stringify(json, "", 1); // Parametreilla "" ja 1 saadaan kaunis tulostus
+
+// Kirjoitetaan lopuksi tiedosto levylle JSON-muodossa, eli sellaisenaan
+fs.writeFileSync("./data.json", data);
+```
+
+Lopuksi koko ohjelma testattavaksi:
 
 ```javascript
 var http = require("http");
