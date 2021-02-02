@@ -61,7 +61,23 @@ http
   .listen(8081); //the server object listens on port 8080
 ```
 
+## Nodemon
 
+Jotta ohjelmakoodiin tehdyt muutokset tulevat voimaan, täytyy muuttunut koodi ajaa uudestaan node-kääntäjän läpi. Tämä on hankalaa erityisesti palvelinsovellusten kanssa, joissa ohjelman suoritus ei lopu vaan ohjelma jää odottelemaan yhteydenottoa.
+
+Tätä varten löytyy sovellus nimeltä nodemon. Sen ideana on tarkkailla kooditiedostoa muutosten varalta, ja käynnistää sovellus uudestaan aina kun muutos havaitaan. Ohjelman saa asennettua komennolla:
+
+```javascript
+npm i nodemon
+```
+
+Sitä käytetään sen jälkeen node-komennon sijaan ohjelmia ajettaessa:
+
+```javascript
+nodemon palvelin.js
+```
+
+Tämän jälkeen ohjelma suoritetaan tavalliseen tapaan. Mikäli muutat koodia ja tallennat muutokset, havaitsee nodemon sen ja käynnistää muuttuneen sovelluksen uudestaan.
 
 
 
