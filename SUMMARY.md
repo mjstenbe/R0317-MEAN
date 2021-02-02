@@ -6,6 +6,7 @@
   * [Tiedostojen käsittely](node.js/tiedostojen-lukemista.md)
   * [Reitit](node.js/reitit.md)
   * [JSON-muotoisen datan käsittely](node.js/datan-parsiminen.md)
+  * [Datan hakeminen verkosta](node.js/datan-hakeminen-verkosta.md)
 * [Express sovelluskehys](express-sovelluskehys/README.md)
   * [Lomakkeiden käsittely](express-sovelluskehys/lomakkeiden-kaesittely.md)
   * [AJAX-pyyntöjen lähettäminen ja käsittely](express-sovelluskehys/ajax-pyyntoejen-laehettaeminen-ja-kaesittely.md)
