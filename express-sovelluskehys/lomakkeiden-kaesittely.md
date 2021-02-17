@@ -206,7 +206,7 @@ app.get("/userpage", function(req, res) {
 
 ### Muutamia tietoturvanäkökulmia 
 
-Esimerkissä tunnuksia verrataan "kovakoodattuihin" arvoihin mikä ei todellisuudessa olisi tietenkään turvallista tai edes järkevää. Käytännössä tunnusta ja salasanaa voitaisiin etsiä erillisellä tietokantahaulla palauttaa ohjelmalle tieto mikäli validi tunnus/salasana -yhdistelmä löytyi. 
+Esimerkissä tunnuksia verrataan "kovakoodattuihin" arvoihin mikä ei todellisuudessa olisi tietenkään turvallista tai edes järkevää. Käytännössä tunnusta ja salasanaa voitaisiin etsiä erillisellä tietokantahaulla palauttaa ohjelmalle tieto mikäli validi tunnus/salasana -yhdistelmä löytyi. Toinen vaihtoehto olisi hakea tunnuksia ulkoisesta .env-tiedostosta - tästä lisää seuraavassa luvussa.
 
 Lisäksi onnistunut sisäänkirjautuminen loisi istunnon, jonka olemassaolo tarkistettaisiin aina kirjautumista vaativille sivuille siirryttäessä. Näinollen satunnainen surffailija ei pääsisi sisään kirjautumista vaativalle sivulle vaikka tietäisi sen nimen. Molempiin palattaneen myöhemmin.
 

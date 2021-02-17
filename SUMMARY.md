@@ -9,6 +9,7 @@
   * [Datan hakeminen verkosta](node.js/datan-hakeminen-verkosta.md)
 * [Express sovelluskehys](express-sovelluskehys/README.md)
   * [Lomakkeiden käsittely](express-sovelluskehys/lomakkeiden-kaesittely.md)
+  * [Ympäristömuuttujien hyödyntäminen koodissa](express-sovelluskehys/ympaeristoemuuttujien-hyoedyntaeminen-koodissa.md)
   * [AJAX-pyyntöjen lähettäminen ja käsittely](express-sovelluskehys/ajax-pyyntoejen-laehettaeminen-ja-kaesittely.md)
   * [Templatet eli sivupohjat](express-sovelluskehys/templatet-eli-sivupohjat.md)
   * [Autentikointi ja sessioiden hallinta](express-sovelluskehys/autentikointi-ja-sessioiden-hallinta.md)
