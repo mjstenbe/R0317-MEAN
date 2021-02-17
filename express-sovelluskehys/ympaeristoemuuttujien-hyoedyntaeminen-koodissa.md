@@ -96,7 +96,9 @@ app.post("/kirjaudu", function(req, res) {
 
 Arkaluontoisen datan tallentaminen ohjelmakoodin ulkopuolelle luo lisäturvaa sovelluskehitykseen. On kuitenkin ensiarvoisen tärkeää pitää huoli siitä, että **.env-tiedostoa ei julkaista lähdekoodin mukana**. 
 
-Tämän varmistetaan lisäämällä kaikki .env -tiedostot ns. gitignore-tiedostoon, joka jättää sen versionhallinan ulkopuolelle. Näinollen sitä ei myöskään julkaista GitHubiin tm. pilvipalveluihin push/sync-operaatioiden yhteydessä
+Tämän varmistetaan lisäämällä .env -tiedosto ns. gitignore-tiedostoon, joka jättää sen versionhallinan ulkopuolelle. Näinollen sitä ei myöskään julkaista GitHubiin tm. pilvipalveluihin push/sync-operaatioiden yhteydessä. 
+
+Tiedostoon usein laitetaan myös hakemisto node\_modules, joka estää kolmannen osapuolten kirjastojen sisällyttämisen versionhallintaan. Näitä ei kannata jaella oman koodin mukana, koska lähdekoodin käyttäjä saa tarpeen mukaan asennettua moduulit npm:llä.
 
 Tiedostossa .gitignore käytännössä listataan ne tiedostot ja hakemistot jotka jätetään huomioimatta. Se voisi näyttää vaikka seuraavalta:
 
