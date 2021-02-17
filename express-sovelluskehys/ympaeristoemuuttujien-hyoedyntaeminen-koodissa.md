@@ -8,8 +8,6 @@ Kun laaditaan sovelluksia, jotka sisältävät "arkaluontoisia" tietoja kuten k�
 
 Ympäristömuuttujia voidaan asettaa suoraan käyttöjärjestelmätasolla mutta tavanomaisempaa on luoda ns. **env-tiedosto** johon tarpeelliset muuttujat tallennetaan. Node-sovellus voi sitten lukea tiedot tuosta tiedostosta.
 
-On kuitenkin ensiarvoisen tärkeää pitää huoli siitä, että .env-tiedostoa ei julkaista julkisesti lähdekoodin mukana. Tämän johdosta se usein lisätään ns. .gitignore-tiedostoon, joka jättää sen versionhallinan ulkopuolelle.
-
 ## Muuttujien lukeminen tiedostosta
 
 Muuttujien lukemista varten voidaan käyttää sitä varten rakennettua moduulia nimeltä _dotenv._ Asennetaan ensin paketti npm:n avulla:
@@ -58,6 +56,8 @@ Käyttöjärjestelmän asettamia ympäristömuuttujia voit tutkia laajemminkin t
 console.log(process.env);
 ```
 
+## Pari esimerkkiä
+
 Esimerkiksi yhteys kuvitteelliseen tietokantaan .env-tiedoston muuttujia käyttäen voitaisiin määritellä näin:
 
 ```javascript
@@ -90,6 +90,19 @@ app.post("/kirjaudu", function(req, res) {
         pass === process.env.PASSWD) 
             res.redirect("/userpage"); 
 });
+```
+
+## Tietoturvanäkökulma ja.gitignore
+
+Arkaluontoisen datan tallentaminen ohjelmakoodin ulkopuolelle luo lisäturvaa sovelluskehitykseen. On kuitenkin ensiarvoisen tärkeää pitää huoli siitä, että **.env-tiedostoa ei julkaista lähdekoodin mukana**. 
+
+Tämän varmistetaan lisäämällä kaikki .env -tiedostot ns. gitignore-tiedostoon, joka jättää sen versionhallinan ulkopuolelle. Näinollen sitä ei myöskään julkaista GitHubiin tm. pilvipalveluihin push/sync-operaatioiden yhteydessä
+
+Tiedostossa .gitignore käytännössä listataan ne tiedostot ja hakemistot jotka jätetään huomioimatta. Se voisi näyttää vaikka seuraavalta:
+
+```javascript
+node_modules
+.env*
 ```
 
 
