@@ -15,16 +15,19 @@ On kuitenkin ensiarvoisen tärkeää pitää huoli siitä, että .env-tiedostoa 
 Muuttujien lukemista varten voidaan käyttää sitä varten rakennettua moduulia nimeltä _dotenv._ Asennetaan ensin paketti npm:n avulla:
 
 ```text
-npm install dotenv
+npm i dotenv
 ```
 
 Luodaan sitten tekstitiedosto nimeltään .env. Piste tiedoston edessä viittaa siihen, että se on Linux-pohjaisissa järjestelmissä "piilotettu" tiedosto joka ei näy tiedostolistauksessa ilman erityisvalitsimia.
 
-Tiedosto sisältää arvo-avainpareja:
+Tiedosto sisältää arvo-avainpareja sekä \# - merkillä alkavia kommentteja:
 
 ```text
+# Web-kirjautumisen tunnus
 USERID=onni.opiskelija@sci.fi
+# Web-kirjautumisen salasana
 PASSWD=salainen321
+# Tietokantayhteydet tunnarit
 DB_HOST=localhost
 DB_USER=root
 DB_PASS=demo
