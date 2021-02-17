@@ -42,10 +42,31 @@ require('dotenv').config();
 Tämän jälkeen arkaluontoista dataa sisältäviin muuttujiin voidaan Node-koodissa viitata **process.env**- avainsanaa käyttäen seuraavasti:
 
 ```javascript
+// Luetaan tiedoston sisältö ohjelmaan
+require("dotenv").config();
+
+// Tulostetaan tiedostoon asetetut muuttujat
+console.log(process.env.DB_HOST);
+console.log(process.env.DB_USER);
+console.log(process.env.DB_PASS);
+```
+
+Käyttöjärjestelmän asettamia ympäristömuuttujia voit tutkia laajemminkin tulostamalla process.env -muuttujan tiedot kokonaisuudessaan:
+
+```javascript
+// Tulostetaan kaikki käyttöjärjestelmän asettamat ympäristömuuttujat
+console.log(process.env);
+```
+
+Esimerkiksi yhteys kuvitteelliseen tietokantaan .env-tiedoston muuttujia käyttäen voitaisiin määritellä näin:
+
+```javascript
 require('dotenv').config();
-// Luodaan yhteys kuvitteelliseen tietokantaan käyttäen tiedostoon tallennettuja tunnuksia
+// Luodaan yhteys kuvitteelliseen tietokantaan 
+
 const db = require('db')
 db.connect({  
+// Nämä tiedot on määritelty aiemmin .env-tiedostossa
     host: process.env.DB_HOST,  
     username: process.env.DB_USER,  
     password: process.env.DB_PASS
