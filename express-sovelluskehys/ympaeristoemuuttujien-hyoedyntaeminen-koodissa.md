@@ -100,7 +100,7 @@ Tämän varmistetaan lisäämällä .env -tiedosto ns. gitignore-tiedostoon, jok
 
 Tiedostoon usein laitetaan myös hakemisto node\_modules, joka estää kolmannen osapuolten kirjastojen sisällyttämisen versionhallintaan. Näitä ei kannata jaella oman koodin mukana, koska lähdekoodin käyttäjä saa tarpeen mukaan asennettua moduulit npm:llä.
 
-Tiedostossa .gitignore käytännössä listataan ne tiedostot ja hakemistot jotka jätetään huomioimatta. Se voisi näyttää vaikka seuraavalta:
+Tiedostossa .gitignore käytännössä listataan ne tiedostot ja hakemistot jotka jätetään huomioimatta. Se voisi näyttää vaikka seuraavalta: 
 
 ```javascript
 node_modules

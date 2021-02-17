@@ -65,9 +65,3 @@ app.listen(8081, function() {
 });
 ```
 
-Edellinen koodi tarjoilee public-hakemiston sisällön web-selaimen juuresta \(http://localhost:8081/\). Sen sijaan jos sisällölle halutaan luoda reitti, sekin onnistuu seuraavasti:
-
-```javascript
-app.use('/omareitti', express.static("./public"))
-```
-
