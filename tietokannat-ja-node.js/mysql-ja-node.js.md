@@ -100,7 +100,7 @@ Tässä vaiheessa salasana tallennetaan selväkielisenä, palataan myöhemmin se
 ```sql
 CREATE DATABASE LOGINDEMO;
 CREATE TABLE `logindemo`.`users` ( 
-    `userid` VARCHAR(8) NOT NULL ,
+    `userid` VARCHAR(30) NOT NULL ,
     `name` VARCHAR(30),
     `password` VARCHAR(13) NOT NULL
     );
@@ -110,7 +110,7 @@ Luodaan tietokantaan testikäyttäjä kokeilua varten:
 
 ```sql
 INSERT INTO `users` (`userid`, `name`, `password`) VALUES (
-    'onni123', 
+    'onni123@sci.fi', 
     'Onni Opiskelija', 
     'Salasana123'
     );
@@ -130,22 +130,9 @@ SELECT * FROM USERS WHERE userid = 'Onni123' and password='Salasana123';
 
 ### Lomakkeen luominen 
 
-Otetaan käyttöön jo aiemmin kehitelty sisäänkirjautumisen toteuttava koodi:
+Otetaan käyttöön jo aiemmin kehitelty sisäänkirjautumislomakkeen tarjoava koodi. Siellä tutkimme lomakkeen lähettämiä tietoja if-lauseen sisällä seuraavasti:
 
 ```javascript
-// Otetaan express-moduuli käyttöön
-var express = require("express");
-// Otetaan body-parser -moduuli käyttöön
-var bodyParser = require("body-parser");
-
-var app = express();
-
-// Tarjoillaan staattisia sivuja ja kirjautumislomake tästä hakemistosta
-app.use(express.static("./"));
-
-// create application/x-www-form-urlencoded parser
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // Uusi POST-tyyppiseen sivupyyntöön reagoiva reitti
 app.post("/kirjaudu", function (req, res) {
   console.log(req.body);
@@ -156,6 +143,84 @@ app.post("/kirjaudu", function (req, res) {
   if (email === "onni@sci.fi" && pass === "opiskelija") {
     res.redirect("/userpage");
   }
+});
+```
+
+Muutetaan koodia siten, että lomakkeelle syötettyjä tietoja yritetään etsiä tietokannasta. Ensin muodostetaan SQL-lause lomakkeen tiedoista:
+
+```javascript
+  var email = req.body.email;
+  var pass = req.body.pass;
+  var query = `SELECT * FROM users WHERE userid = '${email}' and password='${pass}';`;
+```
+
+Sitten käydään tekemässä tietokantahaku ja tutkitaan if-lauseella palautuiko sieltä rivejä näillä tunnuksilla. Jos rivejä on 1, tunnus löytyy järjestelmästä ja käyttäjä voidaan ohjata uudelle sivulle \(userpages\). Muutoin ohjataan käyttäjä takaisin lomakkeelle \(/\).
+
+```javascript
+con.connect(function (err) {
+    if (err) throw err;
+    con.query(query, function (err, result, fields) {
+      // Tulostetaan konsoliin tulosrivit 
+      console.log("Tulosrivien määrä: " + result.length);
+      // Jos meni oikein, tuloksia on 1 ohjataan käyttäjä toiseen paikkaan
+      if (result.length == 1) {
+        res.redirect("/userpage");
+        console.log("Tunnukset oikein!");
+      } else {
+        res.redirect("/");
+        console.log("Väärät tunnukset tai käyttäjää ei löydy");
+      }
+    });
+  });
+```
+
+Kokonaisuudessaan ohjelma vielä alla. Sen alkuun lisäsin mysql-moduulin tuontilause sekä tietokannan yhteystiedot. 
+
+```javascript
+// Otetaan express-moduuli käyttöön
+var express = require("express");
+// Otetaan body-parser -moduuli käyttöön
+var bodyParser = require("body-parser");
+
+var app = express();
+
+// Tarjoillaan staattisia sivuja tästä hakemistosta
+app.use(express.static("./"));
+
+// create application/x-www-form-urlencoded parser
+app.use(bodyParser.urlencoded({ extended: true }));
+
+var mysql = require("mysql");
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "logindemo",
+});
+
+// Uusi POST-tyyppiseen sivupyyntöön reagoiva reitti
+app.post("/kirjaudu", function (req, res) {
+  var email = req.body.email;
+  var pass = req.body.pass;
+  var query = `SELECT * FROM users WHERE userid = '${email}' and password='${pass}';`;
+
+// Luodaan tietokantayhteys
+  con.connect(function (err) {
+    con.query(query, function (err, result, fields) {
+      if (err) {
+        console.log("Tapahtui virhe!" + err);
+      }
+      console.log("Tulosrivien määrä: " + result.length);
+      if (result.length == 1) {
+        res.redirect("/userpage");
+        console.log("Tunnukset oikein!");
+      } else {
+        res.redirect("/");
+        console.log("Väärät tunnukset tai käyttäjää ei löydy");
+      }
+    });
+  });
 });
 // Uusi reitti sisäänkirjautuneelle käyttäjälle.
 app.get("/userpage", function (req, res) {
@@ -168,8 +233,8 @@ app.get("*", function (req, res) {
 });
 
 // Web-palvelimen luonti Expressin avulla
-app.listen(8081, function () {
-  console.log("Example app listening on port 8081!");
+app.listen(3000, function () {
+  console.log("Listening to port 3000.");
 });
 
 ```
