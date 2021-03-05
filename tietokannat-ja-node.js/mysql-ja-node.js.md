@@ -119,17 +119,15 @@ INSERT INTO `users` (`userid`, `name`, `password`) VALUES (
 
 ### Kyselyiden tekeminen
 
-Ohjelmassa tarvitaan karkeasti kahdenlaisia kyselyitä:  
-1\) Käyttäjän olemassaolon tarkastaminen tietokannasta  
-2\) Uuden käyttäjän lisääminen tietokantaan
+Ohjelmassa tarvitaan karkeasti kahdenlaisia kyselyitä: 1\) Käyttäjän olemassaolon tarkastaminen tietokannasta sekä 2\) Uuden käyttäjän lisääminen tietokantaan. Näistä jälkimmäisen toteuttava SQL-lause on esitelty jo edellä testikäyttäjän luomisen yhteydessä.
 
-Olemassaolevaa käyttäjää haettaisiin tietokannasta seuraavasti. Jos haku palauttaa täsmälleen yhden rivin, tiedetään että käyttäjä jonka tunnus ja salasana täsmäävät löytyvät järjestelmästä. Jos tietoja ei löydy, on joko tunnus tai salasana väärin tai käyttäjää ei ole järjestelmässä.
+Olemassaolevaa käyttäjää haettaisiin tietokannasta ao. kyselyn avulla. Jos haku palauttaa täsmälleen yhden rivin, tiedetään että käyttäjä jonka tunnus ja salasana täsmäävät löytyvät järjestelmästä. 
+
+Jos tietoja ei löydy, on joko tunnus tai salasana väärin tai käyttäjää ei ole järjestelmässä. Se mikä näistä aiheuttaa kirjautumisen epäonnistumisen jää vain järjestelmän tietoon - kirjautumista yrittävälle taholle tätä ei tietoturvasyistä kannata kertoa.
 
 ```sql
 SELECT * FROM USERS WHERE userid = 'Onni123' and password='Salasana123';
 ```
-
-
 
 ### Lomakkeen luominen 
 
