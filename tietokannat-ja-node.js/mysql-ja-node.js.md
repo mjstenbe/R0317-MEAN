@@ -1,6 +1,6 @@
 # MySQL ja Node.js
 
-## Perusteet
+## Yhteyden luominen
 
 Perinteisten relaatiotietokantojen käyttö Nodella on melko suoriaviivaista. Ensin tulee asentaa moduuli, joka tarjoaa tietokantaoperaatiot ohjelman käyttöön:
 
