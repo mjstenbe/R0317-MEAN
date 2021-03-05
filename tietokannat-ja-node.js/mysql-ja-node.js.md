@@ -8,7 +8,7 @@ Perinteisten relaatiotietokantojen käyttö Nodella on melko suoriaviivaista. En
 npm i mysql
 ```
 
-Tämän jälkeen koodissa määritellään yhteysosoite sekä käyttäjätunnus ja salasana tietokantaan:
+Tämän jälkeen koodissa määritellään yhteysosoite sekä käyttäjätunnus ja salasana tietokantaan. Esimerkissä käytän paikalliselle koneelle asennettua MySQL-tietokantaa osana XAMP-asennusta. Näinollen yhteysosoite on localhost ja käyttäjätunnus root. Salasanaa ei ole asetettu. **HUOM. Tällaiset arvot ovat tyypillisiä paikallisessa kehitysympäristössä, mutta niitä ei tulisi viedä julkisesti saavutettavissa olevalle palvelimelle.**
 
 ```javascript
 Tuodaan mysql-funktiot ohjelman käyttöön
