@@ -436,5 +436,7 @@ exports.select = function (req, res, query) {
 
 Moduulitiedostot tallennetaan usein alihakemistoon nimeltä modules.
 
+### Tietoturva-asiaa ja salasanan "salaaminen"
+
 
 
