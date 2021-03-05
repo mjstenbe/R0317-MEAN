@@ -85,7 +85,6 @@ con.connect(function (err) {
     }
   );
 });
-
 ```
 
 ## Sisäänkirjautumisen toteuttaminen
