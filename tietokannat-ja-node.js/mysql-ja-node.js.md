@@ -128,7 +128,7 @@ Jos tietoja ei löydy, on joko tunnus tai salasana väärin tai käyttäjää ei
 SELECT * FROM USERS WHERE userid = 'Onni123' and password='Salasana123';
 ```
 
-### Lomakkeen luominen 
+### Lomakedatan lukeminen 
 
 Otetaan käyttöön jo aiemmin kehitelty sisäänkirjautumislomakkeen tarjoava koodi. Siellä tutkimme lomakkeen lähettämiä tietoja if-lauseen sisällä seuraavasti:
 
@@ -236,6 +236,201 @@ app.get("*", function (req, res) {
 app.listen(3000, function () {
   console.log("Listening to port 3000.");
 });
+
+```
+
+### Modularisointia
+
+Koodi kasvaa melko nopeasti hallitsemattomaksi puuroksi. Sitä voidaan modularisoida esim. tekemällä operaatioista erillisiä funktiotia. Nodessa erillisistä "vastuista" on tapana tehdä moduuleita ja tallentaa koodi omaan tiedostoonsa. Katsotaan tästä esimerkki.
+
+### Tietokantafunktiot omaan moduuliin
+
+Siirretään ensin kaikki tietokannan käsittelyyn liittyvä koodi omaan tiedostoonsa nimeltä db.js. Moduulin sisälle luodaan anonyymifunktio, joka nimetään select-muuttujaksi ja exportataan se. Näin funktiota voidaan käyttää muualtakin.
+
+```javascript
+// db.js 
+var mysql = require("mysql");
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "logindemo",
+});
+
+// Tehdään hakutoiminnosta oma funktio
+
+exports.select = function (req, res, query) {
+  console.log("Selectissä" + query);
+  con.connect(function (err) {
+    con.query(query, function (err, result, fields) {
+      if (err) {
+        console.log("Tapahtui virhe!" + err);
+      }
+      console.log("Tulosrivien määrä: " + result.length);
+      if (result.length == 1) {
+        res.redirect("/userpage");
+        console.log("Tunnukset oikein!");
+      } else {
+        res.redirect("/");
+        console.log("Väärät tunnukset tai käyttäjää ei löydy");
+      }
+    });
+  });
+};
+```
+
+Tämän jälkeen itse palvelimen koodi muuttuu aika lyhyeksi. Ohjelmaan tuodaan mukaan äsken kirjoittamme moduuli db.js require-funktiolla, eli samalla tapaa kuin muutkin valmiskirjastot  
+
+```javascript
+var DB = require("./db.js");
+```
+
+Tämän jälkeen select -funktiota voidaan kutsua require-funktiossa esitellyn DB-muuttujan kautta.
+
+```javascript
+  DB.select(query);
+```
+
+Reitti joka käsittelee kirjautumisen muuttuu seuraavanlaiseksi:
+
+```javascript
+app.post("/kirjaudu", function (req, res) {
+  var email = req.body.email;
+  var pass = req.body.pass;
+  var query = `SELECT * FROM users WHERE userid = '${email}' and password='${pass}';`;
+  
+ // Kutsutaan DB-moduulin select -funktiota
+   DB.select(req, res, query);
+});
+```
+
+Palvelimen koodi kokonaisuudessaan:
+
+```javascript
+// Otetaan express-moduuli käyttöön
+var express = require("express");
+// Otetaan body-parser -moduuli käyttöön
+var bodyParser = require("body-parser");
+
+var app = express();
+
+// Tarjoillaan staattisia sivuja tästä hakemistosta
+app.use(express.static("./"));
+
+// create application/x-www-form-urlencoded parser
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Tuodaan tietokantamoduuli ohjelmaan mukaan
+var DB = require("./db.js");
+
+// Uusi POST-tyyppiseen sivupyyntöön reagoiva reitti
+app.post("/kirjaudu", function (req, res) {
+  var email = req.body.email;
+  var pass = req.body.pass;
+  var query = `SELECT * FROM users WHERE userid = '${email}' and password='${pass}';`;
+  DB.select(req, res, query);
+});
+// Uusi reitti sisäänkirjautuneelle käyttäjälle.
+app.get("/userpage", function (req, res) {
+  res.send("You are now logged in!");
+});
+
+// Oletusreitti joka tarjoillaan, mikäli muihin ei päädytty.
+app.get("*", function (req, res) {
+  res.send("Cant find the requested page", 404);
+});
+
+// Web-palvelimen luonti Expressin avulla
+app.listen(3000, function () {
+  console.log("Listening to port 3000.");
+});
+
+```
+
+Oikeastaan koko muuttujien lukemisen ja query-muuttujan koostamisen voisi siirtää DB-moduuliin. Tämän jälkeen reittiin jää vain yksi komento. Koska parametri rakennetaan siellä, ei query -muuttujaa tarvitse enää välittää edelleen. Sen sijaan req ja res muuttujat tarvitaan jotta niihin voidaan kirjoittaa vastaus.
+
+```javascript
+app.post("/kirjaudu", function (req, res) {
+  DB.select(req, res);
+});
+```
+
+Alla palvelimen  koodi kokonaisuudessaan:
+
+```javascript
+// Otetaan express-moduuli käyttöön
+var express = require("express");
+// Otetaan body-parser -moduuli käyttöön
+var bodyParser = require("body-parser");
+
+var app = express();
+
+// Tarjoillaan staattisia sivuja tästä hakemistosta
+app.use(express.static("./"));
+
+// create application/x-www-form-urlencoded parser
+app.use(bodyParser.urlencoded({ extended: true }));
+
+var DB = require("./db.js");
+
+// Uusi POST-tyyppiseen sivupyyntöön reagoiva reitti
+app.post("/kirjaudu", function (req, res) {
+  DB.select(req, res);
+});
+// Uusi reitti sisäänkirjautuneelle käyttäjälle.
+app.get("/userpage", function (req, res) {
+  res.send("You are now logged in!");
+});
+
+// Oletusreitti joka tarjoillaan, mikäli muihin ei päädytty.
+app.get("*", function (req, res) {
+  res.send("Cant find the requested page", 404);
+});
+
+// Web-palvelimen luonti Expressin avulla
+app.listen(3000, function () {
+  console.log("Listening to port 3000.");
+});
+
+```
+
+Tietokantamooduuli \(db.js\):
+
+```javascript
+// db.js 
+var mysql = require("mysql");
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "logindemo",
+});
+
+// Tehdään hakutoiminnosta oma funktio
+
+exports.select = function (req, res, query) {
+  // Luetaan muuttujat lomakkeelta
+  var email = req.body.email;
+  var pass = req.body.pass;
+  var query = `SELECT * FROM users WHERE userid = '${email}' and password='${pass}';`;
+
+  con.connect(function (err) {
+    con.query(query, function (err, result, fields) {
+      if (err) {
+        console.log("Tapahtui virhe!" + err);
+      }
+      console.log("Tulosrivien määrä: " + result.length);
+      if (result.length == 1) {
+        res.redirect("/userpage");
+        console.log("Tunnukset oikein!");
+      } else {
+        res.redirect("/");
+        console.log("Väärät tunnukset tai käyttäjää ei löydy");
+      }
+    });
+  });
+};
 
 ```
 
