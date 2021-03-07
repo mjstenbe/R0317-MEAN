@@ -93,7 +93,7 @@ Jatkokehitetään seuraavaksi jo aiemmin toteuttamaamme sisäänkirjautumissovel
 
 ### Tietokannan valmistelu
 
-Luodaan ensin tietokantaan tietokanta "logindemo" ja taulu "users" jota ohjelma käyttää. Seuraava SQL-lause luo tietokannan ja sinne tarvittavat rakenteet. Tauluun luodaan 3 saraketta: userid, name ja password. Tässä vaiheessa salasana tallennetaan selväkielisenä. 
+Luodaan ensin tietokantaan tietokanta "logindemo" ja taulu "users" jota ohjelma käyttää. Seuraava SQL-lause luo tietokannan ja sinne tarvittavat rakenteet. Tauluun luodaan 3 saraketta: userid, name ja password. Tässä vaiheessa salasana tallennetaan selväkielisenä. Salasanakentän pituus on valmiiksi 50 merkkiä - sitä tarvitaan myöhemmin salatun tiedon tallentamista varten.
 
 ```sql
 CREATE DATABASE LOGINDEMO;
@@ -118,22 +118,6 @@ Tietokannasta löytyy tämän jälkeen seuraava rivi:
 
 ![](../.gitbook/assets/image%20%2861%29.png)
 
-**Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä.** Syötettävät kentät voidaan salata joko sovellustasolla tai antaa tietokannan tehdä se. ****
-
-MySQL:ssä on sisäänrakennettuna joukko HASH-funktioita, joiden avulla tiedon salaus voidaan liittää osaksi SQL-lauseita. Esim. ylläolevaan INSERT-lauseeseen voitaisiin liittää SHA1-funktio salasanakentän turvaamiseksi. Tietokanta siis siis tallennettavan merkkijonon salauksen ennen tiedon tallentamista:
-
-```sql
-INSERT INTO `users` (`userid`, `name`, `password`) VALUES (
-    'Seppo@sci.fi', 
-    'Seppo Salattu', 
-    SHA1('Salainen123')
-    );
-```
-
-Tietokannasta löytyy tämän jälkeen seuraava rivi, jossa salasanakenttään viety tieto on salattu SHA1-funktiolla:
-
-![](../.gitbook/assets/image%20%2868%29.png)
-
 ### Kyselyiden tekeminen
 
 Ohjelmassa tarvitaan karkeasti kahdenlaisia kyselyitä: 1\) Käyttäjän olemassaolon tarkastaminen tietokannasta sekä 2\) Uuden käyttäjän lisääminen tietokantaan. Näistä jälkimmäisen toteuttava SQL-lause on esitelty jo edellä testikäyttäjän luomisen yhteydessä.
@@ -144,12 +128,6 @@ Jos tietoja ei löydy, on joko tunnus tai salasana väärin tai käyttäjää ei
 
 ```sql
 SELECT * FROM USERS WHERE userid = 'onni123@sci.fi' and password='Salasana123';
-```
-
-Mikäli salasanat on suojattu HASH-funktiolla, tulee SELECT lauseessa annettu selväkielinen salasana ajaa saman SHA1-funktion läpi jotta vastaava salattu merkkijono löytyy tietokannasta:
-
-```sql
-SELECT * FROM USERS WHERE userid = 'Seppo@sci.fi' and password=SHA1('Salainen123')
 ```
 
 ### Lomakedatan lukeminen 
@@ -262,6 +240,34 @@ app.listen(3000, function () {
 });
 
 ```
+
+### **Tiedon salaaminen tietokannassa**
+
+**Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä.** Syötettävät kentät voidaan salata joko sovellustasolla tai antaa tietokannan tehdä se. ****Molemmissa on puolensa: tietokannan hoitaessa salauksen säästyy koodaaja salauksen toteuttamiselta sekä sovellus salauksen aiheuttaman laskenna tuottamalta kuormalta \(joka voi olla huomattava\). Sen sijaan sovellustasolla valitun salausmenetelmän saa valita vapaammin eikä tietokanta rajoita käytettäviä salausalgoritmeja.
+
+MySQL:ssä on sisäänrakennettuna joukko HASH-funktioita, joiden avulla tiedon salaus voidaan liittää osaksi SQL-lauseita. Esim. ylläolevaan INSERT-lauseeseen voitaisiin liittää SHA1-funktio salasanakentän turvaamiseksi. Tietokanta siis siis tallennettavan merkkijonon salauksen ennen tiedon tallentamista:
+
+```sql
+INSERT INTO `users` (`userid`, `name`, `password`) VALUES (
+    'Seppo@sci.fi', 
+    'Seppo Salattu', 
+    SHA1('Salainen123')
+    );
+```
+
+Tietokannasta löytyy tämän jälkeen seuraava rivi, jossa salasanakenttään viety tieto on salattu SHA1-funktiolla:
+
+![](../.gitbook/assets/image%20%2868%29.png)
+
+### 
+
+Mikäli salasanat on suojattu HASH-funktiolla, tulee SELECT lauseessa annettu selväkielinen salasana ajaa saman SHA1-funktion läpi jotta vastaava salattu merkkijono löytyy tietokannasta:
+
+```sql
+SELECT * FROM USERS WHERE userid = 'Seppo@sci.fi' and password=SHA1('Salainen123')
+```
+
+Sessioiden hallinnan yhteydessä katsotaan toista esimerkkiä, jossa tiedon salaus suoritetaan sovellustasolla ennen sen viemistä tietokantaan.
 
 ### Modularisointia
 
