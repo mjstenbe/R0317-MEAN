@@ -93,16 +93,14 @@ Jatkokehitetään seuraavaksi jo aiemmin toteuttamaamme sisäänkirjautumissovel
 
 ### Tietokannan valmistelu
 
-Luodaan ensin tietokantaan tietokanta "logindemo" ja taulu "users" jota ohjelma käyttää. Seuraava SQL-lause luo tietokannan ja sinne tarvittavat rakenteet. Tauluun luodaan 3 saraketta: userid, name ja password. 
-
-Tässä vaiheessa salasana tallennetaan selväkielisenä, palataan myöhemmin sen salaamiseen. **Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA tai BCRYPT-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä.**
+Luodaan ensin tietokantaan tietokanta "logindemo" ja taulu "users" jota ohjelma käyttää. Seuraava SQL-lause luo tietokannan ja sinne tarvittavat rakenteet. Tauluun luodaan 3 saraketta: userid, name ja password. Tässä vaiheessa salasana tallennetaan selväkielisenä. **Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA tai BCRYPT-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä. Tästä lisää hieman tuonnempana.**
 
 ```sql
 CREATE DATABASE LOGINDEMO;
 CREATE TABLE `logindemo`.`users` ( 
     `userid` VARCHAR(30) NOT NULL ,
     `name` VARCHAR(30),
-    `password` VARCHAR(13) NOT NULL
+    `password` VARCHAR(50) NOT NULL
     );
 ```
 
@@ -115,6 +113,24 @@ INSERT INTO `users` (`userid`, `name`, `password`) VALUES (
     'Salasana123'
     );
 ```
+
+Tietokannasta löytyy tämän jälkeen seuraava rivi:
+
+![](../.gitbook/assets/image%20%2861%29.png)
+
+Syötettävät kentät voidaan salata joko sovellustasolla tai antaa tietokannan tehdä se. ****MySQL:ssä on sisäänrakennettuna joukko HASH-funktioita, joiden avulla tiedon salaus voidaan liittää osaksi INSERT-lausetta. Esim. ylläolevaan INSERT-lauseeseen voitaisiin liittää SHA1-funktio salasanakentän turvaamiseksi:
+
+```sql
+INSERT INTO `users` (`userid`, `name`, `password`) VALUES (
+    'Seppo@sci.fi', 
+    'Seppo Salattu', 
+    SHA1('Salainen123')
+    );
+```
+
+Tietokannasta löytyy tämän jälkeen seuraava rivi, jossa salasanakenttään viety tieto on salattu SHA1-funktiolla:
+
+![](../.gitbook/assets/image%20%2868%29.png)
 
 ### Kyselyiden tekeminen
 
