@@ -93,7 +93,7 @@ Jatkokehitetään seuraavaksi jo aiemmin toteuttamaamme sisäänkirjautumissovel
 
 ### Tietokannan valmistelu
 
-Luodaan ensin tietokantaan tietokanta "logindemo" ja taulu "users" jota ohjelma käyttää. Seuraava SQL-lause luo tietokannan ja sinne tarvittavat rakenteet. Tauluun luodaan 3 saraketta: userid, name ja password. Tässä vaiheessa salasana tallennetaan selväkielisenä. **Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA tai BCRYPT-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä. Tästä lisää hieman tuonnempana.**
+Luodaan ensin tietokantaan tietokanta "logindemo" ja taulu "users" jota ohjelma käyttää. Seuraava SQL-lause luo tietokannan ja sinne tarvittavat rakenteet. Tauluun luodaan 3 saraketta: userid, name ja password. Tässä vaiheessa salasana tallennetaan selväkielisenä. 
 
 ```sql
 CREATE DATABASE LOGINDEMO;
@@ -118,7 +118,9 @@ Tietokannasta löytyy tämän jälkeen seuraava rivi:
 
 ![](../.gitbook/assets/image%20%2861%29.png)
 
-Syötettävät kentät voidaan salata joko sovellustasolla tai antaa tietokannan tehdä se. ****MySQL:ssä on sisäänrakennettuna joukko HASH-funktioita, joiden avulla tiedon salaus voidaan liittää osaksi INSERT-lausetta. Esim. ylläolevaan INSERT-lauseeseen voitaisiin liittää SHA1-funktio salasanakentän turvaamiseksi:
+**Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä.** Syötettävät kentät voidaan salata joko sovellustasolla tai antaa tietokannan tehdä se. ****
+
+MySQL:ssä on sisäänrakennettuna joukko HASH-funktioita, joiden avulla tiedon salaus voidaan liittää osaksi SQL-lauseita. Esim. ylläolevaan INSERT-lauseeseen voitaisiin liittää SHA1-funktio salasanakentän turvaamiseksi. Tietokanta siis siis tallennettavan merkkijonon salauksen ennen tiedon tallentamista:
 
 ```sql
 INSERT INTO `users` (`userid`, `name`, `password`) VALUES (
@@ -132,8 +134,6 @@ Tietokannasta löytyy tämän jälkeen seuraava rivi, jossa salasanakenttään v
 
 ![](../.gitbook/assets/image%20%2868%29.png)
 
-### 
-
 ### Kyselyiden tekeminen
 
 Ohjelmassa tarvitaan karkeasti kahdenlaisia kyselyitä: 1\) Käyttäjän olemassaolon tarkastaminen tietokannasta sekä 2\) Uuden käyttäjän lisääminen tietokantaan. Näistä jälkimmäisen toteuttava SQL-lause on esitelty jo edellä testikäyttäjän luomisen yhteydessä.
@@ -143,7 +143,13 @@ Olemassaolevaa käyttäjää haettaisiin tietokannasta ao. kyselyn avulla. Jos h
 Jos tietoja ei löydy, on joko tunnus tai salasana väärin tai käyttäjää ei ole järjestelmässä. Se mikä näistä aiheuttaa kirjautumisen epäonnistumisen jää vain järjestelmän tietoon - kirjautumista yrittävälle taholle tätä ei tietoturvasyistä kannata kertoa.
 
 ```sql
-SELECT * FROM USERS WHERE userid = 'Onni123' and password='Salasana123';
+SELECT * FROM USERS WHERE userid = 'onni123@sci.fi' and password='Salasana123';
+```
+
+Mikäli salasanat on suojattu HASH-funktiolla, tulee SELECT lauseessa annettu selväkielinen salasana ajaa saman SHA1-funktion läpi jotta vastaava salattu merkkijono löytyy tietokannasta:
+
+```sql
+SELECT * FROM USERS WHERE userid = 'Seppo@sci.fi' and password=SHA1('Salainen123')
 ```
 
 ### Lomakedatan lukeminen 
