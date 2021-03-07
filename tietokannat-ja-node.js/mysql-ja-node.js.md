@@ -132,6 +132,8 @@ Tietokannasta löytyy tämän jälkeen seuraava rivi, jossa salasanakenttään v
 
 ![](../.gitbook/assets/image%20%2868%29.png)
 
+### 
+
 ### Kyselyiden tekeminen
 
 Ohjelmassa tarvitaan karkeasti kahdenlaisia kyselyitä: 1\) Käyttäjän olemassaolon tarkastaminen tietokannasta sekä 2\) Uuden käyttäjän lisääminen tietokantaan. Näistä jälkimmäisen toteuttava SQL-lause on esitelty jo edellä testikäyttäjän luomisen yhteydessä.
