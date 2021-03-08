@@ -12,7 +12,7 @@ Sessioita voidaan toteuttaa useammalla tavalla. Yksi tavanomaisimmista on antaa 
 
 Katsotaan seuraavasti esimerkki sessionhallinnan toteuttamisesta sisäänkirjautumislomakkeelle. 
 
-Otetaan pohjalle aiemmista esimerkeistä tuttu sisäänkirjautumisen koodi. Jätetään kuitenkin tietokantatoiminnallisuus esimerkin ulkopuolelle. Sessionhallinnassa hyödynnetään express-session -moduulia, joten asennetaan se ja lisätään koodin alkuun. Bodyparseria käytetään lomakkeen tietojen lukemiseen, myös JSONin käsittely otetaan käyttöön \(rivi 8\).
+Otetaan pohjalle aiemmista esimerkeistä tuttu [sisäänkirjautumisen koodi](https://app.gitbook.com/@mika-stenberg/s/mean-web-development/express-sovelluskehys/lomakkeiden-kaesittely). Jotta esimerkki pysyisi yksinkertaisena, jätetään tietokantatoiminnallisuus esimerkin ulkopuolelle. Sessionhallinnassa hyödynnetään express-session -moduulia, joten asennetaan se ja lisätään koodin alkuun. Bodyparseria käytetään lomakkeen tietojen lukemiseen, myös JSONin käsittely otetaan käyttöön \(rivi 8\).
 
 ```javascript
 // Otetaan express-moduuli käyttöön
