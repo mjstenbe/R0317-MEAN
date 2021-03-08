@@ -238,12 +238,17 @@ app.get("*", function (req, res) {
 app.listen(3000, function () {
   console.log("Listening to port 3000.");
 });
-
 ```
 
-### **Tiedon salaaminen tietokannassa**
+## **Tietoturvahuomioita**
 
-**Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä.** Syötettävät kentät voidaan salata joko sovellustasolla tai antaa tietokannan tehdä se. ****Molemmissa on puolensa: tietokannan hoitaessa salauksen säästyy koodaaja salauksen toteuttamiselta sekä sovellus salauksen aiheuttaman laskenna tuottamalta kuormalta \(joka voi olla huomattava\). Sen sijaan sovellustasolla valitun salausmenetelmän saa valita vapaammin eikä tietokanta rajoita käytettäviä salausalgoritmeja.
+### **Salasanan tallentaminen**
+
+**Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä.** Syötettävät kentät voidaan salata joko sovellustasolla tai antaa tietokannan tehdä se. ****
+
+Molemmissa on puolensa: tietokannan hoitaessa salauksen säästyy koodaaja salauksen toteuttamiselta sekä sovellus salauksen aiheuttaman laskenna tuottamalta kuormalta \(joka voi olla huomattava\). Sen sijaan sovellustasolla valitun salausmenetelmän saa valita vapaammin eikä tietokanta rajoita käytettäviä salausalgoritmeja.
+
+Sessioiden hallinnan yhteydessä katsotaan toista esimerkkiä, jossa tiedon salaus suoritetaan sovellustasolla ennen sen viemistä tietokantaan.
 
 MySQL:ssä on sisäänrakennettuna joukko HASH-funktioita, joiden avulla tiedon salaus voidaan liittää osaksi SQL-lauseita. Esim. ylläolevaan INSERT-lauseeseen voitaisiin liittää SHA1-funktio salasanakentän turvaamiseksi. Tietokanta siis siis tallennettavan merkkijonon salauksen ennen tiedon tallentamista:
 
@@ -259,15 +264,114 @@ Tietokannasta löytyy tämän jälkeen seuraava rivi, jossa salasanakenttään v
 
 ![](../.gitbook/assets/image%20%2868%29.png)
 
-### 
-
 Mikäli salasanat on suojattu HASH-funktiolla, tulee SELECT lauseessa annettu selväkielinen salasana ajaa saman SHA1-funktion läpi jotta vastaava salattu merkkijono löytyy tietokannasta:
 
 ```sql
 SELECT * FROM USERS WHERE userid = 'Seppo@sci.fi' and password=SHA1('Salainen123')
 ```
 
-Sessioiden hallinnan yhteydessä katsotaan toista esimerkkiä, jossa tiedon salaus suoritetaan sovellustasolla ennen sen viemistä tietokantaan.
+Korvaamalla ohjelman käyttämät SQL-komennot näillä, saataisiin sovellus salaaman password-kentän sisältö. **HUOM. Kaikkien käyttäjien salasanat tulee olla joko salattuja tai selväkielisiä -molempia ei voi käyttää**  **rinnakkain tietokannassa.** 
+
+### **SQL-hyökkäysten esto** 
+
+Tällaisenaan sovellus liittää lomakkeiden kenttiin syötetyn tekstin suoraan osaksi tietokannassa suoritettavia SQL-lauseita. Tämä altistaa tietokannan ns. SQL-injektioille. Käytännössä pahantahtoinen käyttäjä voisi syöttää SQL-komentoja kirjautumislomakkeelle, jotka oikein muotoiltuna suoritettaisiin suoraan tietokannassa. Tietojen kalastelun lisäksi esim. taulujen poistaminen saisi aikaan merkittävää haittaa.
+
+Lomakkeilta luettu data tulisi siis aina puhdistaa haitallisista merkeistä ja/tai suoritettavasta koodista. Tähän on olemassa useampia tapoja.
+
+Yksi tapa on "puhdistaa" kaikki lomakkeelta luettu data ajamalla se esim. mysql-kirjaston escape\(\) -funktion läpi. Myös omia funktioita kiellettyjen merkkien korvaamiseksi voi kirjoitella.
+
+```javascript
+email = mysql.escape(email;
+pass = mysql.escape(pass);
+```
+
+Käytetympi tapa lienee käyttää ns. valmisteltuja lauseita \(prepared statements\), jossa SQL-lausetta ei rakenneta liittämällä siihen suoraan tekstiä, vaan käytetään SQL:n omia muuttujia. Tietokanta huolehtii tällöin myös siitä, että muuttujat on käsitelty vaarattomiksi:
+
+```sql
+SELECT * FROM users WHERE userid = ? and password=?
+```
+
+Muuttujat sijoitetaan kysymysmerkkien paikalle Node.js:n puolella query-funktiossa:
+
+```javascript
+ // Tehdään kysely käyttäen turvallisempaa prepared statementsia
+ // Huomaa että query-funktio saa toisena parametrina taulukon [email, pass]
+ // joka määrittele mitkä muuttujat kysymysmerkkien tilalle laitetaan
+ 
+    con.query(query, [email, pass], function (err, result, fields) {
+     if (err) {
+        console.log("Tapahtui virhe!" + err);
+      }
+      console.log("Tulosrivien määrä: " + result.length);
+    });
+```
+
+
+
+Alla päivitetty ohjelma kokonaisuudessaan:
+
+```javascript
+// Otetaan express-moduuli käyttöön
+var express = require("express");
+// Otetaan body-parser -moduuli käyttöön
+var bodyParser = require("body-parser");
+
+var app = express();
+
+// Tarjoillaan staattisia sivuja tästä hakemistosta
+app.use(express.static("./"));
+
+// create application/x-www-form-urlencoded parser
+app.use(bodyParser.urlencoded({ extended: true }));
+
+var mysql = require("mysql");
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "logindemo",
+});
+
+// Uusi POST-tyyppiseen sivupyyntöön reagoiva reitti
+app.post("/kirjaudu", function (req, res) {
+  var email = req.body.email;
+  var pass = req.body.pass;
+  //var query = `SELECT * FROM users WHERE userid = '${email}' and password=SHA1('${pass}');`;
+
+    var query = `SELECT * FROM users WHERE userid = ? and password=?;`;
+// Luodaan tietokantayhteys
+  con.connect(function (err) {
+    con.query(query, [email, pass], function (err, result, fields) {
+      if (err) {
+        console.log("Tapahtui virhe!" + err);
+      }
+      console.log("Tulosrivien määrä: " + result.length);
+      if (result.length == 1) {
+        res.redirect("/userpage");
+        console.log("Tunnukset oikein!");
+      } else {
+        res.redirect("/");
+        console.log("Väärät tunnukset tai käyttäjää ei löydy");
+      }
+    });
+  });
+});
+// Uusi reitti sisäänkirjautuneelle käyttäjälle.
+app.get("/userpage", function (req, res) {
+  res.send("You are now logged in!");
+});
+
+// Oletusreitti joka tarjoillaan, mikäli muihin ei päädytty.
+app.get("*", function (req, res) {
+  res.send("Cant find the requested page", 404);
+});
+
+// Web-palvelimen luonti Expressin avulla
+app.listen(3000, function () {
+  console.log("Listening to port 3000.");
+});
+```
 
 ### Modularisointia
 
