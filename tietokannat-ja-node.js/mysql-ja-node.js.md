@@ -242,13 +242,11 @@ app.listen(3000, function () {
 
 ## **Tietoturvahuomioita**
 
-### **Salasanan tallentaminen**
+### **Salasanan tallentaminen salattuna**
 
 **Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä.** Syötettävät kentät voidaan salata joko sovellustasolla tai antaa tietokannan tehdä se. ****
 
-Molemmissa on puolensa: tietokannan hoitaessa salauksen säästyy koodaaja salauksen toteuttamiselta sekä sovellus salauksen aiheuttaman laskenna tuottamalta kuormalta \(joka voi olla huomattava\). Sen sijaan sovellustasolla valitun salausmenetelmän saa valita vapaammin eikä tietokanta rajoita käytettäviä salausalgoritmeja.
-
-Sessioiden hallinnan yhteydessä katsotaan toista esimerkkiä, jossa tiedon salaus suoritetaan sovellustasolla ennen sen viemistä tietokantaan.
+Molemmissa on puolensa: tietokannan hoitaessa salauksen säästyy koodaaja salauksen toteuttamiselta sekä sovellus salauksen aiheuttaman laskenna tuottamalta kuormalta \(joka voi olla huomattava\). Sen sijaan sovellustasolla valitun salausmenetelmän saa valita vapaammin eikä tietokanta rajoita käytettäviä salausalgoritmeja. Sessioiden hallinnan yhteydessä katsotaan toista esimerkkiä, jossa tiedon salaus suoritetaan sovellustasolla ennen sen viemistä tietokantaan.
 
 MySQL:ssä on sisäänrakennettuna joukko HASH-funktioita, joiden avulla tiedon salaus voidaan liittää osaksi SQL-lauseita. Esim. ylläolevaan INSERT-lauseeseen voitaisiin liittää SHA1-funktio salasanakentän turvaamiseksi. Tietokanta siis siis tallennettavan merkkijonon salauksen ennen tiedon tallentamista:
 
@@ -270,9 +268,9 @@ Mikäli salasanat on suojattu HASH-funktiolla, tulee SELECT lauseessa annettu se
 SELECT * FROM USERS WHERE userid = 'Seppo@sci.fi' and password=SHA1('Salainen123')
 ```
 
-Korvaamalla ohjelman käyttämät SQL-komennot näillä, saataisiin sovellus salaaman password-kentän sisältö. **HUOM. Kaikkien käyttäjien salasanat tulee olla joko salattuja tai selväkielisiä -molempia ei voi käyttää**  **rinnakkain tietokannassa.** 
+Korvaamalla ohjelman käyttämät SQL-komennot näillä, saataisiin sovellus salaaman password-kentän sisältö. **HUOM. Kaikkien käyttäjien salasanat tulee olla joko salattuja tai selväkielisiä -molempia ei voi käyttää**  **rinnakkain tietokannassa.** Eli jatkoa varten myös äsken tietokantaan viedyn Onni Opiskelijan salasana tulisi salata. Voit esim. poistaa koko rivin tietokannasta ja lisätä käyttäjän uudestaan tuolla SHA1-funktiolla höystettynä. 
 
-### **SQL-hyökkäysten esto** 
+### **SQL-hyökkäysten estäminen** 
 
 Tällaisenaan sovellus liittää lomakkeiden kenttiin syötetyn tekstin suoraan osaksi tietokannassa suoritettavia SQL-lauseita. Tämä altistaa tietokannan ns. SQL-injektioille. Käytännössä pahantahtoinen käyttäjä voisi syöttää SQL-komentoja kirjautumislomakkeelle, jotka oikein muotoiltuna suoritettaisiin suoraan tietokannassa. Tietojen kalastelun lisäksi esim. taulujen poistaminen saisi aikaan merkittävää haittaa.
 
@@ -339,7 +337,7 @@ app.post("/kirjaudu", function (req, res) {
   var pass = req.body.pass;
   //var query = `SELECT * FROM users WHERE userid = '${email}' and password=SHA1('${pass}');`;
 
-    var query = `SELECT * FROM users WHERE userid = ? and password=?;`;
+    var query = `SELECT * FROM users WHERE userid = ? and password=SHA1(?);`;
 // Luodaan tietokantayhteys
   con.connect(function (err) {
     con.query(query, [email, pass], function (err, result, fields) {
@@ -373,13 +371,13 @@ app.listen(3000, function () {
 });
 ```
 
-### Modularisointia
+## Modularisointia
 
-Koodi kasvaa melko nopeasti hallitsemattomaksi puuroksi. Sitä voidaan modularisoida esim. tekemällä operaatioista erillisiä funktiotia. Nodessa erillisistä "vastuista" on tapana tehdä moduuleita ja tallentaa koodi omaan tiedostoonsa. Katsotaan tästä esimerkki.
+Koodi kasvaa melko nopeasti hallitsemattomaksi puuroksi. Sitä voidaan modularisoida esim. tekemällä operaatioista erillisiä funktiotia ja tallentamalla funktiot omaan tiedostoonsa. Tällöinkin haasteeksi saattaa tulla samannimisten muuttujien ja funktioiden hallinta. Niitä JavaScript-sovelluksissa ratkotaan mouduuleilla. 
 
 ### Tietokantafunktiot omaan moduuliin
 
-Siirretään ensin kaikki tietokannan käsittelyyn liittyvä koodi omaan tiedostoonsa nimeltä db.js. Moduulin sisälle luodaan anonyymifunktio, joka nimetään select-muuttujaksi ja exportataan se. Näin funktiota voidaan käyttää muualtakin.
+Nodessa erillisistä "vastuista" on tapana tehdä moduuleita ja tallentaa koodi omaan tiedostoonsa. Katsotaan tästä esimerkki. Siirretään ensin kaikki tietokannan käsittelyyn liittyvä koodi omaan tiedostoonsa nimeltä db.js. Moduulin sisälle luodaan anonyymifunktio, joka nimetään select-muuttujaksi ja exportataan se. Näin funktiota voidaan käyttää muualtakin.
 
 ```javascript
 // db.js 
@@ -395,9 +393,12 @@ var con = mysql.createConnection({
 // Tehdään hakutoiminnosta oma funktio
 
 exports.select = function (req, res, query) {
-  console.log("Selectissä" + query);
+
+  var email = req.body.email;
+  var pass = req.body.pass;
+  
   con.connect(function (err) {
-    con.query(query, function (err, result, fields) {
+    con.query(query, [email, pass], function (err, result, fields) {
       if (err) {
         console.log("Tapahtui virhe!" + err);
       }
@@ -432,8 +433,8 @@ Reitti joka käsittelee kirjautumisen muuttuu seuraavanlaiseksi:
 app.post("/kirjaudu", function (req, res) {
   var email = req.body.email;
   var pass = req.body.pass;
-  var query = `SELECT * FROM users WHERE userid = '${email}' and password='${pass}';`;
-  
+  //var query = `SELECT * FROM users WHERE userid = '${email}' and password='${pass}';`;
+  var query = `SELECT * FROM users WHERE userid = ? and password=SHA1(?);`;
  // Kutsutaan DB-moduulin select -funktiota
    DB.select(req, res, query);
 });
@@ -462,8 +463,9 @@ var DB = require("./db.js");
 app.post("/kirjaudu", function (req, res) {
   var email = req.body.email;
   var pass = req.body.pass;
-  var query = `SELECT * FROM users WHERE userid = '${email}' and password='${pass}';`;
-  DB.select(req, res, query);
+//  var query = `SELECT * FROM users WHERE userid = '${email}' and password='${pass}';`;
+  var query = `SELECT * FROM users WHERE userid = ? and password=SHA1(?);`;
+    DB.select(req, res, query);
 });
 // Uusi reitti sisäänkirjautuneelle käyttäjälle.
 app.get("/userpage", function (req, res) {
@@ -506,6 +508,7 @@ app.use(express.static("./"));
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Tietokantafunktiot käyttöön
 var DB = require("./db.js");
 
 // Uusi POST-tyyppiseen sivupyyntöön reagoiva reitti
@@ -547,10 +550,12 @@ exports.select = function (req, res, query) {
   // Luetaan muuttujat lomakkeelta
   var email = req.body.email;
   var pass = req.body.pass;
-  var query = `SELECT * FROM users WHERE userid = '${email}' and password='${pass}';`;
+ //var query = `SELECT * FROM users WHERE userid = '${email}' and password=SHA1('${pass}');`;
 
+    var query = `SELECT * FROM users WHERE userid = ? and password=SHA1(?);`;
+// Luodaan tietokantayhteys
   con.connect(function (err) {
-    con.query(query, function (err, result, fields) {
+    con.query(query, [email, pass], function (err, result, fields) {
       if (err) {
         console.log("Tapahtui virhe!" + err);
       }
@@ -569,8 +574,6 @@ exports.select = function (req, res, query) {
 ```
 
 Moduulitiedostot tallennetaan usein alihakemistoon nimeltä modules.
-
-### Tietoturva-asiaa ja salasanan "salaaminen"
 
 
 
