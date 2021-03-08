@@ -160,7 +160,9 @@ app.listen(3000, function () {
 });
 ```
 
+### Sessioiden tallentaminen tietokantaan
 
+Redis / MySQL
 
 
 
