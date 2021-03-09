@@ -311,7 +311,70 @@ app.listen(3000, function () {
 
 Autentikointiin ja sessioiden hallintaan liittyviä asioita on esitelty hyvin. seuraavsaa blogissa: [https://stormpath.com/blog/everything-you-ever-wanted-to-know-about-node-dot-js-sessions](https://stormpath.com/blog/everything-you-ever-wanted-to-know-about-node-dot-js-sessions)
 
+### MongoDB sessionhallinnassa
+
+Myös MongoDB voi toimia sessioiden tallennuspaikkana. Muutokset koodiin ovat aika pieniä. Asennetaan ensin sopiva moduuli:
+
+```javascript
+npm i connect-mongodb-session
+```
+
+Sitten määritellään yhteysparametrit ja asetetaan eväste käyttämään uutta tietokantaa:
+
+```javascript
+// Otetaan mongodb-session moduuli käyttöön
+var MongoDBStore = require("connect-mongodb-session")(session);
+
+// Määritellään yhteysparametrit tietokannalle
+var sessionStore = new MongoDBStore({
+  uri: "mongodb://localhost:27017/logindemo", // tietokannan osoite
+  collection: "mySessions",                   // kokoelman nimi
+});
+
+ ...
+ // Asetetaan eväste käyttämään uutta sessionStore-muuttujaa
+app.use(
+  session({
+    name: "logindemo",
+    resave: true,
+    saveUninitialized: true,
+    secret: "salausavain", // tätä merkkijonoa käytetään evästeen salaukseen
+    cookie: { maxAge: 60 * 1000 * 30 }, // 60ms * 1000 = 60 s * 30 = 30 min
+    // Tietokanta, johon sessiodata tallennetaan
+    store: sessionStore,
+  })
+);
+```
+
 ### Redis
 
-Redis on suosittu NoSQL-pohjainen 
+Redis on suosittu NoSQL-pohjainen tietokanta joka käsittelee tietoja keskusmuistissa \(memory-store\) mikä tekee siitä todella nopean.  Redisin käyttöönotto onnistuisi samlala tapaa kuin edellä, eli sopivan moduulin asentaminen, yhteysosoitteen määrittäminen sekä evästeen asetusten päivittäminen. 
+
+```javascript
+// Tarvittavat Redis moduulit
+const redis = require('redis');
+const RedisStore = require('connect-redis')(session)
+
+// Yhteysosoitteen määrittely
+const redisClient = redis.createClient({
+    host: 'localhost',
+    port: 6379
+})
+// Uusi sessionStore-muuttuja
+var sessionStore = new RedisStore({ client: redisClient });
+
+...
+ // Asetetaan eväste käyttämään uutta sessionStore-muuttujaa
+app.use(
+  session({
+    name: "logindemo",
+    resave: true,
+    saveUninitialized: true,
+    secret: "salausavain", // tätä merkkijonoa käytetään evästeen salaukseen
+    cookie: { maxAge: 60 * 1000 * 30 }, // 60ms * 1000 = 60 s * 30 = 30 min
+    // Tietokanta, johon sessiodata tallennetaan
+    store: sessionStore,
+  })
+);
+```
 
