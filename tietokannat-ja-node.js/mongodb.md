@@ -25,7 +25,7 @@ Alla esimerkki find\(\) -funktion käytöstä, joka kohdistuu tietokantaolion us
 Jotta MongoDB-tietokanna vaatimia toimintoja päästään käyttämään Nodessa, tulee kehittäjän asentaa sopiva moduuli käyttöönsä. Tämä tapahtuu komennolla:
 
 ```bash
-npm install mondodb –save
+npm i mondodb 
 ```
 
 Moduuli otetaan käyttöön Node.js -koodissa tavalliseen tapaan require-funktiolla.
@@ -283,7 +283,7 @@ client.connect(err => {
 
 ### Datan poistaminen
 
-sd
+Tulossa
 
 ### Tietokantadatan esittäminen selaimessa
 
