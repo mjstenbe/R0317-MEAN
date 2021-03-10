@@ -48,6 +48,8 @@ app.use(
 );
 ```
 
+### Sisäänkirjautuminen
+
 Reittiin, jossa käyttäjä tunnistetaan, lisätään koodi joka tallentaa onnistuneen kirjautumisen tiedot sessiomuuttujaan \(rivit 14 ja 15\). Onnistunut sisäänkirjautuminen aiheuttaa selaimen uudelleenohjauksen tutulle sivulle /userpages:
 
 ```javascript
@@ -73,7 +75,9 @@ app.post("/kirjaudu", function (req, res) {
 });
 ```
 
-Reitissä /userpages tutkitaan sessiomuuttujaa. Mikäli se sisältää tiedot onnistuneesta sisäänkirjautumisesta, esitetään käyttäjälle pyydetty sivu. Muulloin käyttäjä ohjataan kirjautumissivulle.
+Reitissä /userpages tutkitaan sessiomuuttujaa. Mikäli se sisältää tiedot onnistuneesta sisäänkirjautumisesta, esitetään käyttäjälle tervetuloilmoitus. Muulloin käyttäjä ohjataan kirjautumissivulle. 
+
+Kirjautunut käyttäjä voit myös kirjautua ulos klikkaamalla logout-linkkiä. Tämä vie käyttäjän /logout -reittiin, joka tuhoaa evästeen tiedot palvelimelta. 
 
 ```javascript
 // Uusi reitti sisäänkirjautuneelle käyttäjälle.
@@ -81,8 +85,18 @@ app.get("/userpage", function (req, res) {
 // Tarkistetaan löytyykö sessiosta tieto onnistuneesta kirjautumisesta
   if (req.session.loggedin == true) {
     // Huomaa, että sessiomuuttujasta voidaan kaivaa myös tieto käyttäjän nimestä
-    res.send("Welcome, " + req.session.username + ". You are now logged in!");
-  } else res.redirect("/");
+    res.send(
+      "Welcome, " +
+        req.session.username +
+        ". You are now logged in!. You can logout <a href='/logout'>here</a>"
+    );  } else res.redirect("/");
+});
+// Uloskirjautuminen, jossa sessio tuhotaan
+app.get("/logout", function (req, res) {
+  req.session.destroy(function (err) {
+    console.log("Session tiedot tuhottu.");
+    res.redirect("/");
+  });
 });
 ```
 
@@ -151,11 +165,22 @@ app.post("/kirjaudu", function (req, res) {
 
 // Uusi reitti sisäänkirjautuneelle käyttäjälle.
 app.get("/userpage", function (req, res) {
+// Tarkistetaan löytyykö sessiosta tieto onnistuneesta kirjautumisesta
   if (req.session.loggedin == true) {
-    res.send("Welcome, " + req.session.username + ". You are now logged in!");
-  } else res.redirect("/");
+    // Huomaa, että sessiomuuttujasta voidaan kaivaa myös tieto käyttäjän nimestä
+    res.send(
+      "Welcome, " +
+        req.session.username +
+        ". You are now logged in!. You can logout <a href='/logout'>here</a>"
+    );  } else res.redirect("/");
 });
-
+// Uloskirjautuminen, jossa sessio tuhotaan
+app.get("/logout", function (req, res) {
+  req.session.destroy(function (err) {
+    console.log("Session tiedot tuhottu.");
+    res.redirect("/");
+  });
+});
 // Oletusreitti joka tarjoillaan, mikäli muihin ei päädytty.
 app.get("*", function (req, res) {
   res.send("Cant find the requested page", 404);
