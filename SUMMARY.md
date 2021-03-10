@@ -16,8 +16,8 @@
 * [Tietokannat ja Node.js](tietokannat-ja-node.js/README.md)
   * [MySQL ja Node.js](tietokannat-ja-node.js/mysql-ja-node.js.md)
   * [MongoDB ja Node](tietokannat-ja-node.js/mongodb.md)
+  * [Mongoose ja olioita tietokantaan](tietokannat-ja-node.js/mongoose-ja-olioita-tietokantaan-orm.md)
 * [Autentikointi ja sessioiden hallinta](autentikointi-ja-sessioiden-hallinta.md)
-* [Mongoose ja olioita tietokantaan](mongoose-ja-olioita-tietokantaan-orm.md)
 * [REST APIt ja Node](rest-api-n-luominen.md)
 * [Käyttöliittymän rakentaminen Node-sovellukselle: React.js](kaeyttoeliittymaen-rakentaminen-react.js.md)
 
