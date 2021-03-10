@@ -343,7 +343,7 @@ Ylläoleva syntaksi suorittaa sisällä olevan koodin vain kerran, silloin kun c
 
 ### AJAX-kutsun tekeminen
 
-Jatkokehitetään ohjelmaa siten, että se hakee esittämänsä datan AJAXin avulla. Tähän voidaan käyttää peruskurssiltakin tuttua natiivi-Javascriptiä mutta helpoteaan elämää hieman Fetch API:n avulla. Se on uusien selaimien tukema tapa tehdä AJAX-kutsu hieman hallitummin.
+Jatkokehitetään ohjelmaa siten, että se hakee esittämänsä datan AJAXin avulla. Tähän voidaan käyttää peruskurssiltakin tuttua natiivi-Javascriptiä mutta helpotetaan elämää hieman Fetch API:n avulla. Se on uusien selaimien tukema tapa tehdä AJAX-kutsu hieman hallitummin.
 
 Määritellään kompoentti GetData, joka suorittaa AJAX-kutsun haluttuun osoitteeseen. Esimerkissä olen vienyt edellisen esimerkin sitaattidatan jsonbin.io -nimiseen verkkopalveluun, josta JSON-dataa voi näppärästi hakea.
 
