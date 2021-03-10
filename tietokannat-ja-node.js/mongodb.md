@@ -281,10 +281,6 @@ client.connect(err => {
 
 ```
 
-### Datan poistaminen
-
-Tulossa
-
 ### Tietokantadatan esittäminen selaimessa
 
 Edellä luotiin Node.js ohjelma, joka ottaa yhteyden tietokantaan ja tekee sinne kyselyitä. Tulokset on toistaiseksi kirjoitetu konsoliin komennolla console.log\(\). Käytännössä kehittäjä haluaa useimmiten esittää tulokset selaimessa. Katsotaan miten tällainen onnistuu.

@@ -242,11 +242,11 @@ app.listen(3000, function () {
 
 ## **Tietoturvahuomioita**
 
-### **Salasanan tallentaminen salattuna: tietokantafunktiot**
+### **Salasanan tallentaminen salattuna**
 
-**Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä.** Syötettävät kentät voidaan salata joko sovellustasolla tai tietokannassa. ****
+**Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä.** Syötettävät kentät voidaan salata joko sovellustasolla tai antaa tietokannan tehdä se. ****
 
-Molemmissa on puolensa: tietokannan hoitaessa salauksen säästyy koodaaja salauksen toteuttamiselta sekä sovellus salauksen aiheuttaman laskenna tuottamalta kuormalta \(joka voi olla joskus huomattava\). Sen sijaan sovellustasolla valitun salausmenetelmän saa valita vapaammin eikä tietokanta rajoita käytettäviä salausalgoritmeja.  Katsotaan ensin miten tiedto salataan tietokannan toimesta.
+Molemmissa on puolensa: tietokannan hoitaessa salauksen säästyy koodaaja salauksen toteuttamiselta sekä sovellus salauksen aiheuttaman laskenna tuottamalta kuormalta \(joka voi olla huomattava\). Sen sijaan sovellustasolla valitun salausmenetelmän saa valita vapaammin eikä tietokanta rajoita käytettäviä salausalgoritmeja. Sessioiden hallinnan yhteydessä katsotaan toista esimerkkiä, jossa tiedon salaus suoritetaan sovellustasolla ennen sen viemistä tietokantaan.
 
 MySQL:ssä on sisäänrakennettuna joukko HASH-funktioita, joiden avulla tiedon salaus voidaan liittää osaksi SQL-lauseita. Esim. ylläolevaan INSERT-lauseeseen voitaisiin liittää SHA1-funktio salasanakentän turvaamiseksi. Tietokanta siis siis tallennettavan merkkijonon salauksen ennen tiedon tallentamista:
 
@@ -269,48 +269,6 @@ SELECT * FROM USERS WHERE userid = 'Seppo@sci.fi' and password=SHA1('Salainen123
 ```
 
 Korvaamalla ohjelman käyttämät SQL-komennot näillä, saataisiin sovellus salaaman password-kentän sisältö. **HUOM. Kaikkien käyttäjien salasanat tulee olla joko salattuja tai selväkielisiä -molempia ei voi käyttää**  **rinnakkain tietokannassa.** Eli jatkoa varten myös äsken tietokantaan viedyn Onni Opiskelijan salasana tulisi salata. Voit esim. poistaa koko rivin tietokannasta ja lisätä käyttäjän uudestaan tuolla SHA1-funktiolla höystettynä. 
-
-### **Salasanan tallentaminen salattuna: sovellustason salaus**
-
-Sovellustasolla toteutettuun salaukseen valitaan vähän järeämpi salausmenetelmä: esim. [bcrypt](https://www.npmjs.com/package/bcrypt). Sitä käytetään myös Linux-käyttöjärjestelmän salasanojen tallennuksen yhteydessä. Se on vahvempi kuin SHA ja satunnainen "suola" sekä raskas luontiprosessi tekevät siitä erittäin vastustuskykyisen erilaisille murtoyrityksille.
-
-Muutokset ohjelmaan ovat melko pieniä: tuodaan mukaan bcrypt-moduuli ja käytetään sitä lomakkeelta luetun salasanan suojaamiseen. Tämä suojattu salasana tallennetaan tietokantaan kuten edelläkin.
-
-```javascript
-// Salausta varten
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
-
-...
-
-// Kun lomakkeen tiedot on luettu, salataan ne
-  var password = req.body.pass;
-  var newpass = bcrypt.hashSync(password, saltRounds); 
-```
-
-Kun käyttäjä kirjautuu palveluun, haetaan tietokantaan tallennettu salasana ja verrataan sitä lomakkeelle syötettyyn salasanaan. Huomaa, että bcrypt-funktiota käytettäessä salasanojen verailu täytyy tehdä käyttäen compareSync-funktiota:
-
-```javascript
-// Luodaan tietokantayhteys
-  con.connect(function (err) {
-    con.query(query, function (err, result, fields) {
-      if (err) {
-        console.log("Tapahtui virhe!" + err);
-      }
-      console.log("Tulosrivien määrä: " + result.length);
-      if (result.length == 1) {
-      
-        // Verrataan käyttäjän kirjoittamaa selväkielistäsalasanaa tietokannasta palautuneeseen salattuun
-     if (bcrypt.compareSync(password, result[0].password)) {
-      // jos ok,  ohjataan käyttäjä kirjautuneiden alueelle
-      console.log("Vertailu ok, salasanat samat.");
-      res.redirect("/userpages");
-      // Muuten heitetään herja
-    } else res.send("Virheellinen tunnus/salasana!");
-  });   
-}); 
-     
-```
 
 ### **SQL-hyökkäysten estäminen** 
 
