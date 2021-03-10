@@ -75,7 +75,7 @@ app.post("/kirjaudu", function (req, res) {
 });
 ```
 
-Reitissä /userpages tutkitaan sessiomuuttujaa. Mikäli se sisältää tiedot onnistuneesta sisäänkirjautumisesta, esitetään käyttäjälle tervetuloilmoitus. Muulloin käyttäjä ohjataan kirjautumissivulle. 
+Reitissä /userpages tutkitaan sessiomuuttujaa. Mikäli se sisältää tiedot onnistuneesta sisäänkirjautumisesta, esitetään käyttäjälle tervetuloilmoitus. Muulloin käyttäjä ohjataan kirjautumissivulle. Huomaa, että käyttäjä voi käydä välillä muillakin sivuilla ja palatessaan päästä kuitenkin kirjautuneiden käyttäjien alueelle.
 
 Kirjautunut käyttäjä voit myös kirjautua ulos klikkaamalla logout-linkkiä. Tämä vie käyttäjän /logout -reittiin, joka tuhoaa evästeen tiedot palvelimelta. 
 
