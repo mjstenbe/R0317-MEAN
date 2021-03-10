@@ -48,8 +48,6 @@ app.use(
 );
 ```
 
-### Sisäänkirjautuminen
-
 Reittiin, jossa käyttäjä tunnistetaan, lisätään koodi joka tallentaa onnistuneen kirjautumisen tiedot sessiomuuttujaan \(rivit 14 ja 15\). Onnistunut sisäänkirjautuminen aiheuttaa selaimen uudelleenohjauksen tutulle sivulle /userpages:
 
 ```javascript
@@ -75,9 +73,7 @@ app.post("/kirjaudu", function (req, res) {
 });
 ```
 
-Reitissä /userpages tutkitaan sessiomuuttujaa. Mikäli se sisältää tiedot onnistuneesta sisäänkirjautumisesta, esitetään käyttäjälle tervetuloilmoitus. Muulloin käyttäjä ohjataan kirjautumissivulle. Huomaa, että käyttäjä voi käydä välillä muillakin sivuilla ja palatessaan päästä kuitenkin kirjautuneiden käyttäjien alueelle.
-
-Kirjautunut käyttäjä voit myös kirjautua ulos klikkaamalla logout-linkkiä. Tämä vie käyttäjän /logout -reittiin, joka tuhoaa evästeen tiedot palvelimelta. 
+Reitissä /userpages tutkitaan sessiomuuttujaa. Mikäli se sisältää tiedot onnistuneesta sisäänkirjautumisesta, esitetään käyttäjälle pyydetty sivu. Muulloin käyttäjä ohjataan kirjautumissivulle.
 
 ```javascript
 // Uusi reitti sisäänkirjautuneelle käyttäjälle.
@@ -85,18 +81,8 @@ app.get("/userpage", function (req, res) {
 // Tarkistetaan löytyykö sessiosta tieto onnistuneesta kirjautumisesta
   if (req.session.loggedin == true) {
     // Huomaa, että sessiomuuttujasta voidaan kaivaa myös tieto käyttäjän nimestä
-    res.send(
-      "Welcome, " +
-        req.session.username +
-        ". You are now logged in!. You can logout <a href='/logout'>here</a>"
-    );  } else res.redirect("/");
-});
-// Uloskirjautuminen, jossa sessio tuhotaan
-app.get("/logout", function (req, res) {
-  req.session.destroy(function (err) {
-    console.log("Session tiedot tuhottu.");
-    res.redirect("/");
-  });
+    res.send("Welcome, " + req.session.username + ". You are now logged in!");
+  } else res.redirect("/");
 });
 ```
 
@@ -165,22 +151,11 @@ app.post("/kirjaudu", function (req, res) {
 
 // Uusi reitti sisäänkirjautuneelle käyttäjälle.
 app.get("/userpage", function (req, res) {
-// Tarkistetaan löytyykö sessiosta tieto onnistuneesta kirjautumisesta
   if (req.session.loggedin == true) {
-    // Huomaa, että sessiomuuttujasta voidaan kaivaa myös tieto käyttäjän nimestä
-    res.send(
-      "Welcome, " +
-        req.session.username +
-        ". You are now logged in!. You can logout <a href='/logout'>here</a>"
-    );  } else res.redirect("/");
+    res.send("Welcome, " + req.session.username + ". You are now logged in!");
+  } else res.redirect("/");
 });
-// Uloskirjautuminen, jossa sessio tuhotaan
-app.get("/logout", function (req, res) {
-  req.session.destroy(function (err) {
-    console.log("Session tiedot tuhottu.");
-    res.redirect("/");
-  });
-});
+
 // Oletusreitti joka tarjoillaan, mikäli muihin ei päädytty.
 app.get("*", function (req, res) {
   res.send("Cant find the requested page", 404);
@@ -373,7 +348,7 @@ app.use(
 
 ### Redis
 
-Redis on suosittu NoSQL-pohjainen tietokanta joka käsittelee tietoja keskusmuistissa \(memory-store\) mikä tekee siitä todella nopean.  Redisin käyttöönotto onnistuisi samalla tapaa kuin edellä, eli sopivan moduulin asentaminen, yhteysosoitteen määrittäminen sekä evästeen asetusten päivittäminen. 
+Redis on suosittu NoSQL-pohjainen tietokanta joka käsittelee tietoja keskusmuistissa \(memory-store\) mikä tekee siitä todella nopean.  Redisin käyttöönotto onnistuisi samlala tapaa kuin edellä, eli sopivan moduulin asentaminen, yhteysosoitteen määrittäminen sekä evästeen asetusten päivittäminen. 
 
 ```javascript
 // Tarvittavat Redis moduulit
