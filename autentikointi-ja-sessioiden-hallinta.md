@@ -373,7 +373,7 @@ app.use(
 
 ### Redis
 
-Redis on suosittu NoSQL-pohjainen tietokanta joka käsittelee tietoja keskusmuistissa \(memory-store\) mikä tekee siitä todella nopean.  Redisin käyttöönotto onnistuisi samlala tapaa kuin edellä, eli sopivan moduulin asentaminen, yhteysosoitteen määrittäminen sekä evästeen asetusten päivittäminen. 
+Redis on suosittu NoSQL-pohjainen tietokanta joka käsittelee tietoja keskusmuistissa \(memory-store\) mikä tekee siitä todella nopean.  Redisin käyttöönotto onnistuisi samalla tapaa kuin edellä, eli sopivan moduulin asentaminen, yhteysosoitteen määrittäminen sekä evästeen asetusten päivittäminen. 
 
 ```javascript
 // Tarvittavat Redis moduulit
