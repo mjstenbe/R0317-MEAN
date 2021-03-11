@@ -47,7 +47,7 @@ con.connect(function (err) {
 
 ## Kyselyn tekeminen
 
-Kyseitä voidaan tehdä query-funktion avulla.
+Kyseitä voidaan tehdä query-funktion avulla. Esimerkeissä olen käyttänyt yritys-tietokantaa - sen sisällön löydät [SQL-muodossa täältä](https://github.com/mjstenbe/R0317-MEAN/blob/master/yritys.sql).
 
 ```javascript
 Tuodaan mysql-funktiot ohjelman käyttöön
