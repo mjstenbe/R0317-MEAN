@@ -321,7 +321,7 @@ Lomakkeilta luettu data tulisi siis aina puhdistaa haitallisista merkeistä ja/t
 Yksi tapa on "puhdistaa" kaikki lomakkeelta luettu data ajamalla se esim. mysql-kirjaston escape\(\) -funktion läpi. Myös omia funktioita kiellettyjen merkkien korvaamiseksi voi kirjoitella.
 
 ```javascript
-email = mysql.escape(email;
+email = mysql.escape(email);
 pass = mysql.escape(pass);
 ```
 
