@@ -288,9 +288,12 @@ const saltRounds = 10;
   var newpass = bcrypt.hashSync(password, saltRounds); 
 ```
 
-Kun käyttäjä kirjautuu palveluun, haetaan tietokantaan tallennettu salasana ja verrataan sitä lomakkeelle syötettyyn salasanaan. Huomaa, että bcrypt-funktiota käytettäessä salasanojen verailu täytyy tehdä käyttäen compareSync-funktiota:
+Kun käyttäjä kirjautuu palveluun, haetaan tietokantaan tallennettu salasana ja verrataan sitä lomakkeelle syötettyyn salasanaan. Huomaa, että bcrypt-funktiota käytettäessä salasanojen verailu täytyy tehdä // käyttäen compareSync-funktiota:
 
 ```javascript
+// HUOM. Haetaan käyttäjä pelkän nimen perusteella, salasanavertailu vasta myöhemmin
+var query = `SELECT * FROM users WHERE userid = '${email}'; 
+
 // Luodaan tietokantayhteys
   con.connect(function (err) {
     con.query(query, function (err, result, fields) {
