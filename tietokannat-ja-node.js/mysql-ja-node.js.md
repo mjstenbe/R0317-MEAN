@@ -244,17 +244,17 @@ app.listen(3000, function () {
 
 ### **Salasanan tallentaminen salattuna: tietokantafunktiot**
 
-**Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä.** Syötettävät kentät voidaan salata joko sovellustasolla tai tietokannassa. ****
+**Oikeassa sovelluksessa salasanan tulisi olla aina tallennettu salatussa muodossa, esim. SHA2-funktion avulla. Näin esim. tietovuotojen sattuessa arkaluontoinen data ei ole heti kaikkien käytettävissä.** Syötettävät kentät voidaan salata joko sovellustasolla tai tietokannassa. ****
 
 Molemmissa on puolensa: tietokannan hoitaessa salauksen säästyy koodaaja salauksen toteuttamiselta sekä sovellus salauksen aiheuttaman laskenna tuottamalta kuormalta \(joka voi olla joskus huomattava\). Sen sijaan sovellustasolla valitun salausmenetelmän saa valita vapaammin eikä tietokanta rajoita käytettäviä salausalgoritmeja.  Katsotaan ensin miten tiedto salataan tietokannan toimesta.
 
-MySQL:ssä on sisäänrakennettuna joukko HASH-funktioita, joiden avulla tiedon salaus voidaan liittää osaksi SQL-lauseita. Esim. ylläolevaan INSERT-lauseeseen voitaisiin liittää SHA1-funktio salasanakentän turvaamiseksi. Tietokanta siis siis tallennettavan merkkijonon salauksen ennen tiedon tallentamista:
+MySQL:ssä on sisäänrakennettuna joukko HASH-funktioita, joiden avulla tiedon salaus voidaan liittää osaksi SQL-lauseita. Esim. ylläolevaan INSERT-lauseeseen voitaisiin liittää SHA2-funktio salasanakentän turvaamiseksi. Tietokanta siis siis tallennettavan merkkijonon salauksen ennen tiedon tallentamista:
 
 ```sql
 INSERT INTO `users` (`userid`, `name`, `password`) VALUES (
     'Seppo@sci.fi', 
     'Seppo Salattu', 
-    SHA1('Salainen123')
+    SHA2('Salainen123', 256)
     );
 ```
 
@@ -265,7 +265,7 @@ Tietokannasta löytyy tämän jälkeen seuraava rivi, jossa salasanakenttään v
 Mikäli salasanat on suojattu HASH-funktiolla, tulee SELECT lauseessa annettu selväkielinen salasana ajaa saman SHA1-funktion läpi jotta vastaava salattu merkkijono löytyy tietokannasta:
 
 ```sql
-SELECT * FROM USERS WHERE userid = 'Seppo@sci.fi' and password=SHA1('Salainen123')
+SELECT * FROM USERS WHERE userid = 'Seppo@sci.fi' and password=SHA2('Salainen123', 256)
 ```
 
 Korvaamalla ohjelman käyttämät SQL-komennot näillä, saataisiin sovellus salaaman password-kentän sisältö. **HUOM. Kaikkien käyttäjien salasanat tulee olla joko salattuja tai selväkielisiä -molempia ei voi käyttää**  **rinnakkain tietokannassa.** Eli jatkoa varten myös äsken tietokantaan viedyn Onni Opiskelijan salasana tulisi salata. Voit esim. poistaa koko rivin tietokannasta ja lisätä käyttäjän uudestaan tuolla SHA1-funktiolla höystettynä. 
