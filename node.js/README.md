@@ -12,7 +12,7 @@ Perinteisesti JavaScriptia on käytetty siten, että JavaScript-koodi on ollut u
 
 Node siis korvaa perinteisen web-palvelimen \(kuten Apache\) roolin palvelinsovellusten suorittamisessa. Noden voidaan ajatella olevan joko web-palvelin joka osaa suorittaa JavaScriptiä tai JavaScript-sovellus, joka osaa toimia web-palvelimena.
 
-## Hyödyt
+## Hyödyt uusi 
 
 Palvelimella suoritettava Javascript-koodi mahdollistaa mm. sen, että Javascript-kehittäjät voivat työskennellä melko vaivattomasti myös palvelinpuolen sovellusten parissa perinteisen selainsovellusten ohella \(kieli säilyy samana\). Lisäksi selainpohjaisten JavaScript-sovellusten integroiminen osaksi back-end sovelluksia on usein helpompaa kun JavaScriptiä voidaan käyttää molempien koodauksessa.
 
