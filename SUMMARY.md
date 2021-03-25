@@ -24,4 +24,5 @@
 * [REST APIt ja Node](rest-api-n-luominen.md)
 * [Käyttöliittymän rakentaminen Node-sovellukselle: React.js](kaeyttoeliittymaen-rakentaminen-react.js.md)
 * [Testien kirjoittaminen sovellukselle](testien-kirjoittaminen-sovellukselle.md)
+* [Tietoturvaa Helmet-moduulilla](tietoturvaa-helmet-moduulilla.md)
 
