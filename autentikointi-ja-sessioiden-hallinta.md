@@ -43,7 +43,7 @@ app.use(
     saveUninitialized: true,    // oletusarvo
     secret: "salausavain",      // tätä merkkijonoa käytetään evästeen salaukseen
     // voimassaoloaika, jonka jälkeen sessio vanhenee
-    cookie: { maxAge: 60 * 1000 * 30 }, // 60ms * 1000 = 60 s * 30 = 30 min
+    cookie: { maxAge: 60 * 1000 * 30 }, // 60s * 1000ms = 60 s * 30 = 30 min
   })
 );
 ```

@@ -258,7 +258,7 @@ INSERT INTO `users` (`userid`, `name`, `password`) VALUES (
     );
 ```
 
-Tietokannasta löytyy tämän jälkeen seuraava rivi, jossa salasanakenttään viety tieto on salattu SHA2-funktiolla:
+Tietokannasta löytyy tämän jälkeen seuraava rivi, jossa salasanakenttään viety tieto on salattu SHA1-funktiolla:
 
 ![](../.gitbook/assets/image%20%2868%29.png)
 
@@ -418,7 +418,7 @@ app.listen(3000, function () {
 
 ## Modularisointia
 
-Koodi kasvaa melko nopeasti hallitsemattomaksi puuroksi. Sitä voidaan modularisoida esim. tekemällä operaatioista erillisiä funktioita ja tallentamalla funktiot omaan tiedostoonsa. Tällöinkin haasteeksi saattaa tulla samannimisten muuttujien ja funktioiden hallinta. Niitä JavaScript-sovelluksissa ratkotaan mouduuleilla. 
+Koodi kasvaa melko nopeasti hallitsemattomaksi puuroksi. Sitä voidaan modularisoida esim. tekemällä operaatioista erillisiä funktiotia ja tallentamalla funktiot omaan tiedostoonsa. Tällöinkin haasteeksi saattaa tulla samannimisten muuttujien ja funktioiden hallinta. Niitä JavaScript-sovelluksissa ratkotaan mouduuleilla. 
 
 ### Tietokantafunktiot omaan moduuliin
 
