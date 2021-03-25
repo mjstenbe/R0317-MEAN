@@ -258,7 +258,7 @@ INSERT INTO `users` (`userid`, `name`, `password`) VALUES (
     );
 ```
 
-Tietokannasta löytyy tämän jälkeen seuraava rivi, jossa salasanakenttään viety tieto on salattu SHA1-funktiolla:
+Tietokannasta löytyy tämän jälkeen seuraava rivi, jossa salasanakenttään viety tieto on salattu SHA2-funktiolla:
 
 ![](../.gitbook/assets/image%20%2868%29.png)
 
