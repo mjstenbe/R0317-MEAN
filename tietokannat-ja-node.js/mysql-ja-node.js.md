@@ -418,7 +418,7 @@ app.listen(3000, function () {
 
 ## Modularisointia
 
-Koodi kasvaa melko nopeasti hallitsemattomaksi puuroksi. Sitä voidaan modularisoida esim. tekemällä operaatioista erillisiä funktiotia ja tallentamalla funktiot omaan tiedostoonsa. Tällöinkin haasteeksi saattaa tulla samannimisten muuttujien ja funktioiden hallinta. Niitä JavaScript-sovelluksissa ratkotaan mouduuleilla. 
+Koodi kasvaa melko nopeasti hallitsemattomaksi puuroksi. Sitä voidaan modularisoida esim. tekemällä operaatioista erillisiä funktioita ja tallentamalla funktiot omaan tiedostoonsa. Tällöinkin haasteeksi saattaa tulla samannimisten muuttujien ja funktioiden hallinta. Niitä JavaScript-sovelluksissa ratkotaan mouduuleilla. 
 
 ### Tietokantafunktiot omaan moduuliin
 
