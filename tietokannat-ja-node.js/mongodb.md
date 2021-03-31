@@ -20,6 +20,52 @@ Alla esimerkki find\(\) -funktion käytöstä, joka kohdistuu tietokantaolion us
 
 ![Kuva: Tietokantahaun yleinen rakenne MongoDB:ss&#xE4;.](../.gitbook/assets/image%20%2852%29.png)
 
+## Esimerkkikyselytä
+
+Seuraavat esimerkkikyselyt voidaan ajaa joko Compass-työkalussa, MogoDB Shellissä tai sitten Node.js:n kautta, kunhan yhteys tietokantaan on luotu. Haut määritellään JSON-muotoisina rakenteina, jotka syötetään joko suoraan Compass-työkalun hakukenttään tai find\(\)-funktion parametreiksi koodissa ja kometorivillä.
+
+#### Kaikkien dokumenttien hakeminen
+
+```javascript
+// Tyhjät hakuehdot palauttavat kaikki kokoelman dokumentit
+{ }
+```
+
+#### Nimen perusteella hakeminen
+
+```javascript
+// Haetaan dokumentit title-kentän mukaan 
+{ title: "The Lord of the Rings" }
+```
+
+#### Ehtojen liittäminen AND operaatiolla
+
+```javascript
+// Haetaan titlen JA julkaisuvuoden mukaan
+{title: "Blacksmith Scene", year: 1893 }
+```
+
+#### Ehtojen liittäminen OR operaatiolla
+
+```javascript
+// Haetaan titlen TAI julkaisuvuoden mukaan
+
+{ $or: [ 
+         { title: "The Terminator" }, 
+         { year: { $lt: 1900 } } 
+       ]
+ }
+```
+
+#### Hakeminen säännöllisellä lausekkeella tai LIKE-tyyppisellä operaatiolla
+
+```javascript
+// Haetaan nimekkeitä jotka sisältävät sanan Terminator. 
+//i-tarkenne tekee hausta case-insensitiven eli isojen ja pienien 
+//kirjaimien eroja ei huomioida.
+{title: /Terminator/i }
+```
+
 ## MongoDB:n käyttäminen Nodessa
 
 Jotta MongoDB-tietokanna vaatimia toimintoja päästään käyttämään Nodessa, tulee kehittäjän asentaa sopiva moduuli käyttöönsä. Tämä tapahtuu komennolla:
