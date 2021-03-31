@@ -333,11 +333,14 @@ client.connect(err => {
 Kun yhteys on luotu, luodaan web-palvelin ja reitit:
 
 ```javascript
+ // Otetaan express-moduuli käyttöön
+var express = require("express");
+var app = express();
+
   //////////////////////////////////////////
   // Express - palvelimen luonti
   //////////////////////////////////////////
 
-  app.listen(8081, () => {
     // Luodaan reitit ja niiden toiminnallisuudet
     app.get("/", function(req, res) {
       res.send("Hello World!");
@@ -349,8 +352,11 @@ Kun yhteys on luotu, luodaan web-palvelin ja reitit:
         res.json(results);
       });
     });
-  }); // end app.listen
-  ////////////////////////////////
+   
+// Web-palvelimen luonti Expressin avulla
+app.listen(3000, function() {
+  console.log("Kuunnellaan porttia.");
+});
 ```
 
 ### Edelliset yhdistettynä toimivaksi ohjelmaksi 
@@ -403,7 +409,7 @@ client.connect(err => {
   // Express - palvelimen luonti
   //////////////////////////////////////////
 
-  app.listen(8081, () => {
+  
     // Luodaan reitit ja niiden toiminnallisuudet
     app.get("/", function(req, res) {
       res.send("Hello World!");
@@ -415,7 +421,10 @@ client.connect(err => {
         res.json(results);
       });
     });
-  }); // end app.listen
+   // Web-palvelimen luonti Expressin avulla
+  app.listen(3000, function () {
+    console.log("Kuunnellaan porttia.");
+  });
   ////////////////////////////////
 }); // connect-metodin lopetus
 
@@ -509,7 +518,6 @@ Tämän jälkeen lisätään ohjelman reittiin res.render\(\) -funktio, joka lä
         res.render("pages/leffat", { taulu: results });
       });
     });
-  }); // end app.listen
 ```
 
 ### Lomakkeiden ja tietokannan yhteiskäyttö
@@ -600,7 +608,7 @@ app.locals.pretty = true;
 
 // Express - palvelimen luonti
 
-app.listen(8081, () => {
+ 
 
   app.get("/leffat", (req, res) => {
     // Kutsutaan tietokantahakua getResults() -funktion kautta.
@@ -609,7 +617,7 @@ app.listen(8081, () => {
       res.render("pages/leffat", { taulu: result });
     });
   });
-}); // end app.listen
+ 
 
 ////////////////////////////////
 
