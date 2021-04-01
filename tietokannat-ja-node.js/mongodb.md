@@ -71,7 +71,7 @@ Seuraavat esimerkkikyselyt voidaan ajaa joko Compass-työkalussa, MogoDB Shellis
 Jotta MongoDB-tietokanna vaatimia toimintoja päästään käyttämään Nodessa, tulee kehittäjän asentaa sopiva moduuli käyttöönsä. Tämä tapahtuu komennolla:
 
 ```bash
-npm i mondodb 
+npm i mongodb 
 ```
 
 Moduuli otetaan käyttöön Node.js -koodissa tavalliseen tapaan require-funktiolla.
@@ -133,7 +133,7 @@ const client = new MongoClient(uri, {
 // apuna esim. MondoDB Compass -työkalua. Tämä kysely hakee kaikkia elokuvia
 // joiden nimessä esiintyy sana "Jedi"
 var query = {
-  title: new RegExp("Jedi")
+  title: "/Jedi/i"
 };
 
 // Luodaan yhteys  tietokantaan nimeltä "sample_mflix" ja sieltä kokoelmaan "movies"
