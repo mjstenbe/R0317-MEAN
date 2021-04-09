@@ -347,9 +347,9 @@ Jatkokehitetään ohjelmaa siten, että se hakee esittämänsä datan AJAXin avu
 
 Määritellään kompoentti GetData, joka suorittaa AJAX-kutsun haluttuun osoitteeseen. Esimerkissä olen vienyt edellisen esimerkin sitaattidatan jsonbin.io -nimiseen verkkopalveluun, josta JSON-dataa voi näppärästi hakea.
 
-Fetch hakee datan ja palauttaa ensimmäisessä then\(\) -lohkossa saamansa vastauksen. Tämän jälkeen then\(\) -lohkoja voidaan ketjuttaa peräkkäisten operaatioiden aikaansaamiseksi. Toisessa then\(\) -lohkossa JSON-muotoinen data otetaan items-muuttujaan talteen ja välitetään &lt;QuoteArray&gt; -komponenttiin props-parametrina.
+Fetch hakee datan ja palauttaa ensimmäisessä then\(\) -lohkossa saamansa vastauksen. Tämän jälkeen then\(\) -lohkoja voidaan ketjuttaa peräkkäisten operaatioiden aikaansaamiseksi. Toisessa then\(\) -lohkossa JSON-muotoinen data otetaan items-muuttujaan talteen ja tallennetaan setQuotes-funktiolla uusi data quotes-muuttujaan.  
 
-Lopuksi kutsutaan &lt;GetData /&gt; komponenttia ja sijoiteaan se root-lohkoon sivulla. Lopputulos on sama kuin aiemmin, sillä erotuksella että tiedot haetaan nyt AJAXin avulla.
+Lopuksi kutsutaan &lt;GetData /&gt; komponenttia ja sijoiteaan se root-lohkoon sivulla. Komponetti saa props-parametreina quotes-muuttujan sisällön. Lopputulos on sama kuin aiemmin, sillä erotuksella että tiedot haetaan nyt AJAXin avulla.
 
 ```jsx
 import React, { useState, useEffect } from 'react';
