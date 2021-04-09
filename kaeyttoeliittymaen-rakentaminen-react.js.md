@@ -307,7 +307,7 @@ Reactin versiossa 16.8 julkaistiin [React-hooks](https://reactjs.org/docs/hooks-
 
 #### useState
 
-useState-hookkia käytetään muutosten tekemiseen sivuun. Kyseilellä hookilla luodaan muuttujia, joihin muutoksia tehdessä React uudelleenrenderöi sivun, ja muutokset näkyvät sivulla.
+useState-hookkia käytetään muutosten tekemiseen sivuun. Kyseisellä hookilla luodaan muuttujia, joihin muutoksia tehdessä React uudelleenrenderöi sivun, ja muutokset näkyvät sivulla.
 
 useState-muuttuja luodaan seuraavasti.
 
@@ -327,7 +327,7 @@ vaan seuraavasti
 setMuuttuja('uusi');
 ```
 
-Tämä aiheuttaa Reactin uudelleenrenderöinnin.
+Tämä aiheuttaa komponentin uudelleenrenderöinnin. Tähän viitannee Reactin nimikin - eli datan muuttuessa myös käyttöliittymä Reagoi \(React\).
 
 #### useEffect
 
