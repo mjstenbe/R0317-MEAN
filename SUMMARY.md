@@ -12,6 +12,7 @@
   * [Ympäristömuuttujien hyödyntäminen koodissa](express-sovelluskehys/ympaeristoemuuttujien-hyoedyntaeminen-koodissa.md)
   * [AJAX-pyyntöjen lähettäminen ja käsittely](express-sovelluskehys/ajax-pyyntoejen-laehettaeminen-ja-kaesittely.md)
   * [Templatet eli sivupohjat](express-sovelluskehys/templatet-eli-sivupohjat.md)
+* [Tietoturvaa Helmet-moduulilla](tietoturvaa-helmet-moduulilla.md)
 * [Sovelluksen julkaiseminen Herokussa](sovelluksen-julkaiseminen-herokussa.md)
 * [Tietokannat ja Node.js](tietokannat-ja-node.js/README.md)
   * [MySQL ja Node.js](tietokannat-ja-node.js/mysql-ja-node.js.md)
@@ -24,5 +25,4 @@
 * [REST APIt ja Node](rest-api-n-luominen.md)
 * [Käyttöliittymän rakentaminen Node-sovellukselle: React.js](kaeyttoeliittymaen-rakentaminen-react.js.md)
 * [Testien kirjoittaminen sovellukselle](testien-kirjoittaminen-sovellukselle.md)
-* [Tietoturvaa Helmet-moduulilla](tietoturvaa-helmet-moduulilla.md)
 
