@@ -3,7 +3,7 @@
   "version": "",
   "dependencies": {
     "ejs": "^2.6.1",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "mongoose": "^5.3.14"
   }
 }
